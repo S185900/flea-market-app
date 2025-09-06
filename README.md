@@ -54,7 +54,7 @@ php artisan storage:link
 - MySQL　8.0.26
 
 ## ER図
-![alt](er.drawio.png)
+![alt text](image.png)
 
 ## URL
 - 開発環境：http://localhost/
