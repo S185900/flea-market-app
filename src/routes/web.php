@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('/', [AuthController::class, 'index']);
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
