@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\RegisteredUserController;
+use Illuminate\Support\Facades\Route;
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
@@ -28,11 +30,13 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Fortify::createUsersUsing(CreateNewUser::class);
+        // Fortify::createUsersUsing(CreateNewUser::class);
 
         Fortify::registerView(function () {
             return view('auth.register');
         });
+
+        Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
 
         Fortify::loginView(function () {
             return view('auth.login');

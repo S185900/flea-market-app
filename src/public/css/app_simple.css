@@ -1,0 +1,77 @@
+/* ブラウザのデフォルト余白をリセット */
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    all: unset;
+}
+
+/* ベーススタイル（PCサイズ） */
+.app-simple {
+    max-width: 1600px;
+    /* 中央寄せ＆余白確保 */
+    margin: 0 auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    /* 要素がはみ出さず折り返せる */
+    gap: 20px;
+    flex-direction: column;
+}
+
+.header-simple {
+    display: flex;
+    justify-content: flex-start;
+    /* ロゴの位置調整 */
+    align-items: center;
+    padding: 40px 0;
+    background-color: #000000;
+    height: 10px;
+    width: 100%;
+}
+
+.header-logo-img {
+    width: 370px;
+    height: auto;
+    padding-left: 30px;
+}
+
+.header-logo_visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.main-content {
+    font-size: 18px;
+}
+
+/* PCサイズ（1400〜1540px）での微調整 */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .app-basic {
+        padding: 0 24px;
+        /* 余白を少し狭める */
+    }
+
+    .header-basic {
+        padding: 36px 0;
+    }
+
+    .main-content {
+        font-size: 17px;
+        /* 微調整で読みやすく */
+    }
+}

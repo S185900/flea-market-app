@@ -1,12 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\ProfileController;
 
+Route::post('/register', [RegisterController::class, 'store'])
+    ->middleware(['guest:' . config('fortify.guard')])
+    ->name('register');
+
+Route::post('/login', [RegisteredUserController::class, 'store'])->name('login');
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [AuthController::class, 'index']);
 });
 
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile_index');
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +29,9 @@ Route::middleware('auth')->group(function () {
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.app_simple');
+});
+
+Route::get('/register', function () {
+    return view('auth.register');
 });
