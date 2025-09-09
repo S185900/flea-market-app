@@ -20,7 +20,7 @@ Route::middleware(['auth', 'verified', 'first.login'])->group(function () {
     Route::get('/', fn () => view('items_index'))->name('items.index');
 });
 
-Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('mypage.profile');
+Route::get('/mypage/profile', [ProfileController::class, 'showEditProfile'])->name('mypage.profile');
 
 /*
 |--------------------------------------------------------------------------

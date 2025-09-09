@@ -1,0 +1,187 @@
+/* ブラウザのデフォルト余白をリセット */
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    all: unset;
+}
+
+/* ベーススタイル（PCサイズ） */
+.app-nav {
+    max-width: 1600px;
+    /* 中央寄せ＆余白確保 */
+    margin: 0 auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    /* 要素がはみ出さず折り返せる */
+    gap: 20px;
+    flex-direction: column;
+}
+
+.header-nav {
+    display: flex;
+    justify-content: flex-start;
+    /* ロゴの位置調整 */
+    align-items: center;
+    padding: 40px 0;
+    background-color: #000000;
+    height: 10px;
+    width: 100%;
+}
+
+.header-logo-img {
+    width: 370px;
+    height: auto;
+    padding-left: 30px;
+}
+
+.header-logo_visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.main-content {
+    font-size: 18px;
+}
+
+.header-search {
+    flex-grow: 1;
+    height: 50px;
+    max-width: 500px;
+    margin: 0 40px;
+    padding: 8px 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-style: regular;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: left;
+    color: #000000;
+}
+
+/* ナビゲーションリンクのスタイル */
+.header-navigation-list {
+    display: flex;
+    flex-wrap: nowrap; /* 折り返しを防ぐ */
+    gap: 24px;
+    list-style: none;
+    margin: 0 0 0 30px;
+    padding: 0;
+}
+
+.header-navigation-link {
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-style: regular;
+    font-size: 22px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.header-navigation-link:hover {
+    opacity: 0.7;
+}
+
+/* ボタン風のリンクスタイル */
+.header-navigation-button {
+    background-color: #fff;
+    width: 100px;
+    padding: 8px 25px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-style: regular;
+    font-size: 22px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #000000;
+}
+
+.header-navigation-button:hover {
+    background-color: #e0e0e0;
+    color: #000;
+}
+
+
+
+/* PCサイズ（1400〜1540px）対応 */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .app-nav {
+        /* padding: 0 24px; */
+        /* 余白を少し狭める */
+    }
+
+    .header-nav {
+        padding: 36px 0;
+    }
+
+    .main-content {
+        font-size: 17px;
+        /* 微調整で読みやすく */
+    }
+}
+
+/* タブレットサイズ（768〜850px）対応 */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .app-nav {
+        /* padding: 0 16px; */
+        gap: 16px;
+    }
+
+    .header-nav {
+        padding: 24px 0;
+        height: auto;
+        flex-direction: column; /* ナビゲーション全体を縦並びに */
+        align-items: flex-start; /* 左寄せにする場合 */
+    }
+
+    .header-logo-img {
+        width: 240px;
+        /* padding-left: 16px; */
+    }
+
+    .main-content {
+        font-size: 16px;
+    }
+
+    .header-navigation-list {
+        flex-direction: column; /* リストを縦並びに */
+        gap: 12px; /* 縦方向の余白 */
+        margin: 30px 30px 10px 130px; /* 上と左に余白 */
+        text-align: center;
+    }
+
+    .header-navigation-item:nth-child(3) {
+        margin-top: 12px;
+        /* お好みの余白に調整してね */
+    }
+
+
+}

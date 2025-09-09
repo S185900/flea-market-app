@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function edit()
+    public function showEditProfile()
     {
         return view('profile_edit');
     }
