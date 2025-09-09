@@ -59,19 +59,41 @@ h6 {
     font-size: 18px;
 }
 
-/* PCサイズ（1400〜1540px）での微調整 */
+/* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
-    .app-basic {
+    .app-simple {
         padding: 0 24px;
         /* 余白を少し狭める */
     }
 
-    .header-basic {
+    .header-simple {
         padding: 36px 0;
     }
 
     .main-content {
         font-size: 17px;
         /* 微調整で読みやすく */
+    }
+}
+
+/* タブレットサイズ（768〜850px）対応 */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .app-simple {
+        padding: 0 16px;
+        gap: 16px;
+    }
+
+    .header-simple {
+        padding: 24px 0;
+        height: auto;
+    }
+
+    .header-logo-img {
+        width: 240px;
+        padding-left: 16px;
+    }
+
+    .main-content {
+        font-size: 16px;
     }
 }
