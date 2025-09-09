@@ -22,6 +22,6 @@ class RegisteredUserController extends Controller
         auth()->login($user);
 
         // 初回ログイン後の遷移先（要件に応じて）
-        return redirect()->route('profile_index');
+        return redirect()->route('mypage.profile');
     }
 }

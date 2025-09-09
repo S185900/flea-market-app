@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function edit()
     {
-        return view('profile_index');
+        return view('profile_edit');
     }
 }
