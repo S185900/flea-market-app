@@ -11,12 +11,19 @@
     <form class="profile-edit-form" method="POST" action="{{ route('mypage.profile') }}" novalidate>
         @csrf
 
-        <input type="file" class="profile-edit-input__file @error('image') is-invalid @enderror" name="image" accept="image/*">
-        @error('image')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
+        <div class="profile-edit-image-area">
+            <div class="profile-edit-image-preview" style="background-image: url('{{ old('image_url') ?? 'default.png' }}');"></div>
+
+            <label for="image" class="profile-edit-custom-file">
+                画像を選択する
+            </label>
+            <input id="image" type="file" class="profile-edit-input__file @error('image') is-invalid @enderror" name="image" accept="image/*">
+            @error('image')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
 
         <div class="profile-edit-item">
             <label for="name" class="profile-edit-label">ユーザー名</label>
@@ -60,7 +67,7 @@
 
         <div class="profile-edit-item">
             <button class="profile-edit-button" type="submit">
-                登録する
+                更新する
             </button>
         </div>
     </form>
