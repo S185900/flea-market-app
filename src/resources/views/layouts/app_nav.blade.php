@@ -20,19 +20,35 @@
             </h1>
             <label class="header-search-label visually-hidden" for="header-search">検索</label>
             <input class="header-search" type="text" id="header-search" placeholder="なにをお探しですか？">
+
             <nav class="header-navigation">
                 <ul class="header-navigation-list">
+                    <!-- ログイン状態に応じてログイン/ログアウトを切り替え -->
+                    @auth
+                        <li class="header-navigation-item">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="header-navigation-link">ログアウト</button>
+                            </form>
+                        </li>
+                    @endauth
+
+                    @guest
+                        <li class="header-navigation-item">
+                            <a href="{{ route('login') }}" class="header-navigation-link">ログイン</a>
+                        </li>
+                    @endguest
+
+                    <!-- ログイン前(ログイン状態に関係なく表示するリンク) -->
                     <li class="header-navigation-item">
-                        <a href="#" class="header-navigation-link">ログアウト</a>
+                        <a href="{{ auth()->check() ? route('mypage.profile') : route('login') }}" class="header-navigation-link">マイページ</a>
                     </li>
                     <li class="header-navigation-item">
-                        <a href="#" class="header-navigation-link">マイページ</a>
-                    </li>
-                    <li class="header-navigation-item">
-                        <a href="#" class="header-navigation-link  header-navigation-button">出品</a>
+                        <a href="{{ auth()->check() ? route('sell') : route('login') }}" class="header-navigation-link header-navigation-button">出品</a>
                     </li>
                 </ul>
             </nav>
+
         </div>
         <div class="main-content">
             @yield('content')
