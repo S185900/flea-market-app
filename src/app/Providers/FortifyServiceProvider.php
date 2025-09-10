@@ -23,11 +23,22 @@ class FortifyServiceProvider extends ServiceProvider
     {
         // Fortify::createUsersUsing(CreateNewUser::class);
 
+        // Fortifyのデフォルトルートを無効化
+        Fortify::ignoreRoutes();
+
+        // ユーザー作成アクションの指定
         Fortify::createUsersUsing(CreateNewUser::class);
 
+        // ビューのオーバーライド
         Fortify::registerView(fn () => view('auth.register'));
         Fortify::loginView(fn () => view('auth.login'));
         Fortify::verifyEmailView(fn () => view('auth.verify-email'));
+
+        // フォームリクエストのバインド
+        $this->app->bind(
+            \Laravel\Fortify\Http\Requests\LoginRequest::class,
+            \App\Http\Requests\LoginRequest::class
+        );
 
     }
 }
