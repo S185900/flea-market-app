@@ -16,7 +16,7 @@ h6 {
 
 /* ベーススタイル（PCサイズ） */
 .app-nav {
-    max-width: 1600px;
+    max-width: 1700px;
     /* 中央寄せ＆余白確保 */
     margin: 0 auto;
     box-sizing: border-box;
@@ -32,16 +32,18 @@ h6 {
     justify-content: flex-start;
     /* ロゴの位置調整 */
     align-items: center;
-    padding: 40px 0;
+    padding: 40px 20px 40px 0;
     background-color: #000000;
     height: 10px;
-    width: 100%;
+    width: 1700px;
 }
 
 .header-logo-img {
     width: 370px;
     height: auto;
     padding-left: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .header-logo_visually-hidden {
@@ -63,7 +65,7 @@ h6 {
     flex-grow: 1;
     height: 50px;
     max-width: 500px;
-    margin: 0 40px;
+    margin: 0 50px 0 60px;
     padding: 8px 30px;
     border: none;
     border-radius: 5px;
@@ -134,12 +136,13 @@ h6 {
 /* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
     .app-nav {
+        width: 100%;
         /* padding: 0 24px; */
         /* 余白を少し狭める */
     }
 
     .header-nav {
-        padding: 36px 0;
+        /* padding: 36px 0; */
     }
 
     .main-content {
@@ -151,20 +154,15 @@ h6 {
 /* タブレットサイズ（768〜850px）対応 */
 @media screen and (min-width: 768px) and (max-width: 850px) {
     .app-nav {
-        /* padding: 0 16px; */
-        gap: 16px;
+        /* width: 100%; */
     }
 
     .header-nav {
-        padding: 24px 0;
-        height: auto;
-        flex-direction: column; /* ナビゲーション全体を縦並びに */
-        align-items: flex-start; /* 左寄せにする場合 */
+
     }
 
     .header-logo-img {
-        width: 240px;
-        /* padding-left: 16px; */
+        /* width: 100%; */
     }
 
     .main-content {
@@ -172,15 +170,11 @@ h6 {
     }
 
     .header-navigation-list {
-        flex-direction: column; /* リストを縦並びに */
-        gap: 12px; /* 縦方向の余白 */
-        margin: 30px 30px 10px 130px; /* 上と左に余白 */
         text-align: center;
     }
 
     .header-navigation-item:nth-child(3) {
-        margin-top: 12px;
-        /* お好みの余白に調整してね */
+
     }
 
 
