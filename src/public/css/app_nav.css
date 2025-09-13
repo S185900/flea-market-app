@@ -16,7 +16,7 @@ h6 {
 
 /* ベーススタイル（PCサイズ） */
 .app-nav {
-    max-width: 1700px;
+    width: 100%;
     /* 中央寄せ＆余白確保 */
     margin: 0 auto;
     box-sizing: border-box;
@@ -32,18 +32,19 @@ h6 {
     justify-content: flex-start;
     /* ロゴの位置調整 */
     align-items: center;
-    padding: 40px 20px 40px 0;
+    padding: 40px 0 40px 0;
     background-color: #000000;
     height: 10px;
-    width: 1700px;
+    width: 100%;
 }
 
 .header-logo-img {
-    width: 370px;
+    max-width: 100%;
+    /* width: 370px; */
     height: auto;
     padding-left: 30px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 15px;
+    margin-right: 10px;
 }
 
 .header-logo_visually-hidden {
@@ -63,9 +64,8 @@ h6 {
 
 .header-search {
     flex-grow: 1;
-    height: 50px;
     max-width: 500px;
-    margin: 0 50px 0 60px;
+    margin: 0 40px 0 40px;
     padding: 8px 30px;
     border: none;
     border-radius: 5px;
@@ -80,13 +80,26 @@ h6 {
     color: #000000;
 }
 
+.header-logo {
+    flex-shrink: 0;
+}
+
+.header-search {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.header-navigation {
+    flex-shrink: 0;
+}
+
 /* ナビゲーションリンクのスタイル */
 .header-navigation-list {
     display: flex;
     flex-wrap: nowrap; /* 折り返しを防ぐ */
-    gap: 24px;
+    gap: 30px;
     list-style: none;
-    margin: 0 0 0 30px;
+    margin: 0 10px 0 40px;
     padding: 0;
 }
 
@@ -131,7 +144,9 @@ h6 {
     color: #000;
 }
 
-
+.header-navigation-item:nth-child(3) {
+    margin-right: 30px;
+}
 
 /* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
@@ -147,35 +162,44 @@ h6 {
 
     .main-content {
         font-size: 17px;
-        /* 微調整で読みやすく */
+    }
+
+    .header-navigation-item {
+        margin-right: 20px;
     }
 }
 
 /* タブレットサイズ（768〜850px）対応 */
 @media screen and (min-width: 768px) and (max-width: 850px) {
     .app-nav {
-        /* width: 100%; */
+        width: 100%;
     }
 
     .header-nav {
+        width: 100%;
+        height: auto;
+        flex-wrap: wrap;
+        gap: 20px;
 
     }
 
     .header-logo-img {
-        /* width: 100%; */
+        width: 100%;
     }
 
     .main-content {
+        width: 100%;
         font-size: 16px;
     }
 
     .header-navigation-list {
-        text-align: center;
+        width: 100%;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        margin-left: 250px;
+        /* justify-content: flex-end; */
     }
 
-    .header-navigation-item:nth-child(3) {
-
-    }
 
 
 }

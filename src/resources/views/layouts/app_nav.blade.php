@@ -18,7 +18,7 @@
             <h1 class="header-logo_visually-hidden">
                 COACHTECH
             </h1>
-            <label class="header-search-label visually-hidden" for="header-search">検索</label>
+            <label class="header-search-label visually-hidden" for="header-search"></label>
             <input class="header-search" type="text" id="header-search" placeholder="なにをお探しですか？">
 
             <nav class="header-navigation">

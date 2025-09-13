@@ -3,8 +3,8 @@
 } */
 
 .items-index {
-    max-width: 1320px;
-    padding: 30px 60px;
+    width: 92%;
+    padding: 30px 80px 30px 40px;
     font-family: Inter, sans-serif;
 }
 
@@ -17,13 +17,13 @@
 }
 
 .items-tab {
-    padding: 20px 20px 5px 20px;
+    margin-top: 20px;
+    padding: 20px 20px 20px 20px;
     font-size: 20px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.2s ease;
-
     font-family: Inter, sans-serif;
     font-weight: 700;
     font-style: bold;
@@ -31,6 +31,7 @@
     line-height: 100%;
     letter-spacing: 0%;
     text-align: center;
+    text-decoration: none;
     color: #5F5F5F;
 }
 
@@ -39,11 +40,11 @@
 }
 
 .items-tab:hover {
-    background-color: #e0e0e0;
+    background-color: #ffffff;
 }
 
 .items-divider {
-    width: 2000px;
+    width: 100%;
     height: 2px;
     background-color: #5F5F5F;
 }
@@ -51,7 +52,7 @@
 .items-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 5px;
     width: 100%;
     max-width: 100%;
 }
@@ -72,8 +73,8 @@
     flex: 1;
     background-color: #D9D9D9;
     width: 100%;
-        height: auto;
-        aspect-ratio: 1 / 1;
+    height: auto;
+    aspect-ratio: 1 / 1;
     border-radius: 4px;
     margin-bottom: 12px;
     display: flex;
@@ -103,7 +104,7 @@
 /* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
     .items-index {
-        width: 100%;
+        /* width: 100%; */
         /* padding: 40px 80px; */
     }
 
@@ -131,25 +132,28 @@
 /* タブレットサイズ（768〜850px）対応 */
 @media screen and (min-width: 768px) and (max-width: 850px) {
     .items-index {
-        width: 100%;
-        /* padding: 20px 40px; */
+        width: 92%;
+        padding: 20px 70px 0 20px;
     }
 
     .items-grid {
-        /* gap: 30px; */
+        gap: 10px;
+    }
+
+    .item-card {
+        padding: 5px;
     }
 
     .item-image {
-
-        /* font-size: 20px; */
+        font-size: 20px;
     }
 
     .item-name {
-        /* font-size: 18px; */
+        font-size: 16px;
     }
 
     .items-tab {
-        /* font-size: 18px; */
+        font-size: 20px;
         /* padding: 10px 16px; */
     }
 }
