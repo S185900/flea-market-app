@@ -27,12 +27,22 @@ h6 {
     flex-direction: column;
 }
 
-.header-nav {
+/* .header-nav {
     display: flex;
     justify-content: flex-start;
-    /* ロゴの位置調整 */
     align-items: center;
     padding: 40px 0 40px 0;
+    background-color: #000000;
+    height: 10px;
+    width: 100%;
+} */
+
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    /* ← 左ロゴ・中央検索・右ナビを分散配置 */
+    align-items: center;
+    padding: 40px 0;
     background-color: #000000;
     height: 10px;
     width: 100%;
@@ -77,9 +87,9 @@ h6 {
 .header-search {
     flex-grow: 1;
     flex-shrink: 1;
-    max-width: 600px;
-    margin: 0 40px 0 60px;
-    padding: 8px 130px 8px 20px;
+    width: 360px;
+    margin: 0 5px 0 15px;
+    padding: 8px 15px 8px 15px;
     border: none;
     border-radius: 5px;
     background-color: #FFFFFF;
@@ -107,7 +117,7 @@ h6 {
     flex-wrap: nowrap; /* 折り返しを防ぐ */
     gap: 20px;
     list-style: none;
-    margin: 0 10px 0 40px;
+    margin: 0 10px 0 10px;
     padding: 0;
 }
 
@@ -188,6 +198,8 @@ h6 {
         height: auto;
         flex-wrap: wrap;
         gap: 20px;
+        padding-top: 20px;
+        padding-bottom: 27px;
 
     }
 
@@ -203,14 +215,14 @@ h6 {
     .header-navigation-list {
         width: 100%;
         flex-wrap: wrap;
-        margin-top: 20px;
+        margin-top: 10px;
         margin-left: 250px;
         /* justify-content: flex-end; */
     }
 
     .header-search {
         margin: 0 30px 0 20px;
-        padding: 8px 70px 8px 20px;
+        padding: 8px 15px 8px 15px;
     }
 
     .header-navigation-link {
