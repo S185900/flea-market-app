@@ -59,6 +59,12 @@
     max-width: 100%;
 }
 
+.item-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
 .item-card {
     aspect-ratio: 1 / 1;
     /* 正方形を維持 */
@@ -69,6 +75,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+    text-decoration: none;
+}
+
+.item-card:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
 .item-image {
@@ -197,6 +210,8 @@
 
     .item-name {
         font-size: 16px;
+        padding-bottom: 10px;
+        padding-left: 5px;
     }
 
     .items-tab {

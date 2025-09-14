@@ -22,6 +22,9 @@ Route::get('/email/verified', function () {
 // 未認証でもアクセス可能な商品一覧ページ(おすすめタブがデフォルトで表示される)
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 
+// 商品詳細ページ
+Route::get('/item/{item_id}', [ItemController::class, 'showItemDetail'])->name('item.detail');
+
 Route::middleware(['auth', 'verified', 'first.login'])->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'showEditProfile'])->name('mypage.profile');
     Route::get('/sell', [SellController::class, 'showCreateItem'])->name('sell');

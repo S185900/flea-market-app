@@ -52,4 +52,22 @@ class ItemController extends Controller
         return view('items_index', compact('items', 'tab', 'title'));
 
     }
+
+    public function showItemDetail($item_id)
+    {
+        $item = Item::with([
+            'images',
+            'transactions',
+            'brand',
+            'category',
+            'comments'
+        ])->findOrFail($item_id);
+
+        // いいね数・コメント数：リレーションからリアルタイム集計
+        $likesCount = $item->likes()->count();
+        $commentsCount = $item->comments()->count();
+
+        return view('item_show', compact('item', 'likesCount', 'commentsCount'));
+    }
+
 }

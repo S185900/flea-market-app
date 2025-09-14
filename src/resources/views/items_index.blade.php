@@ -23,74 +23,96 @@
 
     <!-- 商品一覧 -->
     <div class="items-grid">
-        <!-- foreach ($i = 0; $i < 8; $i++) -->
+
         @foreach ($items as $item)
-            <div class="item-card">
-                <div class="item-image">
+            <a href="{{ route('item.detail', ['item_id' => $item->id]) }}" class="item-card-link">
+                <div class="item-card">
+                    <div class="item-image">
 
-                    @if ($item->images->isNotEmpty())
-                        <img class="item-image__display" src="{{ asset('storage/' . $item->images->first()->image_path) }}" alt="{{ $item->title }}">
-                    @else
-                        <div class="item-image__fallback">商品画像</div>
-                    @endif
+                        @if ($item->images->isNotEmpty())
+                            <img class="item-image__display" src="{{ asset('storage/' . $item->images->first()->image_path) }}" alt="{{ $item->title }}">
+                        @else
+                            <div class="item-image__fallback">商品画像</div>
+                        @endif
 
-                    <!-- sold表示 -->
-                    @if ($item->transactions->isNotEmpty())
-                        <div class="sold-label">sold</div>
-                    @endif
+                        <!-- sold表示 -->
+                        @if ($item->transactions->isNotEmpty())
+                            <div class="sold-label">sold</div>
+                        @endif
 
+                    </div>
+                    <div class="item-name">{{ $item->title }}</div>
                 </div>
-                <div class="item-name">{{ $item->title }}</div>
-            </div>
+            </a>
         @endforeach
 
         <!-- ダミー -->
-        <div class="item-card">
-            <div class="item-image">
-                <div class="item-image__fallback">商品画像</div>
+        <a href="{{ route('item.detail', ['item_id' => $items->first()->id ?? 1]) }}" class="item-card-link">
+            <div class="item-card">
+                <div class="item-image">
+                    <div class="item-image__fallback">商品画像</div>
+                </div>
+                <div class="item-name">商品名</div>
             </div>
-            <div class="item-name">商品名</div>
-        </div>
-        <div class="item-card">
-            <div class="item-image">
-                <div class="item-image__fallback">商品画像</div>
-                <div class="sold-label">sold</div>
+        </a>
+
+        <a href="{{ route('item.detail', ['item_id' => $items->first()->id ?? 1]) }}" class="item-card-link">
+            <div class="item-card">
+                <div class="item-image">
+                    <div class="item-image__fallback">商品画像</div>
+                    <div class="sold-label">sold</div>
+                </div>
+                <div class="item-name">商品名</div>
             </div>
-            <div class="item-name">商品名</div>
-        </div>
-        <div class="item-card">
-            <div class="item-image">
-                <div class="item-image__fallback">商品画像</div>
-                <div class="sold-label">sold</div>
+        </a>
+
+        <a href="{{ route('item.detail', ['item_id' => $items->first()->id ?? 1]) }}" class="item-card-link">
+            <div class="item-card">
+                <div class="item-image">
+                    <div class="item-image__fallback">商品画像</div>
+                </div>
+                <div class="item-name">商品名</div>
             </div>
-            <div class="item-name">商品名</div>
-        </div>
-        <div class="item-card">
-            <div class="item-image">
-                <div class="item-image__fallback">商品画像</div>
+        </a>
+
+        <a href="{{ route('item.detail', ['item_id' => $items->first()->id ?? 1]) }}" class="item-card-link">
+            <div class="item-card">
+                <div class="item-image">
+                    <div class="item-image__fallback">商品画像</div>
+                    <div class="sold-label">sold</div>
+                </div>
+                <div class="item-name">商品名</div>
             </div>
-            <div class="item-name">商品名</div>
-        </div>
-        <div class="item-card">
-            <div class="item-image">
-                <div class="item-image__fallback">商品画像</div>
-                <div class="sold-label">sold</div>
+        </a>
+
+        <a href="{{ route('item.detail', ['item_id' => $items->first()->id ?? 1]) }}" class="item-card-link">
+            <div class="item-card">
+                <div class="item-image">
+                    <div class="item-image__fallback">商品画像</div>
+                    <div class="sold-label">sold</div>
+                </div>
+                <div class="item-name">商品名</div>
             </div>
-            <div class="item-name">商品名</div>
-        </div>
-        <div class="item-card">
-            <div class="item-image">
-                <div class="item-image__fallback">商品画像</div>
+        </a>
+
+        <a href="{{ route('item.detail', ['item_id' => $items->first()->id ?? 1]) }}" class="item-card-link">
+            <div class="item-card">
+                <div class="item-image">
+                    <div class="item-image__fallback">商品画像</div>
+                    <div class="sold-label">sold</div>
+                </div>
+                <div class="item-name">商品名</div>
             </div>
-            <div class="item-name">商品名</div>
-        </div>
-        <div class="item-card">
-            <div class="item-image">
-                <div class="item-image__fallback">商品画像</div>
-                <div class="sold-label">sold</div>
+        </a>
+
+        <a href="{{ route('item.detail', ['item_id' => $items->first()->id ?? 1]) }}" class="item-card-link">
+            <div class="item-card">
+                <div class="item-image">
+                    <div class="item-image__fallback">商品画像</div>
+                </div>
+                <div class="item-name">商品名</div>
             </div>
-            <div class="item-name">商品名</div>
-        </div>
+        </a>
 
 
     </div>
