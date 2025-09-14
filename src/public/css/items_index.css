@@ -3,8 +3,8 @@
 } */
 
 .items-index {
-    width: 92%;
-    padding: 30px 80px 30px 40px;
+    width: 100%;
+    padding: 30px 40px 30px 40px;
     font-family: Inter, sans-serif;
 }
 
@@ -52,6 +52,8 @@
 .items-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    /* 正方形 */
+    grid-auto-rows: 1fr;
     gap: 5px;
     width: 100%;
     max-width: 100%;
@@ -71,23 +73,68 @@
 
 .item-image {
     flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #D9D9D9;
     width: 100%;
     height: auto;
     aspect-ratio: 1 / 1;
     border-radius: 4px;
     margin-bottom: 12px;
+    /* これを追加するとsoldラベルがはみ出さない */
+    overflow: hidden;
+}
+
+.item-image__fallback {
+    font-size: 27px;
+    color: #000;
+    text-align: center;
+    margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: Inter, sans-serif;
-    font-weight: 400;
-    font-style: regular;
-    font-size: 30px;
-    line-height: 100%;
-    letter-spacing: 0%;
-    text-align: center;
-    color: #000000;
+    height: 100%;
+}
+
+.item-image__display {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+}
+
+.item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+    /* 中央に寄せる */
+    margin: auto;
+}
+
+.sold-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+    font-weight: bold;
+    padding: 20px 20px;
+    border-radius: 4px;
+    font-size: 40px;
+    letter-spacing: 4px;
+    box-shadow: 0 4px 10px rgba(45, 0, 0, 0.3);
+    text-shadow: 2px 2px 4px rgba(45, 0, 0, 0.3);
+    transform: translate(-50%, -50%) rotate(-10deg);
+    z-index: 2;
+    pointer-events: none;
+    /* soldラベルが折り返さないように */
+    white-space: nowrap;
 }
 
 .item-name {
@@ -132,8 +179,8 @@
 /* タブレットサイズ（768〜850px）対応 */
 @media screen and (min-width: 768px) and (max-width: 850px) {
     .items-index {
-        width: 92%;
-        padding: 20px 70px 0 20px;
+        width: 100%;
+        padding: 20px 20px 0 20px;
     }
 
     .items-grid {
@@ -156,4 +203,15 @@
         font-size: 20px;
         /* padding: 10px 16px; */
     }
+
+    .item-image__fallback {
+        font-size: 22px;
+    }
+
+    .sold-label {
+        padding: 15px 15px;
+        border-radius: 4px;
+        font-size: 25px;
+    }
+
 }

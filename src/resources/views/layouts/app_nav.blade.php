@@ -18,8 +18,26 @@
             <h1 class="header-logo_visually-hidden">
                 COACHTECH
             </h1>
-            <label class="header-search-label visually-hidden" for="header-search"></label>
-            <input class="header-search" type="text" id="header-search" placeholder="なにをお探しですか？">
+
+            <!-- 検索フォーム -->
+            <form method="GET" action="{{ route('items.index') }}" novalidate>
+
+                <!-- アクセシビリティ対応 -->
+                <label class="header-search-label visually-hidden" for="header-search">商品名で検索</label>
+
+                <!-- 現在のURLにあるtabパラメータを取得 -->
+                <input type="hidden" name="tab" value="{{ request('tab', 'recommend') }}">
+
+                <input 
+                    class="header-search" 
+                    type="text" 
+                    id="header-search" 
+                    name="title" 
+                    value="{{ request('title') }}"
+                    placeholder="なにをお探しですか？"
+                    autocomplete="off"
+                >
+            </form>
 
             <nav class="header-navigation">
                 <ul class="header-navigation-list">

@@ -9,10 +9,22 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        // return view('items_index');
 
-        $items = Item::all();
-        $tab = 'recommend'; // 固定でおすすめタブ
+        // 検索機能
+        $title = $request->input('title');
+        $tab = $request->input('tab', 'recommend'); // デフォルトはおすすめ
+
+        $items = Item::with(['images', 'transactions'])->where('status', 'available');
+
+        if (!empty($title)) {
+            $items->where('title', 'like', '%' . $title . '%');
+        }
+
+        if ($tab === 'mylist' && auth()->check()) {
+            $items->where('user_id', auth()->id());
+        }
+
+        $items = $items->get();
 
         return view('items_index', compact('items', 'tab'));
 

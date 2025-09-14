@@ -8,15 +8,11 @@
 @section('content')
 
 <!-- タブ切り替え -->
-<!-- <div class="items-tabs">
-    <button class="items-tab active">おすすめ</button>
-    <button class="items-tab">マイリスト</button>
-</div> -->
 <div class="items-tabs">
-    <a href="{{ route('items.index') }}" class="items-tab {{ request('tab', 'recommend') === 'recommend' ? 'active' : '' }}">
+    <a href="{{ route('items.index', ['tab' => 'recommend', 'title' => request('title')]) }}" class="items-tab {{ request('tab', 'recommend') === 'recommend' ? 'active' : '' }}">
         おすすめ
     </a>
-    <a href="{{ route('items.index', ['tab' => 'mylist']) }}" class="items-tab {{ request('tab') === 'mylist' ? 'active' : '' }}">
+    <a href="{{ route('items.index', ['tab' => 'mylist', 'title' => request('title')]) }}" class="items-tab {{ request('tab') === 'mylist' ? 'active' : '' }}">
         マイリスト
     </a>
 </div>
@@ -28,35 +24,75 @@
     <!-- 商品一覧 -->
     <div class="items-grid">
         <!-- foreach ($i = 0; $i < 8; $i++) -->
+        @foreach ($items as $item)
             <div class="item-card">
-                <div class="item-image">商品画像</div>
-                <div class="item-name">商品名</div>
+                <div class="item-image">
+
+                    @if ($item->images->isNotEmpty())
+                        <img class="item-image__display" src="{{ asset('storage/' . $item->images->first()->image_path) }}" alt="{{ $item->title }}">
+                    @else
+                        <div class="item-image__fallback">商品画像</div>
+                    @endif
+
+                    <!-- sold表示 -->
+                    @if ($item->transactions->isNotEmpty())
+                        <div class="sold-label">sold</div>
+                    @endif
+
+                </div>
+                <div class="item-name">{{ $item->title }}</div>
             </div>
-            <div class="item-card">
-                <div class="item-image">商品画像</div>
-                <div class="item-name">商品名</div>
+        @endforeach
+
+        <!-- ダミー -->
+        <div class="item-card">
+            <div class="item-image">
+                <div class="item-image__fallback">商品画像</div>
             </div>
-            <div class="item-card">
-                <div class="item-image">商品画像</div>
-                <div class="item-name">商品名</div>
+            <div class="item-name">商品名</div>
+        </div>
+        <div class="item-card">
+            <div class="item-image">
+                <div class="item-image__fallback">商品画像</div>
+                <div class="sold-label">sold</div>
             </div>
-            <div class="item-card">
-                <div class="item-image">商品画像</div>
-                <div class="item-name">商品名</div>
+            <div class="item-name">商品名</div>
+        </div>
+        <div class="item-card">
+            <div class="item-image">
+                <div class="item-image__fallback">商品画像</div>
+                <div class="sold-label">sold</div>
             </div>
-            <div class="item-card">
-                <div class="item-image">商品画像</div>
-                <div class="item-name">商品名</div>
+            <div class="item-name">商品名</div>
+        </div>
+        <div class="item-card">
+            <div class="item-image">
+                <div class="item-image__fallback">商品画像</div>
             </div>
-            <div class="item-card">
-                <div class="item-image">商品画像</div>
-                <div class="item-name">商品名</div>
+            <div class="item-name">商品名</div>
+        </div>
+        <div class="item-card">
+            <div class="item-image">
+                <div class="item-image__fallback">商品画像</div>
+                <div class="sold-label">sold</div>
             </div>
-            <div class="item-card">
-                <div class="item-image">商品画像</div>
-                <div class="item-name">商品名</div>
+            <div class="item-name">商品名</div>
+        </div>
+        <div class="item-card">
+            <div class="item-image">
+                <div class="item-image__fallback">商品画像</div>
             </div>
-        <!-- endforeach -->
+            <div class="item-name">商品名</div>
+        </div>
+        <div class="item-card">
+            <div class="item-image">
+                <div class="item-image__fallback">商品画像</div>
+                <div class="sold-label">sold</div>
+            </div>
+            <div class="item-name">商品名</div>
+        </div>
+
+
     </div>
 
 
