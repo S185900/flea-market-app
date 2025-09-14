@@ -213,5 +213,15 @@ h6 {
         padding: 8px 70px 8px 20px;
     }
 
+    .header-navigation-link {
+        font-size: 18px;
+    }
+
+    /* ボタン風のリンクスタイル */
+    .header-navigation-button {
+        padding: 8px 20px;
+        font-style: regular;
+        margin-left: 5px;
+    }
 
 }

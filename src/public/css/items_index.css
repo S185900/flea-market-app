@@ -18,7 +18,7 @@
 
 .items-tab {
     margin-top: 20px;
-    padding: 20px 20px 20px 20px;
+    padding: 20px 20px 10px 20px;
     font-size: 20px;
     border: none;
     border-radius: 30px;
@@ -212,6 +212,19 @@
         padding: 15px 15px;
         border-radius: 4px;
         font-size: 25px;
+    }
+
+    /* タブ部分 */
+    .items-tabs {
+        gap: 10px;
+        margin-bottom: 5px;
+        margin-left: 50px;
+    }
+
+    .items-tab {
+        margin-top: 10px;
+        padding: 10px 20px 10px 20px;
+        font-size: 20px;
     }
 
 }
