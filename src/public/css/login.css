@@ -97,3 +97,68 @@
     font-size: 14px;
     margin-top: 5px;
 }
+
+/* PCサイズ（1400〜1540px）対応 */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .login {
+        max-width: 500px;
+    }
+}
+
+/* タブレットサイズ（768〜850px）対応 */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .login-title {
+        font-size: 25px;
+    }
+
+    .login {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 8px;
+        text-emphasis: center;
+    }
+
+    .login-item {
+        margin-bottom: 15px;
+    }
+
+    .login-label {
+        font-size: 20px;
+    }
+
+    .login-input {
+        width: 100%;
+        height: 60px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .login-button {
+        font-size: 20px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        text-align: center;
+        color: #FFFFFF;
+    }
+
+    .login-button:hover {
+        background-color: #c74040;
+    }
+
+    .login-link {
+        font-size: 18px;
+    }
+
+    .login-link:hover {
+        color: #FF5555;
+    }
+
+    .invalid-feedback {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+}

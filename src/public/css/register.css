@@ -97,3 +97,68 @@
     font-size: 14px;
     margin-top: 5px;
 }
+
+/* PCサイズ（1400〜1540px）対応 */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .register {
+        max-width: 500px;
+    }
+}
+
+/* タブレットサイズ（768〜850px）対応 */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .register-title {
+        font-size: 25px;
+    }
+
+    .register {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 8px;
+        text-emphasis: center;
+    }
+
+    .register-item {
+        margin-bottom: 15px;
+    }
+
+    .register-label {
+        font-size: 20px;
+    }
+
+    .register-input {
+        width: 100%;
+        height: 60px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .register-button {
+        font-size: 20px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        text-align: center;
+        color: #FFFFFF;
+    }
+
+    .register-button:hover {
+        background-color: #c74040;
+    }
+
+    .register-link {
+        font-size: 18px;
+    }
+
+    .register-link:hover {
+        color: #FF5555;
+    }
+
+    .invalid-feedback {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+}
