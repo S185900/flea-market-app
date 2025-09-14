@@ -10,28 +10,46 @@ class ItemController extends Controller
     public function index(Request $request)
     {
 
-        // 検索機能
         $title = $request->input('title');
-        $tab = $request->input('tab', 'recommend'); // デフォルトはおすすめ
+        $tab = $request->input('tab', 'recommend'); // デフォルトはおすすめタブ一覧
 
-        $items = Item::with(['images', 'transactions'])->where('status', 'available');
+        $items = collect(); // 初期化（未ログイン時のマイリストタブ一覧対策）
 
-        if (!empty($title)) {
-            $items->where('title', 'like', '%' . $title . '%');
+        if ($tab === 'recommend') {
+            // おすすめタブ
+            $query = Item::with(['images', 'transactions'])
+                ->where('status', 'available');
+
+            if (auth()->check()) {
+                // ログイン時は自分の出品を除外
+                $query->where('user_id', '!=', auth()->id());
+            }
+
+            if (!empty($title)) {
+                $query->where('title', 'like', '%' . $title . '%');
+            }
+
+            $items = $query->get();
+
+        } elseif ($tab === 'mylist') {
+            // マイリストタブ
+            if (auth()->check()) {
+                $query = Item::with(['images', 'transactions'])
+                    ->whereHas('likes', function ($q) {
+                        $q->where('user_id', auth()->id());
+                    })
+                    ->where('user_id', '!=', auth()->id()); // 自分の出品は除外
+
+                if (!empty($title)) {
+                    $query->where('title', 'like', '%' . $title . '%');
+                }
+
+                $items = $query->get();
+            }
+            // 未ログイン時は空のコレクションのまま
         }
 
-        if ($tab === 'mylist' && auth()->check()) {
-            $items->where('user_id', auth()->id());
-        }
-
-        $items = $items->get();
-
-        return view('items_index', compact('items', 'tab'));
-
-
-
-        // 商品一覧を取得（例：新しい順）
-        // $items = Item::orderBy('created_at', 'desc')->get();
+        return view('items_index', compact('items', 'tab', 'title'));
 
     }
 }
