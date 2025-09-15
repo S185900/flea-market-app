@@ -41,7 +41,7 @@
                         @endif
 
                     </div>
-                    <div class="item-name">{{ $item->title }}</div>
+                    <div class="item-name">{{ strip_tags($item->title) }}</div>
                 </div>
             </a>
         @endforeach

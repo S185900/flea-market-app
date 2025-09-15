@@ -12,6 +12,7 @@ class Comment extends Model
     protected $fillable = [
         'transaction_id',
         'commenter_id',
+        'item_id',
         'comment',
     ];
 
@@ -21,5 +22,10 @@ class Comment extends Model
 
     public function commenter() {
         return $this->belongsTo(User::class, 'commenter_id');
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
     }
 }

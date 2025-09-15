@@ -5,7 +5,7 @@
 .items-index {
     width: 100%;
     padding: 30px 40px 30px 40px;
-    font-family: Inter, sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 /* タブ部分 */
@@ -19,12 +19,11 @@
 .items-tab {
     margin-top: 20px;
     padding: 20px 20px 10px 20px;
-    font-size: 20px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    font-family: Inter, sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 700;
     font-style: bold;
     font-size: 24px;
@@ -151,9 +150,10 @@
 }
 
 .item-name {
-    font-family: Inter, sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 400;
-    font-style: regular;
+    /* font-style: regular; */
+    font-style: normal;
     font-size: 25px;
     line-height: 100%;
     letter-spacing: 0%;
