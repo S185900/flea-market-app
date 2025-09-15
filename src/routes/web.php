@@ -8,6 +8,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SellController;
 
+// 未認証でもアクセス可能な商品一覧ページ(おすすめタブがデフォルトで表示される)
+Route::get('/', [ItemController::class, 'index'])->name('items.index');
+
+// 商品詳細ページ
+Route::get('/item/{item_id}', [ItemController::class, 'showItemDetail'])->name('item.detail');
 
 Route::get('/register', fn () => view('auth.register'))->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
@@ -18,12 +23,6 @@ Route::post('/login', [LoginUserController::class, 'store']);
 Route::get('/email/verified', function () {
     return view('auth.verify-email');
 });
-
-// 未認証でもアクセス可能な商品一覧ページ(おすすめタブがデフォルトで表示される)
-Route::get('/', [ItemController::class, 'index'])->name('items.index');
-
-// 商品詳細ページ
-Route::get('/item/{item_id}', [ItemController::class, 'showItemDetail'])->name('item.detail');
 
 Route::middleware(['auth', 'verified', 'first.login'])->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'showEditProfile'])->name('mypage.profile');

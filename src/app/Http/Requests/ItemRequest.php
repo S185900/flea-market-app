@@ -27,7 +27,7 @@ class ItemRequest extends FormRequest
             'tab' => 'nullable|in:recommend,mylist',
             // 今後、検索や絞り込みを追加するならここに追加
             // 'category' => 'nullable|exists:categories,id',
-            // 'keyword' => 'nullable|string|max:100',
+            // 'title' => 'nullable|string|max:100',
         ];
     }
 

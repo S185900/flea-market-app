@@ -38,11 +38,16 @@ class Item extends Model
         return $this->hasMany(ItemImage::class);
     }
 
+    // 「商品1つに1取引」なら
     public function transactions() {
-        return $this->hasMany(Transaction::class);
+        return $this->hasOne(Transaction::class);
     }
 
     public function likes() {
         return $this->hasMany(Like::class);
+    }
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
     }
 }
