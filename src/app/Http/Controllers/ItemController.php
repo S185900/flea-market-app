@@ -17,7 +17,7 @@ class ItemController extends Controller
 
         if ($tab === 'recommend') {
             // おすすめタブ
-            $query = Item::with(['images', 'transactions'])
+            $query = Item::with(['images', 'transaction'])
                 ->where('status', 'available');
 
             if (auth()->check()) {
@@ -34,7 +34,7 @@ class ItemController extends Controller
         } elseif ($tab === 'mylist') {
             // マイリストタブ
             if (auth()->check()) {
-                $query = Item::with(['images', 'transactions'])
+                $query = Item::with(['images', 'transaction'])
                     ->whereHas('likes', function ($q) {
                         $q->where('user_id', auth()->id());
                     })
@@ -57,7 +57,7 @@ class ItemController extends Controller
     {
         $item = Item::with([
             'images',
-            'transactions',
+            'transaction',
             'brand',
             'category',
             'comments'

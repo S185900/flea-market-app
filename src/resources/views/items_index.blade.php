@@ -36,7 +36,7 @@
                         @endif
 
                         <!-- sold表示 -->
-                        @if ($item->transactions->isNotEmpty())
+                        @if ($item->isSold())
                             <div class="sold-label">sold</div>
                         @endif
 
