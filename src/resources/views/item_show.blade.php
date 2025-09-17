@@ -9,30 +9,45 @@
 @section('content')
 
 <div class="item-show">
+
     <section class="item-show__image-area">
         <div class="item-show__image">
-            商品画像
+            @if ($item->images->isNotEmpty())
+                @foreach ($item->images as $image)
+                    <img src="{{ asset('storage/' . $image->image_path) }}" alt="{{ $item->title }}" class="item-show__image__display">
+                    @break
+                @endforeach
+            @else
+                <div class="item-image__fallback">商品画像なし</div>
+            @endif
         </div>
     </section>
+
 
     <section class="item-show__info-area">
 
         <div class="item-show__info">
             <h2 class="item-show__info-title">
-                商品名がここに入る
+                {{ $item->title }}
             </h2>
-            <p class="item-show__brand-name">ブランド名</p>
+            <p class="item-show__brand-name">
+                {{ $item->brand->brand_name ?? 'ブランドなし' }}
+            </p>
             <p class="item-show__price">
-                <span class="amount">¥47,000</span><span class="spacer"> </span>(税込)
+                <span class="amount">¥{{ number_format($item->price) }}</span><span class="spacer"> </span>(税込)
             </p>
             <div class="item-show__likes__comment__count">
                 <div class="icon-block">
                     <img src="/images/like-icon.png" alt="いいね" class="like-icon" />
-                    <span class="count">3</span>
+                    <span class="count">
+                        {{ $item->likesCount }}
+                    </span>
                 </div>
                 <div class="icon-block">
                     <img src="/images/comment-icon.png" alt="コメント" class="comment-icon" />
-                    <span class="count">1</span>
+                    <span class="count">
+                        {{ $commentsCount }}
+                    </span>
                 </div>
             </div>
 
@@ -47,7 +62,7 @@
                 商品説明
             </h3>
             <p class="item-show__description-text">
-                カラー：グレー<br>新品<br>商品の状態は良好です。傷もありません。<br><br>購入後、即発送いたします。
+                {!! nl2br(e($item->description)) !!}
             </p>
         </div>
 
@@ -74,17 +89,28 @@
 
         <div class="item-show__comment">
             <h3 class="item-show__comment-title">
-                コメント(1)
+                コメント({{ $commentsCount }})
             </h3>
-            <div class="comment-area">
-                <div class="user-info">
-                    <img src="" alt="アイコン" class="user-icon" />
-                    <p class="user-name">admin</p>
+
+            @foreach ($item->comments as $comment)
+                <div class="comment-area">
+                    @if ($comment->user)
+                        <div class="user-info">
+                            <img src="{{ asset('storage/' . $comment->user->profile_image_url) }}" alt="アイコン" class="user-icon" />
+                            <p class="user-name">{{ $comment->user->name }}</p>
+                        </div>
+                    @else
+                        <div class="user-info">
+                            <img src="{{ asset('images/default-icon.png') }}" alt="アイコン" class="user-icon" />
+                            <p class="user-name">退会ユーザー</p>
+                        </div>
+                    @endif
+                    <label class="comment-label">
+                        <input type="text" class="comment-submit" placeholder="こちらにコメントが入ります。">
+                    </label>
                 </div>
-                <lavel class="comment-lavel">
-                    <input type="text" class="comment-submit" placeholder="こちらにコメントが入ります。">
-                </lavel>
-            </div>
+            @endforeach
+
             <p class="comment-textarea-title">商品のへコメント</p>
             <textarea class="comment-textarea" placeholder=""></textarea>
             <button class="comment-button">コメントを送信する</button>

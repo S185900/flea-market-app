@@ -52,4 +52,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function likes() {
         return $this->hasMany(Like::class, 'user_id');
     }
+
+    // 例: Userモデルにアクセサを追加
+    public function getProfileImageUrlAttribute($value)
+    {
+        return asset('storage/' . $value);
+    }
 }

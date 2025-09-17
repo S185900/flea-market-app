@@ -21,8 +21,11 @@ class CreateItemsTable extends Migration
             $table->text('description')->comment('商品説明');
             $table->integer('price');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+
+            // likes_count 、comments_count カラムは後で削除予定かな
             $table->integer('likes_count')->default(0)->comment('いいね数');
             $table->integer('comments_count')->default(0)->comment('コメント数');
+
             $table->integer('condition')->comment('商品状態_1:良好/2:目立った傷や汚れなし/3:やや傷や汚れあり/4:状態が悪い');
             $table->string('status')->nullable();
             $table->timestamps();

@@ -15,7 +15,7 @@ class ItemImageFactory extends Factory
     public function definition()
     {
         return [
-            'item_id' => Item::inRandomOrder()->first()->id ?? Item::factory(),
+            // 'item_id' => Item::inRandomOrder()->first()->id ?? Item::factory(),
             'image_path' => $this->faker->imageUrl(),
             'created_at' => now(),
             'updated_at' => now(),

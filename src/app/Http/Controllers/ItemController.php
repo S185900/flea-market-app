@@ -60,8 +60,10 @@ class ItemController extends Controller
             'transaction',
             'brand',
             'category',
-            'comments'
+            'comments.user'
         ])->findOrFail($item_id);
+
+        // dd($item->brand_id, $item->brand);
 
         // いいね数・コメント数：リレーションからリアルタイム集計
         $likesCount = $item->likes()->count();
