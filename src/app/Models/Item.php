@@ -48,8 +48,9 @@ class Item extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public function category() {
-        return $this->belongsTo(Category::class);
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 
     public function images() {
@@ -72,5 +73,17 @@ class Item extends Model
 
     public function comments() {
         return $this->hasMany(Comment::class);
+    }
+
+    public function getConditionLabelAttribute()
+    {
+        return match($this->condition) {
+            1 => '新品',
+            2 => '未使用に近い',
+            3 => '良好',
+            4 => 'やや傷や汚れあり',
+            5 => '傷や汚れあり',
+            default => '不明',
+        };
     }
 }

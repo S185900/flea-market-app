@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Http\Requests\CommentRequest;
+use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -59,7 +62,7 @@ class ItemController extends Controller
             'images',
             'transaction',
             'brand',
-            'category',
+            'categories',
             'comments.user'
         ])->findOrFail($item_id);
 
@@ -70,6 +73,19 @@ class ItemController extends Controller
         $commentsCount = $item->comments()->count();
 
         return view('item_show', compact('item', 'likesCount', 'commentsCount'));
+    }
+
+    public function postComment(CommentRequest $request, $item_id)
+    {
+        $item = Item::findOrFail($item_id);
+
+        Comment::create([
+            'item_id' => $item->id,
+            'commenter_id' => Auth::id(),
+            'comment' => $request->comment,
+        ]);
+
+        return redirect()->route('item.detail', $item_id)->with('success', 'コメントを投稿しました');
     }
 
 }

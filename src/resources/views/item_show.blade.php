@@ -31,7 +31,7 @@
                 {{ $item->title }}
             </h2>
             <p class="item-show__brand-name">
-                {{ $item->brand->brand_name ?? 'ブランドなし' }}
+                {{ $item->brand->brand_name ?? 'ノーブランド' }}
             </p>
             <p class="item-show__price">
                 <span class="amount">¥{{ number_format($item->price) }}</span><span class="spacer"> </span>(税込)
@@ -74,15 +74,21 @@
                 <p class="tags-title">
                     カテゴリー
                 </p>
-                <span class="tag-deco">おもちゃ</span>
-                <span class="tag-deco">おもちゃ</span>
-                <span class="tag-deco">おもちゃ</span>
+                @foreach ($item->categories->chunk(3) as $chunk)
+                    <div class="tag-row">
+                        @foreach ($chunk as $category)
+                            <span class="tag-deco">{{ $category->category_name }}</span>
+                        @endforeach
+                    </div>
+                @endforeach
             </div>
             <div class="tags-area-2">
                 <p class="tags-title">
                     商品の状態
                 </p>
-                <span class="tag">良好</span>
+                <span class="tag">
+                    <span class="tag">{{ $item->condition_label }}</span>
+                </span>
             </div>
 
         </div>
@@ -94,26 +100,47 @@
 
             @foreach ($item->comments as $comment)
                 <div class="comment-area">
-                    @if ($comment->user)
-                        <div class="user-info">
+                    <div class="user-info">
+                        @if ($comment->user && $comment->user->profile_image_url)
                             <img src="{{ asset('storage/' . $comment->user->profile_image_url) }}" alt="アイコン" class="user-icon" />
-                            <p class="user-name">{{ $comment->user->name }}</p>
-                        </div>
-                    @else
-                        <div class="user-info">
+                            <p class="user-name">
+                                {{ $comment->user->name }}
+                            </p>
+                        @else
                             <img src="{{ asset('images/default-icon.png') }}" alt="アイコン" class="user-icon" />
-                            <p class="user-name">退会ユーザー</p>
-                        </div>
-                    @endif
-                    <label class="comment-label">
-                        <input type="text" class="comment-submit" placeholder="こちらにコメントが入ります。">
-                    </label>
+                            <p class="user-name">
+                                {{ $comment->user ? $comment->user->name : 'Admin' }}
+                            </p>
+                        @endif
+                    </div>
+
+                    <div class="comment-label">
+                        <p class="comment-submit">{{ $comment->comment }}</p>
+                    </div>
                 </div>
             @endforeach
 
-            <p class="comment-textarea-title">商品のへコメント</p>
-            <textarea class="comment-textarea" placeholder=""></textarea>
-            <button class="comment-button">コメントを送信する</button>
+
+
+            <form action="{{ route('item.comment', $item->id) }}" method="POST">
+                @csrf
+                <p class="comment-textarea-title">商品のへコメント</p>
+                <textarea name="comment" class="comment-textarea" required maxlength="255"
+                    placeholder="コメントを入力してください">{{ old('comment') }}</textarea>
+
+                @error('comment')
+                    <p class="error">{{ $message }}</p>
+                @enderror
+                <!-- @guest -->
+                    <!-- <p class="login-message">
+                        コメントするにはログインが必要です
+                    </p> -->
+                <!-- @endguest -->
+
+                <button type="submit" class="comment-button" @guest disabled @endguest>
+                    コメントを送信する
+                </button>
+            </form>
         </div>
 
     </section>

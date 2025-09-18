@@ -14,6 +14,10 @@ Route::get('/', [ItemController::class, 'index'])->name('items.index');
 // 商品詳細ページ
 Route::get('/item/{item_id}', [ItemController::class, 'showItemDetail'])->name('item.detail');
 
+// コメント投稿といいね機能はログイン必須
+Route::post('/items/{item}/comment', [ItemController::class, 'postComment'])->name('item.comment')->middleware('auth');
+Route::post('/items/{item}/like', [ItemController::class, 'postLike'])->name('item.like')->middleware('auth');
+
 Route::get('/register', fn () => view('auth.register'))->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
