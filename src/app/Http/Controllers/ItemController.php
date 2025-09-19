@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Like;
 
 class ItemController extends Controller
 {
@@ -63,7 +64,8 @@ class ItemController extends Controller
             'transaction',
             'brand',
             'categories',
-            'comments.user'
+            'comments.user',
+            'likes'
         ])->findOrFail($item_id);
 
         // dd($item->brand_id, $item->brand);
@@ -86,6 +88,31 @@ class ItemController extends Controller
         ]);
 
         return redirect()->route('item.detail', $item_id)->with('success', 'コメントを投稿しました');
+    }
+
+    public function postLike(Request $request, Item $item)
+    {
+        $user = Auth::user();
+
+        $existingLike = Like::where('item_id', $item->id)
+            ->where('user_id', $user->id)
+            ->first();
+
+        if ($existingLike) {
+            $existingLike->delete(); // いいね解除
+            $liked = false;
+        } else {
+            Like::create([
+                'item_id' => $item->id,
+                'user_id' => $user->id,
+            ]);
+            $liked = true;
+        }
+
+        // 最新のいいね数を返す
+        $likesCount = $item->likes()->count();
+
+        return redirect()->route('item.detail', $item->id);
     }
 
 }

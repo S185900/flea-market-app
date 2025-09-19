@@ -38,9 +38,18 @@
             </p>
             <div class="item-show__likes__comment__count">
                 <div class="icon-block">
-                    <img src="/images/like-icon.png" alt="いいね" class="like-icon" />
+                    <form action="{{ route('item.like', $item->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="like-button" style="background: none; border: none; padding: 0; cursor: pointer;">
+                            <img
+                                src="{{ $item->likes->contains('user_id', Auth::id()) ? '/images/like-icon-filled.png' : '/images/like-icon-outline.png' }}"
+                                alt="いいね"
+                                class="like-icon"
+                            />
+                        </button>
+                    </form>
                     <span class="count">
-                        {{ $item->likesCount }}
+                        {{ $likesCount }}
                     </span>
                 </div>
                 <div class="icon-block">
@@ -51,9 +60,9 @@
                 </div>
             </div>
 
-            <button class="checkout-button">
+            <a href="{{ route('purchase.form', $item->id) }}" class="checkout-button">
                 購入手続きへ
-            </button>
+            </a>
 
         </div>
 
@@ -99,10 +108,12 @@
             </h3>
 
             @foreach ($item->comments as $comment)
+            <!-- <p>{{ 'storage/' . $comment->user->profile_image_url }}</p> -->
+            <!-- <p>{{ asset($comment->user->profile_image_url) }}</p> -->
                 <div class="comment-area">
                     <div class="user-info">
                         @if ($comment->user && $comment->user->profile_image_url)
-                            <img src="{{ asset('storage/' . $comment->user->profile_image_url) }}" alt="アイコン" class="user-icon" />
+                            <img src="{{ asset($comment->user->profile_image_url) }}" alt="アイコン" class="user-icon" />
                             <p class="user-name">
                                 {{ $comment->user->name }}
                             </p>

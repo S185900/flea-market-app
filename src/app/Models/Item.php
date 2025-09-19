@@ -86,4 +86,8 @@ class Item extends Model
             default => '不明',
         };
     }
+
+    
+
+    
 }

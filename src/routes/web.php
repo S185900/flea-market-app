@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SellController;
 
 // 未認証でもアクセス可能な商品一覧ページ(おすすめタブがデフォルトで表示される)
@@ -17,6 +18,9 @@ Route::get('/item/{item_id}', [ItemController::class, 'showItemDetail'])->name('
 // コメント投稿といいね機能はログイン必須
 Route::post('/items/{item}/comment', [ItemController::class, 'postComment'])->name('item.comment')->middleware('auth');
 Route::post('/items/{item}/like', [ItemController::class, 'postLike'])->name('item.like')->middleware('auth');
+
+Route::get('/purchase/{item_id}', [PurchaseController::class, 'showPurchaseForm'])->name('purchase.form');
+
 
 Route::get('/register', fn () => view('auth.register'))->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
