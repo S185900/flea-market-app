@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SellController;
+use App\Http\Controllers\StripeWebhookController;
 
 // 未認証でもアクセス可能な商品一覧ページ(おすすめタブがデフォルトで表示される)
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
@@ -25,6 +26,13 @@ Route::get('/purchase/{item_id}', [PurchaseController::class, 'showPurchaseForm'
     ->middleware('auth');
 
 Route::post('/purchase/{item}', [PurchaseController::class, 'confirm'])->name('purchase.confirm');
+
+Route::post('/purchase/{item}/stripe', [PurchaseController::class, 'redirectToStripe'])->name('purchase.stripe');
+Route::get('/purchase/success', [PurchaseController::class, 'handleSuccess'])->name('purchase.success');
+Route::get('/purchase/cancel', fn () => view('purchase_cancel'))->name('purchase.cancel');
+Route::post('/webhook/stripe', [StripeWebhookController::class, 'handle']);
+
+
 
 Route::get('/register', fn () => view('auth.register'))->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
@@ -44,7 +52,7 @@ Route::middleware(['auth', 'verified', 'first.login'])->group(function () {
     // Route::post('/sell', [SellController::class, 'storeItem']);
 });
 
-Route::get('/mypage/profile', [ProfileController::class, 'showEditProfile'])->name('mypage.profile');
+
 
 
 

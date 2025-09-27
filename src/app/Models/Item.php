@@ -58,12 +58,11 @@ class Item extends Model
     }
 
     // 「商品1つに1取引」なら
-    public function transaction() {
+    public function transaction(){
         return $this->hasOne(Transaction::class);
     }
 
-    public function isSold()
-    {
+    public function isSold() {
         return $this->transaction()->exists();
     }
 
