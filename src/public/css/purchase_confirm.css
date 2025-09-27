@@ -16,44 +16,134 @@
     padding: 20px;
 }
 
-.purchase_confirm__payment-method-section {
-    flex: 1;
-    padding: 20px;
-    border-left: 1px solid #ddd;
+.item-section-1 {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.item-section {
+    gap: 20px;
     margin-bottom: 40px;
     border-bottom: 1px solid #ddd;
     padding-bottom: 30px;
-}
-
-.item-section , .product {
-    display: flex;
-    gap: 20px;
     margin-bottom: 20px;
 }
+
+.purchase_confirm__image {
+    max-width: 200px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.purchase_confirm__image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.item-section__flex-2 {
+    margin-left: 20px;
+}
+
 .product-title {
     font-family: "Inter", sans-serif;
     font-weight: 700;
     font-style: bold;
-    font-size: 28px;
+    font-size: 30px;
     line-height: 100%;
     letter-spacing: 0%;
-    text-align: left;
+    text-align: center;
+    text-decoration: none;
     color: #000000;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
 }
 
+.price-mark {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-style: regular;
+    font-size: 27px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    text-decoration: none;
+    color: #000000;
+    padding-right: 5px;
+}
+
+.product-price {
+    padding-top: 20px;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-style: bold;
+    font-size: 30px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    text-decoration: none;
+    color: #000000;
+}
+
+.item-section-2 {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+}
 .section-title {
     font-family: "Inter", sans-serif;
     font-weight: 700;
     font-style: bold;
-    font-size: 24px;
+    font-size: 27px;
     line-height: 100%;
+    letter-spacing: 0%;
+    text-align: left;
+    text-decoration: none;
+    color: #000000;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+.payment-method-select {
+    margin-top: 20px;
+    margin-left: 60px;
+    max-width: 300px;
+    height: 40px;
+    padding: 10px 40px 10px 10px;
+        /* 右側に余白を作る */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: left;
+    color: #000000;
+
+    /* 三角マークのスタイル */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpolygon points='0,0 12,0 6,8' fill='%23000'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px 8px;
+
+    /* デフォルトの矢印を消す */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.address-info{
+    margin-top: 20px;
+    margin-left: 30px;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-style: regular;
+    font-size: 18px;
+    line-height: 150%;
     letter-spacing: 0%;
     text-align: left;
     color: #000000;
@@ -71,6 +161,7 @@
     letter-spacing: 0%;
     text-align: left;
     cursor: pointer;
+    padding-right: 20px;
 }
 
 .item-section-3__flex {
@@ -78,6 +169,15 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+}
+
+.purchase_confirm__payment-method-section {
+    flex: 1;
+    padding: 20px;
+    border-left: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .purchase-button {

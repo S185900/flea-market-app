@@ -11,39 +11,59 @@
 <div class="purchase_confirm">
 
     <div class="purchase_confirm__item-section">
-        <div class="item-section product">
+        <div class="item-section-1">
             <div class="item-section__flex-1">
-                <img src="product.jpg" alt="商品画像" class="product-image">
+                <div class="purchase_confirm__image">
+                    @if ($item->images->isNotEmpty())
+                        @foreach ($item->images as $image)
+                            <img src="{{ asset('storage/' . $image->image_path) }}" alt="{{ $item->title }}" class="purchase_confirm__image__display">
+                            @break
+                        @endforeach
+                    @else
+                        <div class="item-image__fallback">商品画像なし</div>
+                    @endif
+                </div>
             </div>
             <div class="item-section__flex-2">
-                <h3 class="product-title">商品名</h3>
-                <p class="product-price">¥47,000</p>
+                <h3 class="product-title">{{ $item->title }}</h3>
+                <p class="product-price">
+                    <span class="price-mark">¥</span>{{ number_format($item->price) }}
+                </p>
             </div>
         </div>
 
-        <div class="item-section">
-            <h3 class="section-title">支払い方法</h3>
-            <select>
-                <option>選択してください</option>
-                <option selected>コンビニ払い</option>
-                <option>クレジットカード</option>
-                <option>銀行振込</option>
-            </select>
-        </div>
+        <form method="POST" action="{{ route('purchase.confirm', ['item' => $item->id]) }}">
+            @csrf
 
-        <div class="item-section">
+            <div class="item-section-2">
+                <h3 class="section-title">支払い方法</h3>
+                <select class="payment-method-select" name="payment_method" onchange="this.form.submit()">
+                    <option value="">選択してください</option>
+                    <option value="コンビニ支払い" {{ (old('payment_method') ?? $selectedMethod ?? '') === 'コンビニ払い' ? 'selected' : '' }}>コンビニ支払い</option>
+                    <option value="カード支払い" {{ (old('payment_method') ?? $selectedMethod ?? '') === 'クレジットカード' ? 'selected' : '' }}>カード支払い</option>
+                </select>
+            </div>
+        </form>
+
+        <div class="item-section-3">
             <div class="item-section-3__flex">
                 <h3 class="section-title">配送先</h3>
                 <button class="change-address">変更する</button>
             </div>
-            <p>〒XXX-YYYY<br>ここには住所と建物名が入ります</p>
+            <p class="address-info">
+                <span>〒</span>
+                {{ $user->postal_code }}<br>
+                {{ $user->shipping_address }}<br>
+                {{ $user->building_name }}
+            </p>
         </div>
+
     </div>
 
     <div class="purchase_confirm__payment-method-section">
         <section class="summary">
-            <p>商品代金: ¥47,000</p>
-            <p>支払い方法: コンビニ払い</p>
+            <p>商品代金: ¥{{ number_format($item->price) }}</p>
+            <p>支払い方法: {{ $selectedMethod ?? '未選択' }}</p>
         </section>
         <button class="purchase-button">購入する</button>
     </div>

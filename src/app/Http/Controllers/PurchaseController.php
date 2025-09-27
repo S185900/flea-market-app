@@ -15,7 +15,20 @@ class PurchaseController extends Controller
 
         return view('purchase_confirm', [
             'item' => $item,
+            'user' => $user,
             'address' => $user->address, // プロフィールに登録済みの住所
         ]);
     }
+
+    public function confirm(Request $request, Item $item)
+    {
+        $selectedMethod = $request->input('payment_method');
+
+        return view('purchase_confirm', [
+            'item' => $item,
+            'user' => auth()->user(),
+            'selectedMethod' => $selectedMethod,
+        ]);
+    }
+
 }

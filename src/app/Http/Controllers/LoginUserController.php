@@ -17,7 +17,7 @@ class LoginUserController extends Controller
         if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/'); // ログイン後に商品一覧画面（トップ画面）へ遷移
+            return redirect()->intended('/'); // ログイン後のリダイレクト先(元のページに戻る)
         }
 
         return back()->withErrors([

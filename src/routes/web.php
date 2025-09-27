@@ -19,8 +19,12 @@ Route::get('/item/{item_id}', [ItemController::class, 'showItemDetail'])->name('
 Route::post('/items/{item}/comment', [ItemController::class, 'postComment'])->name('item.comment')->middleware('auth');
 Route::post('/items/{item}/like', [ItemController::class, 'postLike'])->name('item.like')->middleware('auth');
 
-Route::get('/purchase/{item_id}', [PurchaseController::class, 'showPurchaseForm'])->name('purchase.form');
+// 購入手続き画面（ログイン必須）
+Route::get('/purchase/{item_id}', [PurchaseController::class, 'showPurchaseForm'])
+    ->name('purchase.form')
+    ->middleware('auth');
 
+Route::post('/purchase/{item}', [PurchaseController::class, 'confirm'])->name('purchase.confirm');
 
 Route::get('/register', fn () => view('auth.register'))->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
