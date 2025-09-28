@@ -29,25 +29,21 @@ class StripeWebhookController extends Controller
 
         if ($event->type === 'checkout.session.completed') {
             $session = $event->data->object;
-            $item_id = $session->metadata->item_id ?? null;
 
-            if ($item_id) {
-                $item = Item::find($item_id);
-                if ($item && !$item->is_sold) {
-                    $item->is_sold = true;
-                    $item->save();
+            // 事前に作成されたTransactionを取得
+            $transaction = Transaction::where('stripe_checkout_session_id', $session->id)->first();
 
-                    Transaction::create([
-                        'item_id' => $item->id,
-                        'buyer_id' => $session->client_reference_id ?? null,
-                        'seller_id' => $item->user_id,
-                        'status' => 'completed',
-                        'payment_method' => $session->payment_method_types[0],
-                        'stripe_checkout_session_id' => $session->id,
-                        'stripe_payment_intent_id' => $session->payment_intent,
-                        'shipping_address' => '未設定',
-                        'completed_at' => now(),
-                    ]);
+            if ($transaction && !$transaction->completed_at) {
+                $transaction->update([
+                    'status' => 'completed',
+                    'stripe_payment_intent_id' => $session->payment_intent,
+                    'completed_at' => now(),
+                ]);
+
+                // 商品ステータス更新
+                $item = Item::find($transaction->item_id);
+                if ($item && $item->status !== 'sold') {
+                    $item->update(['status' => 'sold']);
                 }
             }
         }

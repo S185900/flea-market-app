@@ -39,73 +39,56 @@ class PurchaseController extends Controller
     public function redirectToStripe(Request $request, Item $item)
     {
         $selectedMethod = $request->input('payment_method');
+        Stripe::setApiKey(config('services.stripe.secret'));
 
-        if ($selectedMethod === 'card') {
-            Stripe::setApiKey(config('services.stripe.secret'));
-
-            $session = \Stripe\Checkout\Session::create([
-                'payment_method_types' => ['card'],
-                'line_items' => [[
-                    'price_data' => [
-                        'currency' => 'jpy',
-                        'product_data' => [
-                            'name' => $item->title,
-                        ],
-                        'unit_amount' => $item->price,
+        $session = \Stripe\Checkout\Session::create([
+            'payment_method_types' => [$selectedMethod === 'card' ? 'card' : 'konbini'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'product_data' => [
+                        'name' => $item->title,
                     ],
-                    'quantity' => 1,
-                ]],
-                'mode' => 'payment',
-
-                // 商品IDをメタデータに含めておくと便利（Stripeセッション作成時に設定）
-                'metadata' => [
-                    'item_id' => $item->id,
+                    'unit_amount' => $item->price,
                 ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'metadata' => [
+                'item_id' => $item->id,
+            ],
+            'payment_method_options' => $selectedMethod === 'convenience' ? [
+                'konbini' => ['expires_after_days' => 3],
+            ] : [],
 
-                'success_url' => route('purchase.success', [], true) . '?session_id={CHECKOUT_SESSION_ID}',
-                'cancel_url' => route('purchase.cancel', [], true),
-            ]);
+            // Stripe完了後に商品一覧へ戻す
+            // 'success_url' => route('purchase.success', [], true) . '?session_id={CHECKOUT_SESSION_ID}',
+            // 'cancel_url' => route('purchase.cancel', [], true),
 
-            return redirect($session->url);
-        } elseif ($selectedMethod === 'convenience') {
-            Stripe::setApiKey(config('services.stripe.secret'));
+            // ngrock使用のため動的にURLを生成
+            'success_url' => url('/purchase/success') . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => url('/purchase/cancel'),
 
-            $session = \Stripe\Checkout\Session::create([
-                'payment_method_types' => ['konbini'],
-                'line_items' => [[
-                    'price_data' => [
-                        'currency' => 'jpy',
-                        'product_data' => [
-                            'name' => $item->title,
-                        ],
-                        'unit_amount' => $item->price,
-                    ],
-                    'quantity' => 1,
-                ]],
-                'mode' => 'payment',
 
-                // 商品IDをメタデータに含めておくと便利（Stripeセッション作成時に設定）
-                'metadata' => [
-                    'item_id' => $item->id,
-                ],
+        ]);
 
-                'payment_method_options' => [
-                    'konbini' => [
-                        'expires_after_days' => 3,
-                    ],
-                ],
-                
-                'success_url' => route('purchase.success', [], true) . '?session_id={CHECKOUT_SESSION_ID}',
-                'cancel_url' => route('purchase.cancel', [], true),
-            ]);
+        // 事前にTransactionを作成（pending）
+        \App\Models\Transaction::create([
+            'item_id' => $item->id,
+            'buyer_id' => auth()->id(),
+            'seller_id' => $item->user_id,
+            'status' => 'pending',
+            'payment_method' => $selectedMethod,
+            'stripe_checkout_session_id' => $session->id,
+            'shipping_address' => auth()->user()->shipping_address,
+            'completed_at' => null,
+        ]);
 
-            return redirect($session->url);
-        } else {
-            return back()->withErrors(['message' => '未対応の支払い方法です']);
-        }
+        return redirect($session->url); // Stripe決済画面へ遷移
     }
 
-    // カード支払い専用（成功時の処理）
+
+    // 購入成功後の処理
     public function handleSuccess(Request $request)
     {
         $session_id = $request->get('session_id');
@@ -117,41 +100,34 @@ class PurchaseController extends Controller
         Stripe::setApiKey(config('services.stripe.secret'));
         $session = StripeSession::retrieve($session_id);
 
-        // カード支払いのみ処理（コンビニはWebhookで処理）
+        // コンビニ支払いはWebhookで処理する
         if ($session->payment_method_types[0] !== 'card') {
             return redirect()->route('items.index')->with('message', '支払い手続きが完了しました');
         }
 
-        $payment_intent_id = $session->payment_intent;
-        $payment_intent = PaymentIntent::retrieve($payment_intent_id);
         $item_id = $session->metadata->item_id ?? null;
 
         if ($item_id) {
             $item = Item::find($item_id);
-            if ($item) {
-                $item->is_sold = true;
-                $item->save();
 
-                \App\Models\Transaction::create([
-                    'item_id' => $item->id,
-                    'buyer_id' => auth()->id(),
-                    'seller_id' => $item->user_id,
+            // すでにTransactionがあるか確認
+            $transaction = \App\Models\Transaction::where('stripe_checkout_session_id', $session_id)->first();
+
+            if ($transaction && !$transaction->completed_at) {
+                $transaction->update([
+                    'stripe_payment_intent_id' => $session->payment_intent,
                     'status' => 'completed',
-                    'payment_method' => 'card',
-                    'stripe_checkout_session_id' => $session_id,
-                    'stripe_payment_intent_id' => $payment_intent_id,
-                    'shipping_address' => auth()->user()->shipping_address,
                     'completed_at' => now(),
                 ]);
+
+                if ($item && $item->status !== 'sold') {
+                    $item->update(['status' => 'sold']);
+                }
             }
         }
 
-        return redirect()->route('items_index')->with('message', '購入が完了しました');
+        return redirect()->route('items.index')->with('message', '購入が完了しました');
     }
-
-
-
-
 
 
 }

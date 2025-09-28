@@ -30,7 +30,7 @@ Route::post('/purchase/{item}', [PurchaseController::class, 'confirm'])->name('p
 Route::post('/purchase/{item}/stripe', [PurchaseController::class, 'redirectToStripe'])->name('purchase.stripe');
 Route::get('/purchase/success', [PurchaseController::class, 'handleSuccess'])->name('purchase.success');
 Route::get('/purchase/cancel', fn () => view('purchase_cancel'))->name('purchase.cancel');
-Route::post('/webhook/stripe', [StripeWebhookController::class, 'handle']);
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
 
 
 
