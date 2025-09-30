@@ -9,6 +9,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\StripeWebhookController;
+use App\Http\Controllers\AddressController;
 
 // 未認証でもアクセス可能な商品一覧ページ(おすすめタブがデフォルトで表示される)
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
@@ -31,6 +32,12 @@ Route::post('/purchase/{item}/stripe', [PurchaseController::class, 'redirectToSt
 Route::get('/purchase/success', [PurchaseController::class, 'handleSuccess'])->name('purchase.success');
 Route::get('/purchase/cancel', fn () => view('purchase_cancel'))->name('purchase.cancel');
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/purchase/address/{item_id}', [AddressController::class, 'showEditAddress'])->name('address.edit');
+    Route::post('/purchase/address/{item_id}', [AddressController::class, 'updateAddress'])->name('address.update');
+});
 
 
 

@@ -16,17 +16,23 @@ class PurchaseController extends Controller
         $item = Item::with('images', 'brand')->findOrFail($item_id);
         $user = Auth::user();
 
+        // セッションから支払い方法を取得
+        $selectedMethod = session('selected_payment_method');
+
         return view('purchase_confirm', [
             'item' => $item,
             'user' => $user,
             'address' => $user->address, // プロフィールに登録済みの住所
-            'selectedMethod' => null, // 初期状態では支払い方法は未選択
+            'selectedMethod' => $selectedMethod, // セッションから取得した支払い方法
         ]);
     }
 
     public function confirm(Request $request, Item $item)
     {
         $selectedMethod = $request->input('payment_method');
+
+        // セッションに保存
+        session(['selected_payment_method' => $selectedMethod]);
 
         return view('purchase_confirm', [
             'item' => $item,
@@ -72,19 +78,22 @@ class PurchaseController extends Controller
 
         ]);
 
-        // 事前にTransactionを作成（pending）
+        // 事前にTransactionを作成（completedとして保存）
         \App\Models\Transaction::create([
             'item_id' => $item->id,
             'buyer_id' => auth()->id(),
             'seller_id' => $item->user_id,
-            'status' => 'pending',
+            'status' => 'completed',
             'payment_method' => $selectedMethod,
             'stripe_checkout_session_id' => $session->id,
             'shipping_address' => auth()->user()->shipping_address,
-            'completed_at' => null,
+            'completed_at' => now(),
         ]);
 
-        return redirect($session->url); // Stripe決済画面へ遷移
+        // 商品ステータス更新
+        $item->update(['status' => 'sold']);
+
+        return redirect($session->url); // Stripe決済画面へ遷移するだけ
     }
 
 

@@ -50,7 +50,7 @@
         <div class="item-section-3">
             <div class="item-section-3__flex">
                 <h3 class="section-title">配送先</h3>
-                <button class="change-address">変更する</button>
+                <a class="change-address" href="{{ route('address.edit', ['item_id' => $item->id]) }}">変更する</a>
             </div>
             <p class="address-info">
                 <span>〒</span>
@@ -80,11 +80,18 @@
             </p>
 
         </section>
-        <form method="POST" action="{{ route('purchase.stripe', ['item' => $item->id]) }}">
+        <form id="purchase-form" method="POST" action="{{ route('purchase.stripe', ['item' => $item->id]) }}" target="_blank">
             @csrf
             <input type="hidden" name="payment_method" value="{{ $selectedMethod }}">
             <button class="purchase-button">購入する</button>
         </form>
+        <script>
+            document.getElementById('purchase-form').addEventListener('submit', function () {
+                setTimeout(function () {
+                    window.location.href = "{{ route('items.index') }}";
+                }, 1000); // 1秒後に商品一覧へ遷移
+            });
+        </script>
     </div>
 
 </div>
