@@ -40,7 +40,7 @@
                             <div class="sold-label">sold</div>
                         endif -->
                         @if ($item->status === 'sold')
-                            <div class="item-status sold">sold</div>
+                            <div class="sold-label">sold</div>
                         @endif
 
                     </div>
