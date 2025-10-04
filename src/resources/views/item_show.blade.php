@@ -132,26 +132,31 @@
             @endforeach
 
 
+            <p class="comment-textarea-title">商品のへコメント</p>
+            <textarea name="comment" class="comment-textarea" required maxlength="255"
+                placeholder="コメントを入力してください">{{ old('comment') }}</textarea>
 
-            <form action="{{ route('item.comment', $item->id) }}" method="POST">
-                @csrf
-                <p class="comment-textarea-title">商品のへコメント</p>
-                <textarea name="comment" class="comment-textarea" required maxlength="255"
-                    placeholder="コメントを入力してください">{{ old('comment') }}</textarea>
+            @error('comment')
+                <p class="error">{{ $message }}</p>
+            @enderror
 
-                @error('comment')
-                    <p class="error">{{ $message }}</p>
-                @enderror
-                <!-- @guest -->
-                    <!-- <p class="login-message">
-                        コメントするにはログインが必要です
-                    </p> -->
-                <!-- @endguest -->
-
-                <button type="submit" class="comment-button" @guest disabled @endguest>
+            @guest
+                <p class="login-message">※コメントするにはログインが必要です</p>
+                <a href="{{ route('login') }}" class="comment-button">
                     コメントを送信する
-                </button>
-            </form>
+                </a>
+            @else
+                <form action="{{ route('item.comment', $item->id) }}" method="POST">
+                @csrf
+                    <button type="submit" class="comment-button">
+                        コメントを送信する
+                    </button>
+                </form>
+            @endguest
+
+            <!-- <button type="submit" class="comment-button" @guest disabled @endguest>
+                コメントを送信する
+            </button> -->
         </div>
 
     </section>

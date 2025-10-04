@@ -51,12 +51,24 @@ Route::get('/email/verified', function () {
     return view('auth.verify-email');
 });
 
-Route::middleware(['auth', 'verified', 'first.login'])->group(function () {
+// メール認証実装の時に復活させる
+// Route::middleware(['auth', 'verified', 'first.login'])->group(function () {
+
+//     // プロフィールのトップ画面（/mypage）
+//     Route::get('/mypage', [ProfileController::class, 'showProfileIndex'])->name('mypage.index');
+
+//     // プロフィール編集画面（/mypage/profile）
+//     Route::get('/mypage/profile', [ProfileController::class, 'showEditProfile'])->name('mypage.profile');
+
+//     Route::get('/sell', [SellController::class, 'showCreateItem'])->name('sell');
+
+// });
+
+// メール認証なしで作業のため
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mypage', [ProfileController::class, 'showProfileIndex'])->name('mypage.index');
     Route::get('/mypage/profile', [ProfileController::class, 'showEditProfile'])->name('mypage.profile');
     Route::get('/sell', [SellController::class, 'showCreateItem'])->name('sell');
-
-    // 出品フォームの送信もログイン必須になる
-    // Route::post('/sell', [SellController::class, 'storeItem']);
 });
 
 

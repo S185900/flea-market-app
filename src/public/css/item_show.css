@@ -354,13 +354,14 @@
 .login-message {
     color: #FF7777;
     font-size: 15px;
-    margin-bottom: 8px;
+    margin-bottom: 20px;
     
 }
 
 .comment-button {
+    display: block;
     margin-top: 30px;
-    width: 100%;
+    width: 95%;
     background: #FF5555;
     font-family: "Inter", sans-serif;
     font-weight: 700;
