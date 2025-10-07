@@ -66,8 +66,18 @@ Route::get('/email/verified', function () {
 
 // メール認証なしで作業のため
 Route::middleware(['auth'])->group(function () {
+
+    // プロフィール画面（一覧・概要）
     Route::get('/mypage', [ProfileController::class, 'showProfileIndex'])->name('mypage.index');
+
+    // プロフィール編集画面（設定）
     Route::get('/mypage/profile', [ProfileController::class, 'showEditProfile'])->name('mypage.profile');
+    Route::patch('/mypage/profile', [ProfileController::class, 'updateProfile'])->name('mypage.profile.update');
+
+    // 初回プロフィール登録画面
+    Route::get('/mypage/create', [ProfileController::class, 'showCreateProfileForm'])->name('mypage.create');
+    Route::post('/mypage/create', [ProfileController::class, 'storeProfile'])->name('mypage.store');
+
     Route::get('/sell', [SellController::class, 'showCreateItem'])->name('sell');
 });
 

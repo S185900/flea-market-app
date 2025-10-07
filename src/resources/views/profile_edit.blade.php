@@ -8,11 +8,16 @@
 @section('content')
 <h2 class="profile-edit-title">プロフィール設定</h2>
 <div class="profile-edit">
-    <form class="profile-edit-form" method="POST" action="{{ route('mypage.profile') }}" novalidate>
+    <form class="profile-edit-form" method="POST" action="{{ route('mypage.profile.update') }}" enctype="multipart/form-data" novalidate>
         @csrf
+        @method('PATCH')
+
+        @php
+            $imagePath = $user->profile_image_url ? asset('storage/' . $user->profile_image_url) : asset('images/default.png');
+        @endphp
 
         <div class="profile-edit-image-area">
-            <div class="profile-edit-image-preview" style="background-image: url('{{ old('image_url') ?? 'default.png' }}');"></div>
+            <div class="profile-edit-image-preview" style="background-image: url('{{ $imagePath }}');"></div>
 
             <label for="image" class="profile-edit-custom-file">
                 画像を選択する
@@ -27,7 +32,7 @@
 
         <div class="profile-edit-item">
             <label for="name" class="profile-edit-label">ユーザー名</label>
-            <input id="name" type="text" class="profile-edit-input @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+            <input id="name" type="text" class="profile-edit-input @error('name') is-invalid @enderror" name="name" value="{{ old('name', $user->name) }}" required autocomplete="name" autofocus>
             @error('name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -37,7 +42,7 @@
 
         <div class="profile-edit-item">
             <label for="postal_code" class="profile-edit-label">郵便番号</label>
-            <input id="postal_code" type="text" class="profile-edit-input @error('postal_code') is-invalid @enderror" name="postal_code" value="{{ old('postal_code') }}" required autocomplete="postal_code">
+            <input id="postal_code" type="text" class="profile-edit-input @error('postal_code') is-invalid @enderror" name="postal_code" value="{{ old('postal_code', $user->postal_code) }}" required autocomplete="postal_code">
             @error('postal_code')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -46,9 +51,9 @@
         </div>
 
         <div class="profile-edit-item">
-            <label for="address" class="profile-edit-label">住所</label>
-            <input id="address" type="text" class="profile-edit-input @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address">
-            @error('address')
+            <label for="shipping_address" class="profile-edit-label">住所</label>
+            <input id="shipping_address" type="text" class="profile-edit-input @error('shipping_address') is-invalid @enderror" name="shipping_address" value="{{ old('shipping_address', $user->shipping_address) }}" required autocomplete="shipping_address">
+            @error('shipping_address')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -57,7 +62,7 @@
 
         <div class="profile-edit-item">
             <label for="building_name" class="profile-edit-label">建物名</label>
-            <input id="building_name" type="text" class="profile-edit-input @error('building_name') is-invalid @enderror" name="building_name" value="{{ old('building_name') }}" required autocomplete="building_name">
+            <input id="building_name" type="text" class="profile-edit-input @error('building_name') is-invalid @enderror" name="building_name" value="{{ old('building_name', $user->building_name) }}" required autocomplete="building_name">
             @error('building_name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

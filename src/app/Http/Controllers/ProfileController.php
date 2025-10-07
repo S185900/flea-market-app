@@ -9,19 +9,16 @@ use App\Models\Transaction;
 
 class ProfileController extends Controller
 {
-
-    // プロフィールのトップ画面（一覧や概要）
+    // プロフィール画面（一覧・概要）
     public function showProfileIndex()
     {
         $user = Auth::user();
 
-        // 出品した商品
         $listedItems = Item::with('images')
             ->where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
 
-        // 購入した商品（transactionsテーブルからbuyer_idで取得）
         $purchasedItems = Item::with('images')
             ->whereIn('id', function ($query) use ($user) {
                 $query->select('item_id')
@@ -39,5 +36,69 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         return view('profile_edit', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'postal_code' => 'required|string|max:20',
+            'shipping_address' => 'required|string|max:255',
+            'building_name' => 'nullable|string|max:255',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        $user->name = $validated['name'];
+        $user->postal_code = $validated['postal_code'];
+        $user->shipping_address = $validated['shipping_address'];
+        $user->building_name = $validated['building_name'] ?? null;
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('profile_images', 'public');
+            $user->profile_image_url = $path;
+        }
+
+        $user->save();
+
+        return redirect()->route('mypage.index');
+
+    }
+
+    // 初回プロフィール登録画面
+    public function showCreateProfileForm()
+    {
+        $user = Auth::user();
+        return view('profile_create', compact('user'));
+    }
+
+    // 初回登録
+    public function storeProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'postal_code' => 'required|string|max:20',
+            'shipping_address' => 'required|string|max:255',
+            'building_name' => 'nullable|string|max:255',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        $user->name = $validated['name'];
+        $user->postal_code = $validated['postal_code'];
+        $user->shipping_address = $validated['shipping_address'];
+        $user->building_name = $validated['building_name'] ?? null;
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('profile_images', 'public');
+            $user->profile_image_url = $path;
+        }
+
+        $user->profile_completed = true;
+        $user->save();
+
+        return redirect()->route('mypage.index');
     }
 }
