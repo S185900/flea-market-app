@@ -180,6 +180,18 @@
     justify-content: space-between;
 }
 
+.summary-item {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-style: regular;
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    text-align: left;
+    color: #000000;
+    margin-bottom: 7px;
+}
+
 .purchase-button {
     width: 100%;
     padding: 20px;
@@ -195,4 +207,53 @@
     letter-spacing: 0%;
     text-align: center;
     color: #FFFFFF;
+}
+
+/* PCサイズ（1400〜1540px）対応 */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    
+}
+
+/* タブレットサイズ（768〜850px）対応 */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .product-title {
+        font-size: 27px;
+    }
+
+    .product-price {
+        font-size: 24px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .payment-method-select {
+        max-width: 250px;
+        height: 35px;
+        font-size: 16px;
+        padding: 8px 35px 8px 8px;
+        background-position: right 8px center;
+        background-size: 10px 6px;
+    }
+
+    .change-address {
+        font-size: 15px;
+        padding-right: 10px;
+    }
+
+    .address-info {
+        font-size: 16px;
+    }
+
+    .summary-item {
+        font-size: 16px;
+        line-height: 120%;
+    }
+
+    .purchase-button {
+        font-size: 18px;
+        padding: 15px;
+    }
+
 }

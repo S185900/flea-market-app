@@ -64,9 +64,9 @@
 
     <div class="purchase_confirm__payment-method-section">
         <section class="summary">
-            <p>商品代金: ¥{{ number_format($item->price) }}</p>
+            <p class="summary-item">商品代金: ¥{{ number_format($item->price) }}</p>
 
-            <p>支払い方法: 
+            <p class="summary-item">支払い方法: 
                 @switch($selectedMethod)
                     @case('card')
                         カード支払い
