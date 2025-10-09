@@ -60,7 +60,7 @@
 
                     <!-- ログイン前(ログイン状態に関係なく表示するリンク) -->
                     <li class="header-navigation-item">
-                        <a href="{{ auth()->check() ? route('mypage.profile') : route('login') }}" class="header-navigation-link">マイページ</a>
+                        <a href="{{ auth()->check() ? route('mypage.index') : route('login') }}" class="header-navigation-link">マイページ</a>
                     </li>
                     <li class="header-navigation-item">
                         <a href="{{ auth()->check() ? route('sell') : route('login') }}" class="header-navigation-link header-navigation-button">出品</a>

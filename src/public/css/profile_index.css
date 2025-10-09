@@ -2,11 +2,26 @@
     width: 100%;
 
 }
+
 .profile-header {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 中央揃えに変更 */
+    gap: 40px;
+    /* 要素間の余白を広めに */
+}
+
+.profile-info {
     display: flex;
     align-items: center;
     gap: 20px;
-    padding: 20px 40px;
+    flex-shrink: 0;
 }
 
 .profile-image {
@@ -21,12 +36,25 @@
     border: 1px solid #ccc;
     aspect-ratio: 1 / 1;
     /* 幅と高さの比率を固定する */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.profile-edit-title {
-    margin-left: 20px;
+.user-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+.user-name {
+    flex: 1 1 auto;
+    min-width: 180px;
     padding: 15px 20px;
     width: 180px;
+    white-space: nowrap;
     background-color: #FFFFFF;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -37,14 +65,17 @@
     font-size: 36px;
     line-height: 100%;
     letter-spacing: 0%;
-    text-align: center;
+    text-align: left;
     color: #000000;
 }
 
+.profile-edit-link {
+    flex-shrink: 0;
+}
+
 .btn-edit-profile {
-    margin-left: 20px;
-    padding: 15px 20px;
-    width: 180px;
+    width: auto;
+    padding: 12px 24px;
     border: 2px solid #FF5555;
     border-radius: 10px;
     background-color: #FFFFFF;
@@ -59,9 +90,8 @@
     letter-spacing: 0%;
     text-align: center;
     color: #FF5555;
+    cursor: pointer;
 }
-
-
 
 
 
@@ -257,6 +287,41 @@
 
 /* タブレットサイズ（768〜850px）対応 */
 @media screen and (min-width: 768px) and (max-width: 850px) {
+    .profile-header {
+        flex-wrap: wrap;
+        /* 折り返しを許可 */
+        justify-content: center;
+        gap: 20px;
+        /* 要素間の余白を広げる */
+    }
+
+    .profile-image {
+        width: 120px;
+        height: 120px;
+    }
+
+    .user-name {
+        font-size: 25px;
+        padding: 10px 15px;
+        width: auto;
+        min-width: 150px;
+        text-align: left;
+    }
+
+    .profile-edit-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .btn-edit-profile {
+        width: 100%;
+        font-size: 15px;
+        padding: 10px 10px;
+        margin-right: 13px;
+    }
+
     .items-index {
         width: 100%;
         padding: 20px 20px 0 20px;

@@ -10,23 +10,42 @@ use App\Models\Transaction;
 class ProfileController extends Controller
 {
     // プロフィール画面（一覧・概要）
-    public function showProfileIndex()
+    public function showProfileIndex(Request $request)
     {
         $user = Auth::user();
+        $listedItems = collect();
+        $purchasedItems = collect();
 
-        $listedItems = Item::with('images')
-            ->where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        if ($request->get('page') === 'sell') {
+            $listedItems = Item::with('images')
+                ->where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } elseif ($request->get('page') === 'buy') {
+            $purchasedItems = Item::with('images')
+                ->whereIn('id', function ($query) use ($user) {
+                    $query->select('item_id')
+                        ->from('transactions')
+                        ->where('buyer_id', $user->id);
+                })
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } else {
+            // 両方表示
+            $listedItems = Item::with('images')
+                ->where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
 
-        $purchasedItems = Item::with('images')
-            ->whereIn('id', function ($query) use ($user) {
-                $query->select('item_id')
-                    ->from('transactions')
-                    ->where('buyer_id', $user->id);
-            })
-            ->orderBy('created_at', 'desc')
-            ->get();
+            $purchasedItems = Item::with('images')
+                ->whereIn('id', function ($query) use ($user) {
+                    $query->select('item_id')
+                        ->from('transactions')
+                        ->where('buyer_id', $user->id);
+                })
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
 
         return view('profile_index', compact('user', 'listedItems', 'purchasedItems'));
     }
@@ -101,4 +120,7 @@ class ProfileController extends Controller
 
         return redirect()->route('mypage.index');
     }
+
+    
+
 }
