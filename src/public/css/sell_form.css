@@ -62,6 +62,10 @@
 }
 
 .profile-edit-custom-file {
+    position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     margin-left: 20px;
     padding: 15px 20px;
     width: 180px;
@@ -104,7 +108,7 @@
 
 .sell-form-label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     margin-top: 20px;
     font-family: "Inter", sans-serif;
     font-weight: 700;
@@ -116,20 +120,87 @@
     color: #000000;
 }
 
-.sell-form-input-1 {
+.category-checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.category-checkbox {
+    display: none;
+}
+
+.category-label {
+    padding: 4px 16px;
+    margin: 8px 3px;
+    border: 2px solid #FF5555;
+    background-color: #fff;
+    color: #FF5555;
+    font-size: 14px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    user-select: none;
+}
+
+.category-checkbox:checked+.category-label {
+    background-color: #FF5555;
+    color: #fff;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* セレクトボックスのカスタムスタイル */
+.sell-form-input-2 {
     width: 100%;
     height: 60px;
+    padding: 10px 40px 10px 10px; /* 右側に余白を追加 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    appearance: none; /* デフォルトの矢印を非表示 */
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px 8px;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    color: #000;
+    cursor: pointer;
+}
+
+
+.sell-form-input-1 {
+    width: 100%;
+    height: 160px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
+
+
+/* セレクトボックスのカスタムスタイル */
 .sell-form-input-2 {
     width: 100%;
     height: 60px;
-    padding: 10px;
+    padding: 10px 40px 10px 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    appearance: none;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='10' viewBox='0 0 12 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='6,7 1,2 11,2' fill='%23000'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px 12px;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    color: #000;
+    cursor: pointer;
 }
 
 .sell-form-input-3 {
@@ -138,6 +209,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-weight: 700;
 }
 
 .sell-form-input-3 {
