@@ -12,12 +12,15 @@
         @csrf
         @method('PATCH')
 
-        @php
-            $imagePath = $user->profile_image_url ? asset('storage/' . $user->profile_image_url) : asset('images/default.png');
-        @endphp
 
         <div class="profile-edit-image-area">
-            <div class="profile-edit-image-preview" style="background-image: url('{{ $imagePath }}');"></div>
+            <div class="profile-edit-image-preview">
+                @if ($user->profile_image_url)
+                    <img src="{{ $user->profile_image_url }}" alt="プロフィール画像" class="user-icon" />
+                @else
+                    <img src="{{ asset('images/default-icon.png') }}" alt="プロフィール画像" class="user-icon" />
+                @endif
+            </div>
 
             <label for="image" class="profile-edit-custom-file">
                 画像を選択する

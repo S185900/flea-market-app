@@ -35,6 +35,14 @@
     /* 幅と高さの比率を固定する */
 }
 
+.user-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
 .profile-edit-input__file {
     display: none;
         /* デフォルトのボタンを非表示に */
@@ -125,3 +133,26 @@
     background-color: #c74040;
 }
 
+/* PCサイズ（1400〜1540px）対応 */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+
+}
+
+/* タブレットサイズ（768〜850px）対応 */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .profile-edit-image-area {
+        gap: 10px;
+    }
+    .profile-edit-label {
+        font-size: 20px;
+    }
+    .profile-edit-input {
+        height: 50px;
+        font-size: 16px;
+    }
+    .profile-edit-button {
+        font-size: 22px;
+        padding: 15px;
+    }
+
+}

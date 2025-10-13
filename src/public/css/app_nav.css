@@ -134,6 +134,7 @@ i {
     letter-spacing: 0%;
     text-align: center;
     color: #FFFFFF;
+    cursor: pointer;
 }
 
 .header-navigation-link:hover {
