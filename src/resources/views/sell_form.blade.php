@@ -8,35 +8,30 @@
 @section('content')
 <h2 class="sell-form-title">商品の出品</h2>
 <div class="sell-form">
-    <form class="sell-form" method="POST" action="{{ route('mypage.profile') }}" novalidate>
+    <form class="sell-form" method="POST" action="{{ route('sell.store') }}" enctype="multipart/form-data" novalidate>
         @csrf
 
+        <!-- 商品画像 -->
         <div class="profile-edit-image-area">
-            <label for="name" class="sell-form-label">商品画像</label>
+            <label for="image" class="sell-form-label">商品画像</label>
             <div class="input-wrapper">
-                <input id="name" type="text" class="sell-form-input-1 @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                <!-- 装飾用 -->
+                <input type="text" class="sell-form-input-1" value="" readonly>
 
                 <label for="image" class="profile-edit-custom-file">画像を選択する</label>
                 <input id="image" type="file" class="profile-edit-input__file @error('image') is-invalid @enderror" name="image" accept="image/*">
-            </div>
 
-            @error('name')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-            @error('image')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
+            </div>
         </div>
 
 
+        <!-- 商品の詳細 -->
         <div class="sell-form-detail-label">
             <h3 class="sell-form-detail-title">商品の詳細</h3>
         </div>
 
+        <!-- カテゴリー -->
         <div class="sell-form-item">
             <label class="sell-form-label">カテゴリー</label>
             <div class="category-checkbox-group">
@@ -51,7 +46,7 @@
             </div>
         </div>
 
-
+        <!-- 商品の状態 -->
         <div class="sell-form-item">
             <label for="condition" class="sell-form-label">商品の状態</label>
             <select id="condition" name="condition" class="sell-form-input-2 @error('condition') is-invalid @enderror" required>
@@ -63,12 +58,12 @@
             </select>
         </div>
 
-
-
+        <!-- 商品名と説明 -->
         <div class="sell-form-detail-label">
             <h3 class="sell-form-detail-title">商品名と説明</h3>
         </div>
 
+        <!-- 商品名 -->
         <div class="sell-form-item">
             <label for="address" class="sell-form-label">商品名</label>
             <input id="address" type="text" class="sell-form-input-3 @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address">
@@ -79,19 +74,21 @@
             @enderror
         </div>
 
+        <!-- ブランド名 -->
         <div class="sell-form-item">
-            <label for="building_name" class="sell-form-label">ブランド名</label>
-            <input id="building_name" type="text" class="sell-form-input-3 @error('building_name') is-invalid @enderror" name="building_name" value="{{ old('building_name') }}" required autocomplete="building_name">
-            @error('building_name')
+            <label for="brand_name" class="sell-form-label">ブランド名</label>
+            <input id="brand_name" type="text" class="sell-form-input-3 @error('brand_name') is-invalid @enderror" name="brand_name" value="{{ old('brand_name') }}" required>
+            @error('brand_name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
         </div>
 
+        <!-- 商品説明 -->
         <div class="sell-form-item">
             <label for="description" class="sell-form-label">商品の説明</label>
-            <input id="description" type="text" class="sell-form-input-4 @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required autocomplete="description">
+            <textarea id="description" class="sell-form-input-4 @error('description') is-invalid @enderror" name="description" required>{{ old('description') }}</textarea>
             @error('description')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -99,9 +96,10 @@
             @enderror
         </div>
 
+        <!-- 販売価格 -->
         <div class="sell-form-item">
             <label for="price" class="sell-form-label">販売価格</label>
-            <input id="price" type="text" class="sell-form-input-3 @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required autocomplete="price" placeholder="¥">
+            <input id="price" type="number" class="sell-form-input-3 @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required placeholder="¥">
             @error('price')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -109,6 +107,7 @@
             @enderror
         </div>
 
+        <!-- 出品ボタン -->
         <div class="sell-form-item">
             <button class="profile-edit-button" type="submit">
                 出品する

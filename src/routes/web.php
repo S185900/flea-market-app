@@ -78,8 +78,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mypage/create', [ProfileController::class, 'showCreateProfileForm'])->name('mypage.create');
     Route::post('/mypage/create', [ProfileController::class, 'storeProfile'])->name('mypage.store');
 
-    // 出品画面
+    // 出品画面表示
     Route::get('/sell', [SellController::class, 'showCreateItem'])->name('sell');
+
+    // 出品処理
+    Route::post('/sell', [SellController::class, 'storeItem'])->name('sell.store');
 });
 
 
