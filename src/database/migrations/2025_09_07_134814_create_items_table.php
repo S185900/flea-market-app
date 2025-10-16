@@ -15,12 +15,28 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade')->comment('出品者');
-            $table->string('title')->comment('商品名');
-            $table->foreignId('brand_id')->nullable()->constrained('brands')->onDelete('set null');
-            $table->text('description')->comment('商品説明');
+            $table->foreignId('user_id')
+                ->constrained()
+                ->onDelete('cascade')
+                ->comment('出品者');
+
+            $table->string('title')
+                ->comment('商品名');
+
+            $table->foreignId('brand_id')
+                ->nullable()
+                ->constrained('brands')
+                ->onDelete('set null');
+
+            $table->text('description')
+                ->comment('商品説明');
+
             $table->integer('price');
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+
+            $table->foreignId('category_id')
+                ->nullable()
+                ->constrained('categories')
+                ->onDelete('cascade');
 
             // likes_count 、comments_count カラムは後で削除予定かな
             $table->integer('likes_count')->default(0)->comment('いいね数');

@@ -22,20 +22,20 @@ class Item extends Model
         'status',
     ];
 
-    const CONDITION_GOOD = 1;
-    const CONDITION_NO_NOTICEABLE_DAMAGE = 2;
-    const CONDITION_SOME_DAMAGE = 3;
-    const CONDITION_BAD = 4;
+    // const CONDITION_GOOD = 1;
+    // const CONDITION_NO_NOTICEABLE_DAMAGE = 2;
+    // const CONDITION_SOME_DAMAGE = 3;
+    // const CONDITION_BAD = 4;
 
-    public static function conditionLabels()
-    {
-        return [
-            self::CONDITION_GOOD => '良好',
-            self::CONDITION_NO_NOTICEABLE_DAMAGE => '目立った傷や汚れなし',
-            self::CONDITION_SOME_DAMAGE => 'やや傷や汚れあり',
-            self::CONDITION_BAD => '状態が悪い',
-        ];
-    }
+    // public static function conditionLabels()
+    // {
+    //     return [
+    //         self::CONDITION_GOOD => '良好',
+    //         self::CONDITION_NO_NOTICEABLE_DAMAGE => '目立った傷や汚れなし',
+    //         self::CONDITION_SOME_DAMAGE => 'やや傷や汚れあり',
+    //         self::CONDITION_BAD => '状態が悪い',
+    //     ];
+    // }
 
     const STATUS_AVAILABLE = 'available';
     const STATUS_SOLD = 'sold';
@@ -50,7 +50,7 @@ class Item extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'category_items');
     }
 
     public function images() {
@@ -86,7 +86,4 @@ class Item extends Model
         };
     }
 
-    
-
-    
 }

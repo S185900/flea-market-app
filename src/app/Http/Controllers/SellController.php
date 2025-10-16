@@ -24,14 +24,17 @@ class SellController extends Controller
         // バリデーション済みのデータ取得
         $validated = $request->validated();
 
-        // ブランド登録または取得
-        $brand = Brand::firstOrCreate(['brand_name' => $validated['brand_name']]);
+        // ブランド登録または取得（任意項目なので条件分岐）
+        $brand = null;
+        if (!empty($validated['brand_name'])) {
+            $brand = Brand::firstOrCreate(['brand_name' => $validated['brand_name']]);
+        }
 
         // 商品登録
         $item = Item::create([
             'user_id' => Auth::id(),
             'title' => $validated['address'],
-            'brand_id' => $brand->id,
+            'brand_id' => $brand ? $brand->id : null,
             'description' => $validated['description'],
             'price' => $validated['price'],
             'condition' => $validated['condition'],
@@ -49,10 +52,14 @@ class SellController extends Controller
 
         // 画像保存
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('public/item_images');
+
+            // 画像を保存（storage/app/public/product_images）
+            $path = $request->file('image')->store('product_images', 'public');
+
+            // DBに保存
             ItemImage::create([
                 'item_id' => $item->id,
-                'image_path' => Storage::url($path),
+                'image_path' => $path, // Storage::url($path) にするとURL形式になる
             ]);
         }
 

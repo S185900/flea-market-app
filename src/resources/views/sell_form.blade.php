@@ -14,6 +14,7 @@
         <!-- 商品画像 -->
         <div class="profile-edit-image-area">
             <label for="image" class="sell-form-label">商品画像</label>
+
             <div class="input-wrapper">
 
                 <!-- 装飾用 -->
@@ -21,6 +22,12 @@
 
                 <label for="image" class="profile-edit-custom-file">画像を選択する</label>
                 <input id="image" type="file" class="profile-edit-input__file @error('image') is-invalid @enderror" name="image" accept="image/*">
+
+                @error('image')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
 
             </div>
         </div>
