@@ -19,37 +19,44 @@ class PurchaseController extends Controller
 
         $selectedMethod = session('selected_payment_method');
 
+        $fullAddress = "{$user->postal_code} {$user->shipping_address} {$user->building_name}";
+
         return view('purchase_confirm', [
             'item' => $item,
             'user' => $user,
-            'address' => $user->shipping_address,
+            'fullAddress' => $fullAddress,
             'selectedMethod' => $selectedMethod,
         ]);
     }
 
     public function confirm(Request $request, Item $item)
     {
+        // dd($request->all());
         $selectedMethod = $request->input('payment_method');
-        $shippingAddress = $request->input('shipping_address');
 
-        // 変更：支払い方法と配送先をセッションに保存
+        // 支払い方法と配送先をセッションに保存
         session([
             'selected_payment_method' => $selectedMethod,
-            'shipping_address' => $shippingAddress,
         ]);
+
+        $user = auth()->user();
+        $fullAddress = "{$user->postal_code} {$user->shipping_address} {$user->building_name}";
 
         return view('purchase_confirm', [
             'item' => $item,
-            'user' => auth()->user(),
+            'user' => $user,
             'selectedMethod' => $selectedMethod,
-            'address' => $shippingAddress,
+            'fullAddress' => $fullAddress,
         ]);
     }
 
     public function redirectToStripe(PurchaseRequest $request, Item $item)
     {
+        // dd($request->all());
         $selectedMethod = $request->input('payment_method');
-        $shippingAddress = $request->input('shipping_address');
+
+        $user = auth()->user();
+        $fullAddress = "{$user->postal_code} {$user->shipping_address} {$user->building_name}";
 
         Stripe::setApiKey(config('services.stripe.secret'));
 
@@ -72,35 +79,29 @@ class PurchaseController extends Controller
             'payment_method_options' => $selectedMethod === 'convenience' ? [
                 'konbini' => ['expires_after_days' => 3],
             ] : [],
-
-            // Stripe完了後に商品一覧へ戻す
-            // 'success_url' => route('purchase.success', [], true) . '?session_id={CHECKOUT_SESSION_ID}',
-            // 'cancel_url' => route('purchase.cancel', [], true),
-
-            // ngrock使用のため動的にURLを生成
             'success_url' => url('/purchase/success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => url('/purchase/cancel'),
-
-
         ]);
 
-        // 事前にTransactionを作成（completedとして保存）
         \App\Models\Transaction::create([
             'item_id' => $item->id,
-            'buyer_id' => auth()->id(),
+            'buyer_id' => $user->id,
             'seller_id' => $item->user_id,
             'status' => 'completed',
             'payment_method' => $selectedMethod,
             'stripe_checkout_session_id' => $session->id,
-            'shipping_address' => $shippingAddress,
+            'shipping_address' => $fullAddress,
             'completed_at' => now(),
         ]);
 
-        // 商品ステータス更新
         $item->update(['status' => 'sold']);
 
-        return redirect($session->url); // Stripe決済画面へ遷移するだけ
+        return response()->json([
+            'checkout_url' => $session->url,
+        ]);
     }
+
+
 
 
     // 購入成功後の処理
@@ -143,6 +144,7 @@ class PurchaseController extends Controller
 
         return redirect()->route('items.index')->with('message', '購入が完了しました');
     }
+
 
 
 }

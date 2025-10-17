@@ -48,6 +48,7 @@
                         <strong class="error-message">{{ $message }}</strong>
                     </span>
                 @enderror
+                <div class="error-message-java" id="error-messages"></div>
 
             </div>
         </form>
@@ -88,21 +89,74 @@
                     <strong class="error-message">{{ $message }}</strong>
                 </span>
             @enderror
+            <div class="error-message-java" id="error-messages" style="color: red; margin-bottom: 1em;"></div>
+            <!-- <span class="error-message-java" role="alert">
+                    <div id="error-message-java"></div>
+            </span> -->
 
 
         </section>
-        <form id="purchase-form" method="POST" action="{{ route('purchase.stripe', ['item' => $item->id]) }}" target="_blank">
+        <form id="purchase-form">
             @csrf
-            <input type="hidden" name="payment_method" value="{{ $selectedMethod }}">
-            <button class="purchase-button">購入する</button>
+            @if($selectedMethod)
+                <input type="hidden" name="payment_method" value="{{ $selectedMethod }}">
+            @endif
+            <input type="hidden" name="shipping_address" value="{{ $fullAddress }}">
+            <button type="submit" class="purchase-button">購入する</button>
         </form>
+
         <script>
-            document.getElementById('purchase-form').addEventListener('submit', function () {
-                setTimeout(function () {
+        document.getElementById('purchase-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const errorContainer = document.getElementById('error-messages');
+            errorContainer.innerHTML = ''; // 前のエラーをクリア
+
+            fetch("{{ route('purchase.prepare', ['item' => $item]) }}", {
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': formData.get('_token'),
+                    'Accept': 'application/json',
+                },
+                body: formData
+            })
+            .then(async response => {
+                if (response.status === 422) {
+                    const data = await response.json();
+                    const errors = data.errors;
+
+                    let messages = '';
+                    for (const field in errors) {
+                        messages += `<p>${errors[field].join('<br>')}</p>`;
+                    }
+                    errorContainer.innerHTML = messages;
+                } else if (response.ok) {
+                    const data = await response.json();
+                    if (data.checkout_url) {
+                        window.open(data.checkout_url, '_blank');
+                        window.location.href = "{{ route('items.index') }}";
+                    }
+                } else {
+                    errorContainer.innerHTML = '<p>サーバーエラーが発生しました。</p>';
+                }
+            })
+            .then(data => {
+                if (data.checkout_url) {
+                    window.open(data.checkout_url, '_blank');
                     window.location.href = "{{ route('items.index') }}";
-                }, 1000); // 1秒後に商品一覧へ遷移
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                errorContainer.innerHTML = '<p  class="error-message-java">支払い方法を選択してください</p>';
             });
+        });
         </script>
+
+        <!-- {{-- デバッグ用に表示してみる --}} -->
+        <!-- <p>支払い方法: {{ $selectedMethod }}</p>
+        <p>配送先住所: {{ $fullAddress }}</p> -->
     </div>
 
 </div>

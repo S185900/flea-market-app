@@ -220,6 +220,14 @@
     margin-top: 10px;
 }
 
+.error-message-java {
+    font-size: 16px;
+    font-weight: bold;
+    color: #FF5555;
+    margin-top: 7px;
+    margin-left: 35px;
+}
+
 /* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
     
