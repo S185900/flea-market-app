@@ -26,9 +26,10 @@
                 画像を選択する
             </label>
             <input id="image" type="file" class="profile-edit-input__file @error('image') is-invalid @enderror" name="image" accept="image/*">
+
             @error('image')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong class="error-message">{{ $message }}</strong>
                 </span>
             @enderror
         </div>
@@ -36,9 +37,10 @@
         <div class="profile-edit-item">
             <label for="name" class="profile-edit-label">ユーザー名</label>
             <input id="name" type="text" class="profile-edit-input @error('name') is-invalid @enderror" name="name" value="{{ old('name', $user->name) }}" required autocomplete="name" autofocus>
+
             @error('name')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong class="error-message">{{ $message }}</strong>
                 </span>
             @enderror
         </div>
@@ -46,9 +48,10 @@
         <div class="profile-edit-item">
             <label for="postal_code" class="profile-edit-label">郵便番号</label>
             <input id="postal_code" type="text" class="profile-edit-input @error('postal_code') is-invalid @enderror" name="postal_code" value="{{ old('postal_code', $user->postal_code) }}" required autocomplete="postal_code">
+
             @error('postal_code')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong class="error-message">{{ $message }}</strong>
                 </span>
             @enderror
         </div>
@@ -56,9 +59,10 @@
         <div class="profile-edit-item">
             <label for="shipping_address" class="profile-edit-label">住所</label>
             <input id="shipping_address" type="text" class="profile-edit-input @error('shipping_address') is-invalid @enderror" name="shipping_address" value="{{ old('shipping_address', $user->shipping_address) }}" required autocomplete="shipping_address">
+
             @error('shipping_address')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong class="error-message">{{ $message }}</strong>
                 </span>
             @enderror
         </div>
@@ -66,9 +70,10 @@
         <div class="profile-edit-item">
             <label for="building_name" class="profile-edit-label">建物名</label>
             <input id="building_name" type="text" class="profile-edit-input @error('building_name') is-invalid @enderror" name="building_name" value="{{ old('building_name', $user->building_name) }}" required autocomplete="building_name">
+
             @error('building_name')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong class="error-message">{{ $message }}</strong>
                 </span>
             @enderror
         </div>

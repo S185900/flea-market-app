@@ -13,7 +13,7 @@
             @if ($user->profile_image_url)
                 <img src="{{ $user->profile_image_url }}" alt="プロフィール画像" class="user-icon" />
             @else
-                <img src="{{ asset('images/default-icon.png') }}" alt="プロフィール画像" class="user-icon" />
+                <img src="{{ 'default-icon.png' }}" alt="プロフィール画像" class="user-icon" />
             @endif
         </div>
     </div>
@@ -45,7 +45,8 @@
                                     @else
                                         <div class="item-image__fallback">商品画像</div>
                                     @endif
-                                    @if ($item->status === 'sold')
+                                    <!-- sold表示は要件にないため非表示 -->
+                                    @if ($item->status === 'sold' && $page !== 'buy')
                                         <div class="sold-label">sold</div>
                                     @endif
                                 </div>

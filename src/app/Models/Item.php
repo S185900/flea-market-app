@@ -77,11 +77,11 @@ class Item extends Model
     public function getConditionLabelAttribute()
     {
         return match($this->condition) {
-            1 => '新品',
-            2 => '未使用に近い',
-            3 => '良好',
-            4 => 'やや傷や汚れあり',
-            5 => '傷や汚れあり',
+            1 => '良好',
+            2 => '目立った傷や汚れなし',
+            3 => 'やや傷や汚れあり',
+            4 => '傷や汚れあり',
+            5 => '状態が悪い',
             default => '不明',
         };
     }

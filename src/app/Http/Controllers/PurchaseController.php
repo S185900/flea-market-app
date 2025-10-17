@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
 use Stripe\Checkout\Session as StripeSession;
 use Stripe\PaymentIntent;
+use App\Http\Requests\PurchaseRequest;
 
 class PurchaseController extends Controller
 {
@@ -16,35 +17,40 @@ class PurchaseController extends Controller
         $item = Item::with('images', 'brand')->findOrFail($item_id);
         $user = Auth::user();
 
-        // セッションから支払い方法を取得
         $selectedMethod = session('selected_payment_method');
 
         return view('purchase_confirm', [
             'item' => $item,
             'user' => $user,
-            'address' => $user->address, // プロフィールに登録済みの住所
-            'selectedMethod' => $selectedMethod, // セッションから取得した支払い方法
+            'address' => $user->shipping_address,
+            'selectedMethod' => $selectedMethod,
         ]);
     }
 
     public function confirm(Request $request, Item $item)
     {
         $selectedMethod = $request->input('payment_method');
+        $shippingAddress = $request->input('shipping_address');
 
-        // セッションに保存
-        session(['selected_payment_method' => $selectedMethod]);
+        // 変更：支払い方法と配送先をセッションに保存
+        session([
+            'selected_payment_method' => $selectedMethod,
+            'shipping_address' => $shippingAddress,
+        ]);
 
         return view('purchase_confirm', [
             'item' => $item,
             'user' => auth()->user(),
             'selectedMethod' => $selectedMethod,
+            'address' => $shippingAddress,
         ]);
     }
 
-
-    public function redirectToStripe(Request $request, Item $item)
+    public function redirectToStripe(PurchaseRequest $request, Item $item)
     {
         $selectedMethod = $request->input('payment_method');
+        $shippingAddress = $request->input('shipping_address');
+
         Stripe::setApiKey(config('services.stripe.secret'));
 
         $session = \Stripe\Checkout\Session::create([
@@ -86,7 +92,7 @@ class PurchaseController extends Controller
             'status' => 'completed',
             'payment_method' => $selectedMethod,
             'stripe_checkout_session_id' => $session->id,
-            'shipping_address' => auth()->user()->shipping_address,
+            'shipping_address' => $shippingAddress,
             'completed_at' => now(),
         ]);
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AddressRequest;
 
 class AddressController extends Controller
 {
@@ -24,15 +25,10 @@ class AddressController extends Controller
         ]);
     }
 
-    public function updateAddress(Request $request, $item_id)
+    public function updateAddress(AddressRequest $request, $item_id)
     {
-        $request->validate([
-            'postal_code' => 'required|string|max:10',
-            'address' => 'required|string|max:255',
-            'building_name' => 'nullable|string|max:255',
-        ]);
-
         $user = Auth::user();
+
         $user->update([
             'postal_code' => $request->postal_code,
             'shipping_address' => $request->address,
@@ -40,7 +36,7 @@ class AddressController extends Controller
         ]);
 
         return redirect()->route('purchase.form', ['item_id' => $item_id])
-                        ->with('message', '住所を更新しました');
+                         ->with('message', '住所を更新しました');
     }
 
 }

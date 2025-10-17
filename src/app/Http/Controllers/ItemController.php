@@ -57,8 +57,12 @@ class ItemController extends Controller
             'transaction',
             'brand',
             'categories',
-            'comments.user',
-            'likes'
+            'likes',
+            // コメントを新しい順で取得
+            'comments' => function ($query) {
+                $query->orderBy('created_at', 'desc');
+            },
+            'comments.user'
         ])->findOrFail($item_id);
 
         // dd($item->brand_id, $item->brand);

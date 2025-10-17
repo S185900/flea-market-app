@@ -133,6 +133,13 @@
     background-color: #c74040;
 }
 
+.error-message {
+    display: block;
+    margin-top: 5px;
+    color: #FF5555;
+    font-size: 14px;
+}
+
 /* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
 

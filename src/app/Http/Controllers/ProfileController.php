@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Transaction;
+use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
@@ -19,7 +20,7 @@ class ProfileController extends Controller
         if ($request->get('page') === 'sell') {
             $listedItems = Item::with('images')
                 ->where('user_id', $user->id)
-                ->orderBy('created_at', 'desc')
+                ->orderBy('created_at', 'desc') // ← ここで並び順を指定
                 ->get();
         } elseif ($request->get('page') === 'buy') {
             $purchasedItems = Item::with('images')
@@ -47,7 +48,9 @@ class ProfileController extends Controller
                 ->get();
         }
 
-        return view('profile_index', compact('user', 'listedItems', 'purchasedItems'));
+        $page = $request->get('page');
+
+        return view('profile_index', compact('user', 'listedItems', 'purchasedItems', 'page'));
     }
 
     // プロフィール編集画面（設定）
@@ -57,22 +60,14 @@ class ProfileController extends Controller
         return view('profile_edit', compact('user'));
     }
 
-    public function updateProfile(Request $request)
+    public function updateProfile(ProfileRequest $request)
     {
         $user = Auth::user();
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:20',
-            'shipping_address' => 'required|string|max:255',
-            'building_name' => 'nullable|string|max:255',
-            'image' => 'nullable|image|max:2048',
-        ]);
-
-        $user->name = $validated['name'];
-        $user->postal_code = $validated['postal_code'];
-        $user->shipping_address = $validated['shipping_address'];
-        $user->building_name = $validated['building_name'] ?? null;
+        $user->name = $request->name;
+        $user->postal_code = $request->postal_code;
+        $user->shipping_address = $request->shipping_address;
+        $user->building_name = $request->building_name ?? null;
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('profile_images', 'public');
@@ -93,22 +88,14 @@ class ProfileController extends Controller
     }
 
     // 初回登録
-    public function storeProfile(Request $request)
+    public function storeProfile(ProfileRequest $request)
     {
         $user = Auth::user();
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:20',
-            'shipping_address' => 'required|string|max:255',
-            'building_name' => 'nullable|string|max:255',
-            'image' => 'nullable|image|max:2048',
-        ]);
-
-        $user->name = $validated['name'];
-        $user->postal_code = $validated['postal_code'];
-        $user->shipping_address = $validated['shipping_address'];
-        $user->building_name = $validated['building_name'] ?? null;
+        $user->name = $request->name;
+        $user->postal_code = $request->postal_code;
+        $user->shipping_address = $request->shipping_address;
+        $user->building_name = $request->building_name ?? null;
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('profile_images', 'public');
@@ -120,7 +107,5 @@ class ProfileController extends Controller
 
         return redirect()->route('mypage.index');
     }
-
-    
 
 }

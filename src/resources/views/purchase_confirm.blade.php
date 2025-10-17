@@ -43,6 +43,11 @@
                     <option value="convenience" {{ ($selectedMethod ?? '') === 'convenience' ? 'selected' : '' }}>コンビニ支払い</option>
                     <option value="card" {{ ($selectedMethod ?? '') === 'card' ? 'selected' : '' }}>カード支払い</option>
                 </select>
+                @error('payment_method')
+                    <span class="invalid-feedback-1" role="alert">
+                        <strong class="error-message">{{ $message }}</strong>
+                    </span>
+                @enderror
 
             </div>
         </form>
@@ -78,6 +83,12 @@
                         未選択
                 @endswitch
             </p>
+            @error('payment_method')
+                <span class="invalid-feedback" role="alert">
+                    <strong class="error-message">{{ $message }}</strong>
+                </span>
+            @enderror
+
 
         </section>
         <form id="purchase-form" method="POST" action="{{ route('purchase.stripe', ['item' => $item->id]) }}" target="_blank">

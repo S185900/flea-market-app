@@ -161,6 +161,8 @@
 }
 
 .item-card {
+    display: grid;
+        grid-template-rows: 1fr auto;
     aspect-ratio: 1 / 1;
     /* 正方形を維持 */
     background-color: #FFFFFF;
@@ -204,6 +206,12 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    width: 100%;
+}
+
+.item-image {
+    min-height: 0;
+    /* もし高さが崩れる場合は、ここを150pxなどに設定してみて */
 }
 
 .item-image__display {
@@ -332,6 +340,7 @@
     }
 
     .item-card {
+        
         padding: 5px;
     }
 
