@@ -20,17 +20,16 @@ class ProfileController extends Controller
         if ($request->get('page') === 'sell') {
             $listedItems = Item::with('images')
                 ->where('user_id', $user->id)
-                ->orderBy('created_at', 'desc') // ← ここで並び順を指定
+                ->orderBy('created_at', 'desc') // 出品順
                 ->get();
         } elseif ($request->get('page') === 'buy') {
-            $purchasedItems = Item::with('images')
-                ->whereIn('id', function ($query) use ($user) {
-                    $query->select('item_id')
-                        ->from('transactions')
-                        ->where('buyer_id', $user->id);
-                })
-                ->orderBy('created_at', 'desc')
-                ->get();
+            // Transaction経由で購入順に取得
+            $purchasedItems = Transaction::with('item.images')
+                ->where('buyer_id', $user->id)
+                ->where('status', 'completed')
+                ->orderByDesc('completed_at') // 購入日時の降順
+                ->get()
+                ->pluck('item'); // TransactionからItemだけ抽出
         } else {
             // 両方表示
             $listedItems = Item::with('images')
@@ -38,14 +37,13 @@ class ProfileController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get();
 
-            $purchasedItems = Item::with('images')
-                ->whereIn('id', function ($query) use ($user) {
-                    $query->select('item_id')
-                        ->from('transactions')
-                        ->where('buyer_id', $user->id);
-                })
-                ->orderBy('created_at', 'desc')
-                ->get();
+            // 両方表示時も購入順に取得
+            $purchasedItems = Transaction::with('item.images')
+                ->where('buyer_id', $user->id)
+                ->where('status', 'completed')
+                ->orderByDesc('completed_at')
+                ->get()
+                ->pluck('item');
         }
 
         $page = $request->get('page');

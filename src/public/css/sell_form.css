@@ -251,3 +251,43 @@
 .profile-edit-button:hover {
     background-color: #c74040;
 }
+
+/* PCサイズ（1400〜1540px）対応 */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+
+}
+
+/* タブレットサイズ（768〜850px）対応 */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .sell-form-title {
+        font-size: 30px;
+    }
+
+    .sell-form-label {
+        font-size: 22px;
+    }
+
+    .sell-form-detail-title {
+        font-size: 25px;
+    }
+
+    .sell-form-input-1 {
+        height: 120px;
+    }
+
+    .profile-edit-custom-file {
+        width: 150px;
+        font-size: 16px;
+        padding: 12px 16px;
+    }
+
+    .category-label {
+        padding-bottom: 3px;
+        margin-bottom: 1px;
+    }
+
+    .profile-edit-button {
+        font-size: 22px;
+    }
+
+}
