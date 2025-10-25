@@ -17,6 +17,10 @@ class LoginUserController extends Controller
         if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
             $request->session()->regenerate();
 
+            if (!Auth::user()->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+            }
+
             return redirect()->intended('/'); // ログイン後のリダイレクト先(元のページに戻る)
         }
 
