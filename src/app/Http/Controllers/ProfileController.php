@@ -60,6 +60,8 @@ class ProfileController extends Controller
 
     public function updateProfile(ProfileRequest $request)
     {
+        // dd($request->file('image'));
+        
         $user = Auth::user();
 
         $user->name = $request->name;
@@ -69,6 +71,9 @@ class ProfileController extends Controller
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('profile_images', 'public');
+
+            // dd($path);
+
             $user->profile_image_url = $path;
         }
 

@@ -29,7 +29,9 @@ class ProfileRequest extends FormRequest
             'postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],
             'shipping_address' => 'required|string|max:255',
             'building_name' => 'nullable|string|max:255',
-            'image' => 'nullable|file|mimes:jpeg,png|max:1024', // 1024KB = 1MB
+            // 'image' => 'nullable|file|mimes:jpeg,png|max:1024', // 1024KB = 1MB
+            // 'image' => 'nullable|image|max:1024',
+            'image' => 'nullable|file|mimes:jpeg,png|max:1024',
         ];
     }
 
