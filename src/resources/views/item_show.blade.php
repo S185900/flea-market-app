@@ -30,9 +30,11 @@
             <h2 class="item-show__info-title">
                 {{ $item->title }}
             </h2>
-            <p class="item-show__brand-name">
-                {{ $item->brand->brand_name ?? 'ノーブランド' }}
-            </p>
+            @if (!empty($item->brand?->brand_name))
+                <p class="item-show__brand-name">
+                    {{ $item->brand->brand_name }}
+                </p>
+            @endif
             <p class="item-show__price">
                 <span class="amount">¥{{ number_format($item->price) }}</span><span class="spacer"> </span>(税込)
             </p>
