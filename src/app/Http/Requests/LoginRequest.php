@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Laravel\Fortify\Fortify;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class LoginRequest extends FormRequest
 {
@@ -25,7 +26,10 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            Fortify::username() => ['required', 'email'], // ここでメール形式を指定
+            // メールアドレス：入力必須、メール形式
+            Fortify::username() => ['required', 'email'],
+
+            // パスワード：入力必須
             'password' => ['required', 'string'],
         ];
     }
@@ -33,12 +37,24 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            // 未入力の場合
+            // 1. 未入力の場合
             'email.required' => 'メールアドレスを入力してください',
             'password.required' => 'パスワードを入力してください',
-
-            // 入力情報が誤っている場合
-            'email.email' => 'ログイン情報が登録されていません',
         ];
     }
+
+    // 2. 入力情報が誤っている場合
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($validator->errors()->isEmpty()) {
+                $credentials = $this->only('email', 'password');
+
+                if (!Auth::attempt($credentials, $this->filled('remember'))) {
+                    $validator->errors()->add('auth', 'ログイン情報が登録されていません');
+                }
+            }
+        });
+    }
+
 }

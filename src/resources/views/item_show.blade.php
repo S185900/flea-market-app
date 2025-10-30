@@ -143,7 +143,7 @@
                 @csrf
 
                 <p class="comment-textarea-title">商品のへコメント</p>
-                <textarea name="comment" class="comment-textarea" required maxlength="255"
+                <textarea name="comment" class="comment-textarea" 
                     placeholder="コメントを入力してください">{{ old('comment') }}</textarea>
 
                 @error('comment')
@@ -156,9 +156,6 @@
                 </form>
             @endguest
 
-            <!-- <button type="submit" class="comment-button" @guest disabled @endguest>
-                コメントを送信する
-            </button> -->
         </div>
 
     </section>

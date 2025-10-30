@@ -382,6 +382,13 @@
     /* 少し明るめの赤に変化 */
 }
 
+.error {
+    color: #FF5555;
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
 /* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
 

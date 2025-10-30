@@ -29,6 +29,11 @@
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
+            @error('auth')
+                <span class="auth-error" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
 
         <div class="login-item">

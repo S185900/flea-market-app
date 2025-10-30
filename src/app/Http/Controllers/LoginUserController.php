@@ -25,7 +25,7 @@ class LoginUserController extends Controller
         }
 
         return back()->withErrors([
-            'password' => 'ログイン情報が登録されていません',
+            'auth' => 'ログイン情報が登録されていません',
         ]);
     }
 }

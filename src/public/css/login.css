@@ -93,9 +93,14 @@
 }
 
 .invalid-feedback {
-    color: red;
+    color: #FF5555;
     font-size: 14px;
     margin-top: 5px;
+}
+
+.auth-error {
+    color: #FF5555;
+    font-size: 14px;
 }
 
 /* PCサイズ（1400〜1540px）対応 */
