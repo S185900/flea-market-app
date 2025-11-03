@@ -14,4 +14,9 @@ class Brand extends Model
     public function items() {
         return $this->hasMany(Item::class);
     }
+
+    public function getNameAttribute()
+    {
+        return $this->brand_name;
+    }
 }
