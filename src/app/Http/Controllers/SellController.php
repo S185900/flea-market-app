@@ -33,7 +33,7 @@ class SellController extends Controller
         // 商品登録
         $item = Item::create([
             'user_id' => Auth::id(),
-            'title' => $validated['address'],
+            'title' => $validated['product_name'],
             'brand_id' => $brand ? $brand->id : null,
             'description' => $validated['description'],
             'price' => $validated['price'],

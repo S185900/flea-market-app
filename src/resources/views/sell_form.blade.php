@@ -25,7 +25,7 @@
 
                 @error('image')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <p class="error-message">{{ $message }}</p>
                     </span>
                 @enderror
 
@@ -51,6 +51,11 @@
                     <label for="cat-{{ $loop->index }}" class="category-label">{{ $category }}</label>
                 @endforeach
             </div>
+            @error('categories')
+                <span class="invalid-feedback" role="alert">
+                    <p class="error-message">{{ $message }}</p>
+                </span>
+            @enderror
         </div>
 
         <!-- 商品の状態 -->
@@ -63,6 +68,11 @@
                 <option value="3" {{ old('condition') == 3 ? 'selected' : '' }}>やや傷や汚れあり</option>
                 <option value="4" {{ old('condition') == 4 ? 'selected' : '' }}>状態が悪い</option>
             </select>
+            @error('condition')
+                <span class="invalid-feedback" role="alert">
+                    <p class="error-message">{{ $message }}</p>
+                </span>
+            @enderror
         </div>
 
         <!-- 商品名と説明 -->
@@ -72,11 +82,11 @@
 
         <!-- 商品名 -->
         <div class="sell-form-item">
-            <label for="address" class="sell-form-label">商品名</label>
-            <input id="address" type="text" class="sell-form-input-3 @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address">
-            @error('address')
+            <label for="product_name" class="sell-form-label">商品名</label>
+            <input id="product_name" type="text" class="sell-form-input-3 @error('product_name') is-invalid @enderror" name="product_name" value="{{ old('product_name') }}" required autocomplete="product_name">
+            @error('product_name')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <p class="error-message">{{ $message }}</p>
                 </span>
             @enderror
         </div>
@@ -87,7 +97,7 @@
             <input id="brand_name" type="text" class="sell-form-input-3 @error('brand_name') is-invalid @enderror" name="brand_name" value="{{ old('brand_name') }}" required>
             @error('brand_name')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <p class="error-message">{{ $message }}</p>
                 </span>
             @enderror
         </div>
@@ -98,7 +108,7 @@
             <textarea id="description" class="sell-form-input-4 @error('description') is-invalid @enderror" name="description" required>{{ old('description') }}</textarea>
             @error('description')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <p class="error-message">{{ $message }}</p>
                 </span>
             @enderror
         </div>
@@ -106,10 +116,10 @@
         <!-- 販売価格 -->
         <div class="sell-form-item">
             <label for="price" class="sell-form-label">販売価格</label>
-            <input id="price" type="number" class="sell-form-input-3 @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required placeholder="¥">
+            <input id="price" type="text" class="sell-form-input-3 @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required placeholder="¥">
             @error('price')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <p class="error-message">{{ $message }}</p>
                 </span>
             @enderror
         </div>
