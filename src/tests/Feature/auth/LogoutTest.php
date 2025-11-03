@@ -23,13 +23,14 @@ class LogoutTest extends TestCase
         $this->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
     }
 
+    // ログアウト処理が実行される
     public function test_user_can_logout_successfully()
     {
         $user = User::factory()->create([
             'email_verified_at' => now(),
         ]);
 
-        // ログイン状態にする
+        // ユーザーにログインをする
         $this->actingAs($user);
 
         // ログアウトリクエストを送信（CSRFトークンは自動で付与される）
