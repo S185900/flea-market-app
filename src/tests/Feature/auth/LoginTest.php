@@ -10,7 +10,6 @@ use App\Models\User;
 /**
  * @covers \App\Http\Controllers\LoginUserController
  * @covers \App\Http\Requests\LoginRequest
- * @covers \App\Models\User
  */
 
 class LoginTest extends TestCase

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\LoginUserController;
@@ -26,7 +28,7 @@ Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/item/{item_id}', [ItemController::class, 'showItemDetail'])->name('item.detail');
 
 //
-// 認証関連（ログイン・登録・メール確認）
+// 認証関連（ログイン・登録・メール確認・ログアウト）
 //
 
 Route::get('/register', fn () => view('auth.register'))->name('register');
@@ -34,6 +36,10 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 
 Route::get('/login', fn () => view('auth.login'))->name('login');
 Route::post('/login', [LoginUserController::class, 'store']);
+
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware(['web', 'auth'])
+    ->name('logout');
 
 // メール認証案内ページ（未認証ユーザーがログインした場合）
 Route::get('/email/verify/notice', function (Request $request) {

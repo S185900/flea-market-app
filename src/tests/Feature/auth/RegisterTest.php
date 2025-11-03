@@ -35,9 +35,9 @@ class RegisterTest extends TestCase
             'password_confirmation' => 'password123',
         ]);
 
-        // リダイレクトが起きてるか確認
-        $response->assertStatus(302);
-        $response->assertSessionHasErrors(['name']);
+        $response->assertSessionHasErrors([
+            'name' => 'お名前を入力してください',
+        ]);
     }
 
     // テスト：「メールアドレスを入力してください」というバリデーションメッセージが表示される
@@ -50,7 +50,9 @@ class RegisterTest extends TestCase
             'password_confirmation' => 'password123',
         ]);
 
-        $response->assertSessionHasErrors(['email']);
+        $response->assertSessionHasErrors([
+            'email' => 'メールアドレスを入力してください',
+        ]);
     }
 
     // テスト：「パスワードを入力してください」というバリデーションメッセージが表示される
@@ -63,7 +65,9 @@ class RegisterTest extends TestCase
             'password_confirmation' => 'password123',
         ]);
 
-        $response->assertSessionHasErrors(['password']);
+        $response->assertSessionHasErrors([
+            'password' => 'パスワードを入力してください',
+        ]);
     }
 
     // テスト：「パスワードは8文字以上で入力してください」というバリデーションメッセージが表示される
@@ -77,7 +81,9 @@ class RegisterTest extends TestCase
             'password_confirmation' => 'short07',
         ]);
 
-        $response->assertSessionHasErrors(['password']);
+        $response->assertSessionHasErrors([
+            'password' => 'パスワードは8文字以上で入力してください',
+        ]);
     }
 
     // テスト：「パスワードと一致しません」というバリデーションメッセージが表示される
@@ -91,7 +97,9 @@ class RegisterTest extends TestCase
             'password_confirmation' => 'different123',
         ]);
 
-        $response->assertSessionHasErrors(['password']);
+        $response->assertSessionHasErrors([
+            'password' => 'パスワードと一致しません',
+        ]);
     }
 
     // テスト：会員情報が登録され、プロフィール設定画面に遷移する
