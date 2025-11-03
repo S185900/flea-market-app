@@ -7,14 +7,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 
-/**
- * @covers \App\Http\Controllers\LoginUserController
- */
 
+// ログアウト機能のテスト
 class LogoutTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * @test
+     * @covers \App\Http\Controllers\LoginUserController::destroy
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -23,7 +25,11 @@ class LogoutTest extends TestCase
         $this->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
     }
 
-    // ログアウト処理が実行される
+    /**
+     * @test
+     * @covers \App\Http\Controllers\LoginUserController::destroy
+     * ログアウトができる、ログアウト処理が実行される
+     */
     public function test_user_can_logout_successfully()
     {
         $user = User::factory()->create([

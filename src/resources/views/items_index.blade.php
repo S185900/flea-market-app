@@ -36,11 +36,8 @@
                         @endif
 
                         <!-- sold表示 -->
-                        <!-- if ($item->isSold())
-                            <div class="sold-label">sold</div>
-                        endif -->
                         @if ($item->status === 'sold')
-                            <div class="sold-label">sold</div>
+                            <div class="sold-label">Sold</div>
                         @endif
 
                     </div>
