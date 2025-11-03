@@ -42,8 +42,8 @@ class ItemsIndexTest extends TestCase
 
         $response = $this->get('/');
         $response->assertStatus(200);
-        $response->assertSee('Sold');
-        // 購入済み商品に「Sold」のラベルが表示される
+        $response->assertSee('sold');
+        // 購入済み商品に「sold」のラベルが表示される
     }
 
     /**
