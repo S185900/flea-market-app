@@ -9,9 +9,9 @@ use App\Models\User;
 use App\Models\Item;
 use App\Models\Like;
 
+// いいね機能のテスト
 class LikeTest extends TestCase
 {
-
     use RefreshDatabase;
 
     /**
