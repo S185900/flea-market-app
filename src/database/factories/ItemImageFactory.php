@@ -16,7 +16,9 @@ class ItemImageFactory extends Factory
     {
         return [
             // 'item_id' => Item::inRandomOrder()->first()->id ?? Item::factory(),
-            'image_path' => $this->faker->imageUrl(),
+            // 'image_path' => $this->faker->imageUrl(),
+            'item_id' => null, // テスト側で明示的に指定する前提
+            'image_path' => 'items/' . $this->faker->uuid . '.jpg',
             'created_at' => now(),
             'updated_at' => now(),
         ];

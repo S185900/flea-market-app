@@ -14,30 +14,22 @@ class ProfileController extends Controller
     public function showProfileIndex(Request $request)
     {
         $user = Auth::user();
+        // $page = $request->get('page');
+        $page = $request->get('page', 'sell'); // デフォルト表示'sell'
+
         $listedItems = collect();
         $purchasedItems = collect();
 
-        if ($request->get('page') === 'sell') {
-            $listedItems = Item::with('images')
-                ->where('user_id', $user->id)
-                ->orderBy('created_at', 'desc') // 出品順
-                ->get();
-        } elseif ($request->get('page') === 'buy') {
-            // Transaction経由で購入順に取得
-            $purchasedItems = Transaction::with('item.images')
-                ->where('buyer_id', $user->id)
-                ->where('status', 'completed')
-                ->orderByDesc('completed_at') // 購入日時の降順
-                ->get()
-                ->pluck('item'); // TransactionからItemだけ抽出
-        } else {
-            // 両方表示
+        if ($page === 'sell') {
+            // 出品商品のみ取得
             $listedItems = Item::with('images')
                 ->where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->get();
+        }
 
-            // 両方表示時も購入順に取得
+        if ($page === 'buy') {
+            // 購入商品のみ取得
             $purchasedItems = Transaction::with('item.images')
                 ->where('buyer_id', $user->id)
                 ->where('status', 'completed')
@@ -45,8 +37,6 @@ class ProfileController extends Controller
                 ->get()
                 ->pluck('item');
         }
-
-        $page = $request->get('page');
 
         return view('profile_index', compact('user', 'listedItems', 'purchasedItems', 'page'));
     }

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Item;
 
 
+// 配送先変更機能のテスト
 class AddressEditTest extends TestCase
 {
     use RefreshDatabase;

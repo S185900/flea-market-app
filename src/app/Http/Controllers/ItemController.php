@@ -46,6 +46,7 @@ class ItemController extends Controller
             $items = $query->get();
         }
 
+        // dd($items);
         return view('items_index', compact('items', 'tab', 'title'));
     }
 

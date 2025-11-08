@@ -27,14 +27,18 @@
 
     <!-- タブ切り替え -->
     <div class="items-tabs">
-        <a href="{{ route('mypage.index', ['page' => 'sell']) }}" class="items-tab {{ request('page') === 'sell' || request('page') === null ? 'active' : '' }}">出品した商品</a>
-        <a href="{{ route('mypage.index', ['page' => 'buy']) }}" class="items-tab {{ request('page') === 'buy' ? 'active' : '' }}">購入した商品</a>
+        <!-- <a href="{{ route('mypage.index', ['page' => 'sell']) }}" class="items-tab {{ request('page') === 'sell' || request('page') === null ? 'active' : '' }}">出品した商品</a>
+        <a href="{{ route('mypage.index', ['page' => 'buy']) }}" class="items-tab {{ request('page') === 'buy' ? 'active' : '' }}">購入した商品</a> -->
+
+        <a href="{{ route('mypage.index', ['page' => 'sell']) }}" class="items-tab {{ $page === 'sell' || $page === null ? 'active' : '' }}">出品した商品</a>
+        <a href="{{ route('mypage.index', ['page' => 'buy']) }}" class="items-tab {{ $page === 'buy' ? 'active' : '' }}">購入した商品</a>
+
     </div>
 
     <div class="items-divider">
-        @if (request('page') === 'buy')
+        @if ($page === 'buy')
             <!-- 購入商品 -->
-            <div class="items-index">
+            <div id="purchased-items" class="items-index">
                 <div class="items-grid">
                     @forelse ($purchasedItems as $item)
                         <a href="{{ route('item.detail', ['item_id' => $item->id]) }}" class="item-card-link">
@@ -60,7 +64,7 @@
             </div>
         @else
             <!-- 出品商品 -->
-            <div class="items-index">
+            <div id="listed-items" class="items-index">
                 <div class="items-grid">
                     @forelse ($listedItems as $item)
                         <a href="{{ route('item.detail', ['item_id' => $item->id]) }}" class="item-card-link">
