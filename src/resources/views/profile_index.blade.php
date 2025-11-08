@@ -76,7 +76,7 @@
                                         <div class="item-image__fallback">商品画像</div>
                                     @endif
                                     @if ($item->status === 'sold')
-                                        <div class="sold-label">sold</div>
+                                        <div class="sold-label">Sold</div>
                                     @endif
                                 </div>
                                 <div class="item-name">{{ strip_tags($item->title) }}</div>
