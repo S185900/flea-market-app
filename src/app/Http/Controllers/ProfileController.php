@@ -90,6 +90,8 @@ class ProfileController extends Controller
         $user->shipping_address = $request->shipping_address;
         $user->building_name = $request->building_name ?? null;
 
+        
+
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('profile_images', 'public');
             $user->profile_image_url = $path;
