@@ -97,8 +97,42 @@ class EmailVerificationFlowTest extends TestCase
         // `EmailVerificationRequest::fulfill()` が呼ばれ、メール認証が完了する
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
 
-        // 2. プロフィール設定画面に遷移する
-        // 認証完了後は `mypage.create` にリダイレクトされる仕様
+        // 2. プロフィール設定画面を表示する
+        // 認証完了後はプロフィール設定画面に遷移する
         $response->assertRedirect(route('mypage.create'));
     }
+
+    /**
+     * @test
+     * @covers \App\Http\Controllers\ProfileController::storeProfile
+     * 初回プロフィール登録完了後、商品一覧ページに遷移する
+     */
+    public function user_can_complete_profile_and_redirect_to_items_index()
+    {
+        // 未認証ユーザーを作成してメール認証済みにする
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+            'profile_completed' => false, // まだプロフィール登録していない＝初回登録前の状態
+        ]);
+
+        // ログイン状態にする
+        $this->actingAs($user);
+
+        // 初回プロフィール登録を実行
+        $response = $this->post(route('mypage.store'), [
+            'name' => 'テストユーザー',
+            'postal_code' => '123-4567',
+            'shipping_address' => '東京都渋谷区1-2-3',
+            'building_name' => 'テストビル',
+            // 画像は省略（ファイルアップロードのテストは別途）
+        ]);
+
+        // プロフィール登録が完了し、商品一覧ページにリダイレクトされる
+        $response->assertRedirect(route('items.index'));
+
+        // ユーザー情報が更新されていることを確認
+        $this->assertTrue($user->fresh()->profile_completed);
+        $this->assertEquals('テストユーザー', $user->fresh()->name);
+    }
+
 }
