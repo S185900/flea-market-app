@@ -41,17 +41,21 @@ class ProfileController extends Controller
         return view('profile_index', compact('user', 'listedItems', 'purchasedItems', 'page'));
     }
 
-    // プロフィール編集画面（設定）
+    // プロフィール編集画面（通常ログイン時）
     public function showEditProfile()
     {
         $user = Auth::user();
-        return view('profile_edit', compact('user'));
+        return view('profile_edit', [
+            'user' => $user,
+            'isFirstLogin' => false,
+        ]);
     }
 
+    // プロフィール更新処理（通常ログイン時）
     public function updateProfile(ProfileRequest $request)
     {
         // dd($request->file('image'));
-        
+
         $user = Auth::user();
 
         $user->name = $request->name;
@@ -61,26 +65,26 @@ class ProfileController extends Controller
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('profile_images', 'public');
-
             // dd($path);
-
             $user->profile_image_url = $path;
         }
 
         $user->save();
 
         return redirect()->route('mypage.index');
-
     }
 
-    // 初回プロフィール登録画面
+    // 初回プロフィール登録画面（メール認証後）
     public function showCreateProfileForm()
     {
         $user = Auth::user();
-        return view('profile_create', compact('user'));
+        return view('profile_edit', [
+            'user' => $user,
+            'isFirstLogin' => true,
+        ]);
     }
 
-    // 初回登録
+    // 初回プロフィール登録処理
     public function storeProfile(ProfileRequest $request)
     {
         $user = Auth::user();
@@ -90,8 +94,6 @@ class ProfileController extends Controller
         $user->shipping_address = $request->shipping_address;
         $user->building_name = $request->building_name ?? null;
 
-        
-
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('profile_images', 'public');
             $user->profile_image_url = $path;
@@ -100,7 +102,12 @@ class ProfileController extends Controller
         $user->profile_completed = true;
         $user->save();
 
-        return redirect()->route('mypage.index');
+        // セッション上のユーザー情報を更新
+        // Auth::setUser($user);
+        Auth::login($user);
+
+        // 初回登録後は商品一覧へ遷移
+        return redirect()->route('items.index');
     }
 
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -98,6 +99,7 @@ Route::middleware(['auth', 'verified', 'first.login'])->group(function () {
     Route::get('/mypage/create', [ProfileController::class, 'showCreateProfileForm'])->name('mypage.create');
     Route::post('/mypage/create', [ProfileController::class, 'storeProfile'])->name('mypage.store');
 });
+
 
 // 認証済みユーザー
 Route::middleware(['auth', 'verified'])->group(function () {

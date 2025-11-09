@@ -8,10 +8,12 @@
 @section('content')
 <h2 class="profile-edit-title">プロフィール設定</h2>
 <div class="profile-edit">
-    <form class="profile-edit-form" method="POST" action="{{ route('mypage.profile.update') }}" enctype="multipart/form-data" novalidate>
+    <!-- <form class="profile-edit-form" method="POST" action="{{ route('mypage.profile.update') }}" enctype="multipart/form-data" novalidate> -->
+    <form class="profile-edit-form" method="POST" action="{{ $isFirstLogin ? route('mypage.store') : route('mypage.profile.update') }}" enctype="multipart/form-data" novalidate>
         @csrf
-        @method('PATCH')
-
+        @if (!$isFirstLogin)
+            @method('PATCH')
+        @endif
 
         <div class="profile-edit-image-area">
             <div class="profile-edit-image-preview">
