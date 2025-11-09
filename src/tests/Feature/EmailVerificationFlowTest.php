@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\URL;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\UploadedFile;
 
 
 // メール認証機能のテスト
