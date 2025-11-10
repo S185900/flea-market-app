@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ItemImageSeeder::class,
             CommentSeeder::class,
             LikeSeeder::class,
+            CustomProductSeeder::class
         ]);
     }
 }
