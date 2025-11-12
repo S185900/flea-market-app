@@ -1,4 +1,8 @@
+# src/storage/app/public/.gitignore
 *
 !profile_images/
 !product_images/
+!*.jpg
+!*.jpeg
+!*.png
 !.gitignore
