@@ -1,6 +1,8 @@
-# src/storage/app/public/profile_images/.gitignore
-# すべて無視するが、画像ファイルと .gitignore は除外
+# src/storage/app/public/.gitignore
 *
+!profile_images/
+!product_images/
 !*.jpg
+!*.jpeg
 !*.png
 !.gitignore
