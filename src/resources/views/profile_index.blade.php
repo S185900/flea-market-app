@@ -11,9 +11,9 @@
     <div class="profile-info">
         <div class="profile-image">
             @if ($user->profile_image_url)
-                <img src="{{ $user->profile_image_url }}" alt="プロフィール画像" class="user-icon" />
+                <img src="{{ $user->profile_image_url }}" alt="プ" class="user-icon" />
             @else
-                <img src="{{ 'default-icon.png' }}" alt="プロフィール画像" class="user-icon" />
+                <img src="{{ 'default-icon.png' }}" alt="" class="user-icon" />
             @endif
         </div>
     </div>
