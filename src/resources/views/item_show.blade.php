@@ -115,12 +115,12 @@
                 <div class="comment-area">
                     <div class="user-info">
                         @if ($comment->user && $comment->user->profile_image_url)
-                            <img src="{{ $comment->user->profile_image_url }}" alt="アイコン" class="user-icon" />
+                            <img src="{{ $comment->user->profile_image_url }}" alt="" class="user-icon" />
                             <p class="user-name">
                                 {{ $comment->user->name }}
                             </p>
                         @else
-                            <img src="{{ asset('images/default-icon.png') }}" alt="アイコン" class="user-icon" />
+                            <img src="{{ asset('images/default-icon.png') }}" alt="" class="user-icon" />
                             <p class="user-name">
                                 {{ $comment->user ? $comment->user->name : 'Admin' }}
                             </p>

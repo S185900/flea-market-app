@@ -26,10 +26,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            // メールアドレス：入力必須、メール形式
             Fortify::username() => ['required', 'email'],
-
-            // パスワード：入力必須
             'password' => ['required', 'string'],
         ];
     }
@@ -37,13 +34,13 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            // 1. 未入力の場合
             'email.required' => 'メールアドレスを入力してください',
+            'email.email' => 'メールアドレスはメール形式で入力してください',
             'password.required' => 'パスワードを入力してください',
         ];
     }
 
-    // 2. 入力情報が誤っている場合
+    // 入力情報が誤っている場合
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {

@@ -24,14 +24,8 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            // ユーザー名:入力必須、20文字以内
             'name' => ['required', 'string', 'max:20'],
-
-            // メールアドレス：入力必須、メール形式
             'email' => ['required', 'email'],
-
-            // パスワード：入力必須、8文字以上
-            // 確認用パスワード：入力必須、8文字以上、「パスワード」との重複のみ可
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'password_confirmation' => ['required', 'string', 'min:8'],
         ];

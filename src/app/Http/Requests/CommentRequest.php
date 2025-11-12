@@ -26,8 +26,7 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            // 商品コメント：入力必須、最大255文字
-            'comment' => 'required|string|max:255',
+            'comment' => ['required', 'string', 'max:255'],
         ];
     }
 
