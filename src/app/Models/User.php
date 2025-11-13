@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Address;
+use App\Models\Profile;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -22,6 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'building_name',
         'email_verified_at',
     ];
+    // profile_completed はシステム側で自動判定するため、fillable には含めない
 
     protected $hidden = [
         'password',
@@ -53,9 +56,29 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Like::class, 'user_id');
     }
 
-    // 例: Userモデルにアクセサを追加
     public function getProfileImageUrlAttribute($value)
     {
         return asset('storage/' . $value);
     }
+
+    public function getAddress(): Address
+    {
+        return new Address(
+            $this->postal_code,
+            $this->shipping_address,
+            $this->building_name
+        );
+    }
+
+    public function getProfile(): Profile
+    {
+        return new Profile(
+            $this->name,
+            $this->postal_code,
+            $this->shipping_address,
+            $this->building_name,
+            $this->profile_image_url
+        );
+    }
+
 }

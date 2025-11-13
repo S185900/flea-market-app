@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
 use Stripe\Checkout\Session as StripeSession;
 use Stripe\PaymentIntent;
+use App\Models\Item;
+use App\Models\Purchase;
 use App\Http\Requests\PurchaseRequest;
 
 class PurchaseController extends Controller
@@ -61,9 +62,9 @@ class PurchaseController extends Controller
 
         // テスト環境ではStripe APIをスキップしてダミーのレスポンスを返す
         if (app()->environment('testing')) {
-            
+
             // トランザクションを記録
-            \App\Models\Transaction::create([
+            Purchase::create([
                 'item_id' => $item->id,
                 'buyer_id' => $user->id,
                 'seller_id' => $item->user_id,
@@ -110,7 +111,7 @@ class PurchaseController extends Controller
         ]);
 
         // トランザクションを記録
-        \App\Models\Transaction::create([
+        Purchase::create([
             'item_id' => $item->id,
             'buyer_id' => $user->id,
             'seller_id' => $item->user_id,
@@ -156,7 +157,7 @@ class PurchaseController extends Controller
             $item = Item::find($item_id);
 
             // すでにTransactionがあるか確認
-            $transaction = \App\Models\Transaction::where('stripe_checkout_session_id', $session_id)->first();
+            $purchase = Purchase::where('stripe_checkout_session_id', $session_id)->first();
 
             if ($transaction && !$transaction->completed_at) {
                 $transaction->update([
@@ -165,8 +166,8 @@ class PurchaseController extends Controller
                     'completed_at' => now(),
                 ]);
 
-                if ($item && $item->status !== 'sold') {
-                    $item->update(['status' => 'sold']);
+                if ($purchase && !$purchase->completed_at) {
+                    $purchase->update(['status' => 'sold']);
                 }
             }
         }

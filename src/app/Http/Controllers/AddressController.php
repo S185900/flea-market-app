@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Item;
+use App\Models\Address;
 use App\Http\Requests\AddressRequest;
 
 class AddressController extends Controller
@@ -13,14 +14,16 @@ class AddressController extends Controller
     {
         $item = Item::findOrFail($item_id);
         $user = Auth::user();
+        $address = $user->getAddress();
 
         return view('address_edit', [
             'item' => $item,
             'user' => $user,
+            'address' => $address,
             'oldValues' => [
-                'postal_code' => old('postal_code', $user->postal_code),
-                'shipping_address' => old('address', $user->shipping_address),
-                'building_name' => old('building_name', $user->building_name),
+                'postal_code' => old('postal_code', $address->postal_code),
+                'shipping_address' => old('address', $address->shipping_address),
+                'building_name' => old('building_name', $address->building_name),
             ],
         ]);
     }
@@ -34,6 +37,8 @@ class AddressController extends Controller
             'shipping_address' => $request->address,
             'building_name' => $request->building_name,
         ]);
+
+        $fullAddress = $user->getAddress()->full();
 
         return redirect()->route('purchase.form', ['item_id' => $item_id])
                          ->with('message', '住所を更新しました');

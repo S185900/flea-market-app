@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Item;
-use App\Http\Requests\CommentRequest;
-use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Item;
+use App\Models\Comment;
 use App\Models\Like;
+use App\Models\MyList;
+use App\Http\Requests\CommentRequest;
 
 class ItemController extends Controller
 {
@@ -33,17 +34,7 @@ class ItemController extends Controller
             $items = $query->get();
 
         } elseif ($tab === 'mylist' && auth()->check()) {
-            $query = Item::with(['images', 'transaction'])
-                ->whereHas('likes', function ($q) {
-                    $q->where('user_id', auth()->id());
-                })
-                ->where('user_id', '!=', auth()->id()); // 自分の出品は除外
-
-            if (!empty($title)) {
-                $query->where('title', 'like', '%' . $title . '%');
-            }
-
-            $items = $query->get();
+            $items = MyList::favoriteItems(auth()->id(), $title);
         }
 
         // dd($items);

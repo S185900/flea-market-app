@@ -34,7 +34,6 @@ class Transaction extends Model
         return $this->belongsTo(User::class, 'seller_id');
     }
 
-    // コメントが1対多なら
     public function comments() {
         return $this->hasMany(Comment::class);
     }

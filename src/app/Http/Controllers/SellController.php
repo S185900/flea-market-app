@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Brand;
 use App\Models\CategoryItem;
 use App\Models\ItemImage;
+use App\Models\Sell;
 use App\Http\Requests\ExhibitionRequest;
 
 class SellController extends Controller
@@ -31,7 +32,7 @@ class SellController extends Controller
         }
 
         // 商品登録
-        $item = Item::create([
+        $sell = Sell::create([
             'user_id' => Auth::id(),
             'title' => $validated['product_name'],
             'brand_id' => $brand ? $brand->id : null,
@@ -45,7 +46,7 @@ class SellController extends Controller
         foreach ($validated['categories'] as $categoryName) {
             $category = Category::firstOrCreate(['category_name' => $categoryName]);
             CategoryItem::create([
-                'item_id' => $item->id,
+                'item_id' => $sell->id,
                 'category_id' => $category->id,
             ]);
         }
@@ -58,7 +59,7 @@ class SellController extends Controller
 
             // DBに保存
             ItemImage::create([
-                'item_id' => $item->id,
+                'item_id' => $sell->id,
                 'image_path' => $path, // Storage::url($path) にするとURL形式になる
             ]);
         }

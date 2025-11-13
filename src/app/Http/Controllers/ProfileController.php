@@ -45,8 +45,11 @@ class ProfileController extends Controller
     public function showEditProfile()
     {
         $user = Auth::user();
+        $profile = $user->getProfile();
+
         return view('profile_edit', [
             'user' => $user,
+            'profile' => $profile,
             'isFirstLogin' => false,
         ]);
     }
@@ -78,8 +81,11 @@ class ProfileController extends Controller
     public function showCreateProfileForm()
     {
         $user = Auth::user();
+        $profile = $user->getProfile();
+
         return view('profile_edit', [
             'user' => $user,
+            'profile' => $profile,
             'isFirstLogin' => true,
         ]);
     }
