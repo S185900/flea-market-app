@@ -10,12 +10,13 @@ class Profile extends Model
     use HasFactory;
 
     public string $name;
-    public string $postal_code;
-    public string $shipping_address;
+    public ?string $postal_code;
+    public ?string $shipping_address;
     public ?string $building_name;
     public ?string $profile_image_url;
 
-    public function __construct(string $name, string $postal_code, string $shipping_address, ?string $building_name, ?string $profile_image_url)
+    public function __construct(string $name, ?string $postal_code, ?string $shipping_address, ?string $building_name, ?string $profile_image_url)
+
     {
         $this->name = $name;
         $this->postal_code = $postal_code;
