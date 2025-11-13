@@ -149,7 +149,7 @@
     margin-top: 1rem;
     cursor: pointer;
     border: none;
-        /* button用のリセット */
+    box-sizing: border-box;
 }
 
 .checkout-button:hover {
@@ -375,6 +375,7 @@
     border-radius: 4px;
     padding: 12px;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .comment-button:hover {

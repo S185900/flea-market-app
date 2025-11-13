@@ -70,40 +70,45 @@
 
     <div class="purchase_confirm__payment-method-section">
         <section class="summary">
-            <p class="summary-item">商品代金: ¥{{ number_format($item->price) }}</p>
+            <table class="summary-table">
+                <tr>
+                    <th>商品代金</th>
+                    <td>¥{{ number_format($item->price) }}</td>
+                </tr>
+                <tr>
+                    <th>支払い方法</th>
+                    <td>
+                        @switch($selectedMethod)
+                            @case('card')
+                                カード支払い
+                                @break
+                            @case('convenience')
+                                コンビニ支払い
+                                @break
+                            @default
+                                未選択
+                        @endswitch
+                    </td>
+                </tr>
+            </table>
 
-            <p class="summary-item">支払い方法: 
-                @switch($selectedMethod)
-                    @case('card')
-                        カード支払い
-                        @break
-                    @case('convenience')
-                        コンビニ支払い
-                        @break
-                    @default
-                        未選択
-                @endswitch
-            </p>
             @error('payment_method')
                 <span class="invalid-feedback" role="alert">
                     <strong class="error-message">{{ $message }}</strong>
                 </span>
             @enderror
             <div class="error-message-java" id="error-messages" style="color: red; margin-bottom: 1em;"></div>
-            <!-- <span class="error-message-java" role="alert">
-                    <div id="error-message-java"></div>
-            </span> -->
 
+            <form id="purchase-form">
+                @csrf
+                @if($selectedMethod)
+                    <input type="hidden" name="payment_method" value="{{ $selectedMethod }}">
+                @endif
+                <input type="hidden" name="shipping_address" value="{{ $fullAddress }}">
+                <button type="submit" class="purchase-button">購入する</button>
+            </form>
 
         </section>
-        <form id="purchase-form">
-            @csrf
-            @if($selectedMethod)
-                <input type="hidden" name="payment_method" value="{{ $selectedMethod }}">
-            @endif
-            <input type="hidden" name="shipping_address" value="{{ $fullAddress }}">
-            <button type="submit" class="purchase-button">購入する</button>
-        </form>
 
         <script>
         document.getElementById('purchase-form').addEventListener('submit', function(e) {

@@ -32,6 +32,7 @@ class PurchaseRequest extends FormRequest
         ];
     }
 
+    // バリデーション失敗時にHTMLではなくJSON形式でエラーを返すようオーバーライド
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([

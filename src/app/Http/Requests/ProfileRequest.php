@@ -25,10 +25,10 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:20',
+            'name' => ['required', 'max:20'],
             'postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],
-            'shipping_address' => 'required|string',
-            'image' => 'nullable|file|mimes:jpeg,png',
+            'shipping_address' => ['required', 'string'],
+            'image' => ['nullable', 'file', 'mimes:jpeg,png'],
         ];
     }
 
@@ -37,12 +37,9 @@ class ProfileRequest extends FormRequest
         return [
             'name.required' => 'ユーザー名は必須です',
             'name.max' => 'ユーザー名は20文字以内で入力してください',
-
             'postal_code.required' => '郵便番号は必須です',
             'postal_code.regex' => '郵便番号はハイフンありの8文字（例: 123-4567）で入力してください',
-
             'shipping_address.required' => '住所は必須です',
-
             'image.mimes' => 'プロフィール画像は.jpegまたは.png形式でアップロードしてください',
         ];
     }

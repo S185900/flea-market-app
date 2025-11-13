@@ -34,21 +34,16 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            // 1. 未入力の場合
             'name.required' => 'お名前を入力してください',
+            'name.max' => 'お名前は20文字以内で入力してください',
             'email.required' => 'メールアドレスを入力してください',
             'email.email' => 'メールアドレスはメール形式で入力してください',
             'password.required' => 'パスワードを入力してください',
+            'password.min' => 'パスワードは8文字以上で入力してください',
             'password_confirmation.required' => 'パスワードを入力してください',
 
-            // 2. パスワードの入力規則違反の場合
-            'password.min' => 'パスワードは8文字以上で入力してください',
-
-            // 3. 確認用パスワードの入力規則違反の場合
+            // 「パスワード」との重複のみ可
             'password.confirmed' => 'パスワードと一致しません',
-
-            // その他の規則違反の場合
-            'name.max' => 'お名前は20文字以内で入力してください',
         ];
     }
 }

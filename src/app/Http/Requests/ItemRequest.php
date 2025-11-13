@@ -21,19 +21,15 @@ class ItemRequest extends FormRequest
      *
      * @return array
      */
-    public function rules() // 認証不要なら true にしてOK
+    public function rules()
     {
         return [
             'tab' => 'nullable|in:recommend,mylist',
-            // 今後、検索や絞り込みを追加するならここに追加
-            // 'category' => 'nullable|exists:categories,id',
-            // 'title' => 'nullable|string|max:100',
         ];
     }
 
     public function validatedTab(): string
     {
-        // デフォルトを 'recommend' に固定
         return $this->input('tab', 'recommend');
     }
 }

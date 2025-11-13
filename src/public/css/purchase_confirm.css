@@ -2,17 +2,17 @@
     display: flex;
     justify-content: space-between
     gap: 20px;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     padding-top: 40px;
     padding-bottom: 40px;
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
     border-radius: 8px;
 }
 
 .purchase_confirm__item-section {
-    flex: 1.5;
+    flex: 2;
     padding: 20px;
 }
 
@@ -79,7 +79,7 @@
     font-size: 30px;
     line-height: 100%;
     letter-spacing: 0%;
-    text-align: center;
+    text-align: left;
     text-decoration: none;
     color: #000000;
 }
@@ -169,15 +169,72 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+    
+}
+
+.item-section-3 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+
 }
 
 .purchase_confirm__payment-method-section {
-    flex: 1;
+    flex: 1.5;
     padding: 20px;
-    border-left: 1px solid #ddd;
+    /* border-left: 1px solid #ddd; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.summary-table td {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 30px 10px 30px 10px;
+    text-align: left;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-style: regular;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #000000;
+}
+
+.summary-table th {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 30px 10px 30px 10px;
+    text-align: left;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-style: regular;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #000000;
+}
+
+/* 左側のセルだけ左罫線を表示 */
+.summary-table th {
+    border-left: 1px solid #ccc;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* 右側のセルだけ右罫線を表示 */
+.summary-table td {
+    border-right: 1px solid #ccc;
+    text-align: center;
 }
 
 .summary-item {
@@ -191,6 +248,8 @@
     color: #000000;
     margin-bottom: 7px;
 }
+
+
 
 .purchase-button {
     width: 100%;
@@ -207,6 +266,7 @@
     letter-spacing: 0%;
     text-align: center;
     color: #FFFFFF;
+    margin-top: 50px;
 }
 
 .invalid-feedback-1 {
@@ -277,6 +337,14 @@
 
     .error-message {
         font-size: 14px;
+    }
+
+    .summary-table td {
+        font-size: 18px;
+    }
+
+    .summary-table th {
+        font-size: 16px;
     }
 
 }

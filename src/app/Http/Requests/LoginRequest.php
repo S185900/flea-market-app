@@ -40,7 +40,7 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    // 入力情報が誤っている場合
+    // 入力情報が誤っている場合のエラーメッセージ
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {

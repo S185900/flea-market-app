@@ -133,28 +133,26 @@
                 </div>
             @endforeach
 
-            @guest
-                <p class="login-message">※コメントするにはログインが必要です</p>
-                <a href="{{ route('login') }}" class="comment-button">
-                    コメントを送信する
-                </a>
-            @else
-                <form action="{{ route('item.comment', $item->id) }}" method="POST" novalidate>
+            <p class="comment-textarea-title">商品へのコメント</p>
+
+            <form action="{{ route('item.comment', $item->id) }}" method="POST" novalidate>
                 @csrf
 
-                <p class="comment-textarea-title">商品のへコメント</p>
-                <textarea name="comment" class="comment-textarea" 
-                    placeholder="コメントを入力してください">{{ old('comment') }}</textarea>
+                <textarea name="comment" class="comment-textarea"
+                    placeholder=""
+                    @guest readonly @endguest>{{ old('comment') }}</textarea>
 
                 @error('comment')
                     <p class="error">{{ $message }}</p>
                 @enderror
 
-                    <button type="submit" class="comment-button">
-                        コメントを送信する
-                    </button>
-                </form>
-            @endguest
+                @guest
+                    <p class="login-message">※コメントするにはログインが必要です</p>
+                    <a href="{{ route('login') }}" class="comment-button">コメントを送信する</a>
+                @else
+                    <button type="submit" class="comment-button">コメントを送信する</button>
+                @endguest
+            </form>
 
         </div>
 
