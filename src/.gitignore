@@ -1,16 +1,30 @@
-/node_modules
-/public/hot
-# /public/storage
-/storage/*.key
+
+# Laravel & Composer
 /vendor
+/node_modules
 .env
 .env.backup
 .phpunit.result.cache
 .phpunit.cache/
-docker-compose.override.yml
-Homestead.json
-Homestead.yaml
+
+# Laravel Mix & Frontend Dev
+/public/hot
 npm-debug.log
 yarn-error.log
+
+# Laravel Storage & Symlinks
+# /public/storage
+/storage/*.key
+
+# Docker Environment
+docker-compose.override.yml
+docker/mysql/data/
+
+# IDE & Editor Configs
 /.idea
 /.vscode
+
+# Homestead (Legacy Vagrant Setup)
+Homestead.json
+Homestead.yaml
+
