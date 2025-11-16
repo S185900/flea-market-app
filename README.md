@@ -2,10 +2,15 @@
 
 ## 環境構築
 **Dockerビルド**
-1. `git@github.com:S185900/flea-market-app.git`
-2. cd flea-market-app
-3. DockerDesktopアプリを立ち上げる
-4. `docker-compose up -d --build`
+1. GitHubからプロジェクトをクローン
+    `git@github.com:S185900/flea-market-app.git`
+2. プロジェクトディレクトリに移動
+    `cd flea-market-app`
+3. (初回のみ)MySQL用の空ディレクトリを作成
+    `mkdir -p docker/mysql/data`
+4. DockerDesktopアプリを立ち上げる
+5. Dockerコンテナをビルド＆起動
+    `docker-compose up -d --build`
 
 > *MacのM1・M2チップのPCの場合、`no matching manifest for linux/arm64/v8 in the manifest list entries`のメッセージが表示されビルドができないことがあります。
 エラーが発生する場合は、docker-compose.ymlファイルの「mysql」内に「platform」の項目を追加で記載してください*
