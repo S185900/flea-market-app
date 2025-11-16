@@ -77,7 +77,7 @@ Route::middleware('auth')->group(function () {
 // Stripe Webhook & 購入完了・キャンセル（認証不要）
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
 Route::get('/purchase/success', [PurchaseController::class, 'handleSuccess'])->name('purchase.success');
-Route::get('/purchase/cancel', fn () => view('purchase_cancel'))->name('purchase.cancel');
+Route::get('/purchase/cancel', fn () => redirect()->route('items.index'))->name('purchase.cancel');
 
 // 購入関連（ログイン必須）
 Route::middleware(['auth', 'verified'])->group(function () {

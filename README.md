@@ -62,7 +62,7 @@ php artisan storage:link
 - MySQL　8.0.26
 
 ## ER図
-![alt text](image-2.png)
+![ER図](./er.drawio.png)
 
 
 ## URL
