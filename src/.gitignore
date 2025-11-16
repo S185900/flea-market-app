@@ -18,7 +18,6 @@ yarn-error.log
 
 # Docker Environment
 docker-compose.override.yml
-docker/mysql/data/
 
 # IDE & Editor Configs
 /.idea
