@@ -1,6 +1,15 @@
 # coachtechフリマ
+    coachtechフリマ は、ある企業が開発を計画しているフリマアプリです。
+    10〜30代の社会人を主なターゲットに、アイテムの出品・購入ができるシンプルで使いやすいサービスを目指しています。
+    初年度ユーザー数1,000人の達成を目標に、設計・コーディング・テストまでを一貫して担当します。
 
-## 環境構築
+    本プロジェクトは、Laravelを用いたWebアプリケーション開発の模擬案件として取り組んでおり、
+    一人で設計から実装、テストまでを行い、実務に近い開発プロセスの体験を目的としています。
+
+## プロジェクトの概要
+
+
+## 環境構築手順
 **Dockerビルド**
 1. GitHubからプロジェクトをクローン
     `git@github.com:S185900/flea-market-app.git`
@@ -12,8 +21,8 @@
 5. Dockerコンテナをビルド＆起動
     `docker-compose up -d --build`
 
-> *MacのM1・M2チップのPCの場合、`no matching manifest for linux/arm64/v8 in the manifest list entries`のメッセージが表示されビルドができないことがあります。
-エラーが発生する場合は、docker-compose.ymlファイルの「mysql」内に「platform」の項目を追加で記載してください*
+> *MacのM1・M2チップのPCの場合、`no matching manifest for linux/arm64/v8 in the manifest list entries`のメッセージが表示されビルドができないことがあります。エラーが発生する場合は、docker-compose.ymlファイルの「mysql」内に「platform」の項目を追加で記載してください*
+
 ``` bash
 mysql:
     platform: linux/x86_64 # ← この行を追加
@@ -28,7 +37,7 @@ mysql:
     `composer install`
 3. .env.example をコピーして .env を作成。※(または、新しく.envファイルを作成でもOK)
     `cp .env.example .env`
-4. .env に以下の環境変数を追加・確認
+4. .env に以下の環境変数を追加/記載があるか確認
 ``` text
 # DB設定
 DB_CONNECTION=mysql
@@ -55,12 +64,9 @@ MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=no-reply@example.test # Mailhog用の仮アドレス
 MAIL_FROM_NAME="${APP_NAME}"
 ```
->Mailhog（メール送信確認）について：
->Mailhogは、ローカル環境でメール送信を確認するためのツールです。 アカウント登録などは不要で、Docker起動時に自動で立ち上がります。
->ブラウザで http://localhost:8025 にアクセスします。Laravelから送信されたメール（認証・パスワードリセットなど）が一覧表示されます。
+> *Mailhog（メール送信確認）について：Mailhogは、ローカル環境でメール送信を確認するためのツールです。 アカウント登録などは不要で、Docker起動時に自動で立ち上がります。ブラウザで http://localhost:8025 にアクセスします。Laravelから送信されたメール（認証・パスワードリセットなど）が一覧表示されます。*
 
->Stripe（テスト用APIキー）について：
->このプロジェクトでは、Stripeを使ったクレジットカード決済機能とコンビニ決済機能を実装しています。 APIキーは各自のStripeアカウントで取得してください。[Stripe公式サイト](https://dashboard.stripe.com/register)でアカウントを作成（無料）し、テスト用APIキーを取得してください。
+> *Stripe（テスト用APIキー）について：このプロジェクトでは、Stripeを使ったクレジットカード決済機能とコンビニ決済機能を実装しています。APIキーは各自のStripeアカウントで取得してください。[Stripe公式サイト](https://dashboard.stripe.com/register)でアカウントを作成（無料）し、テスト用APIキーを取得してください。*
 
 5. アプリケーションキーの作成
 ``` bash
@@ -84,13 +90,23 @@ php artisan db:seed --class=CustomProductSeeder
 php artisan storage:link
 ```
 
-## 使用技術(実行環境)
+## 使用技術
 - PHP 8.1.33
 - Laravel 8.83.8
 - MySQL　8.0.26
-- Stripe（テスト決済）
 - Laravel Fortify（ユーザー認証）
+- Stripe（テスト決済）
 - Mailhog（メール送信確認）
+- Docker / Docker Compose
+
+## 管理者ユーザーおよび一般ユーザーのログイン情報
+| ユーザー種別     | メールアドレス         | パスワード     |
+|------------------|--------------------------|----------------|
+| 管理者ユーザー   | admin@example.com         | password123    |
+| 一般ユーザー     | user@example.com          | password123    |
+| ダミーユーザー（10名） | Factoryで自動生成されたメールアドレス | password123    |
+
+> *指定された商品データを登録するにあたり、**出品者としてのダミーユーザーを事前に登録しています**。登録フォームから作成されたユーザーは、入力したパスワードでログインしてください。*
 
 ## ER図
 ![ER図](./er.drawio.png)
@@ -103,9 +119,11 @@ php artisan storage:link
 
 ## 補足
 **Laravel Fortify（認証機能）**
-- このプロジェクトでは、Laravel Fortify を使用してログイン・登録・パスワードリセットなどの認証機能を実装しています。
+- ログイン・登録・パスワードリセット機能を Fortify で実装
 - 一部の機能はオーバーライドしてカスタマイズされています。
 - FortifyServiceProviderの登録について：config/app.php の providers 配列にApp\Providers\FortifyServiceProvider::class が含まれているかどうか確認してください。
 - Fortifyの設定について：config/fortify.php が存在していることを確認してください。
 
-****
+**Stripe（テスト決済）**
+- クレジットカード・コンビニ決済に対応
+- テスト用APIキーは各自のStripeアカウントから取得

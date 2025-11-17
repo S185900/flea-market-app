@@ -20,7 +20,7 @@ class UserFactory extends Factory
             // 'name' => $this->faker->realText(20), // ユーザー名：20文字以内
             'name' => Str::limit($this->faker->name(), 20),
             'email' => $this->faker->unique()->safeEmail(), // メール形式
-            'password' => bcrypt('password'), // 8文字以上
+            'password' => bcrypt('password123'), // 8文字以上
             'profile_completed' => $this->faker->boolean(),
             'profile_image_url' => $this->faker->imageUrl(640, 480, 'people', true, 'profile'), // 拡張子は後で調整可能
             'shipping_address' => $this->faker->streetAddress(), // 住所：入力必須

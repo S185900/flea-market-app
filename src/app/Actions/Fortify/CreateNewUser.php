@@ -23,6 +23,7 @@ class CreateNewUser implements CreatesNewUsers
         return User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
+            // Fortify経由でユーザーがフォームから登録する時のパスワードハッシュ化
             'password' => Hash::make($validated['password']),
         ]);
     }
