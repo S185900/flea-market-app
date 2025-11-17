@@ -146,12 +146,10 @@
                     <p class="error">{{ $message }}</p>
                 @enderror
 
-                @guest
-                    <p class="login-message">※コメントするにはログインが必要です</p>
-                    <a href="{{ route('login') }}" class="comment-button">コメントを送信する</a>
-                @else
-                    <button type="submit" class="comment-button">コメントを送信する</button>
-                @endguest
+                <button type="submit" class="comment-button">
+                    コメントを送信する
+                </button>
+
             </form>
 
         </div>
