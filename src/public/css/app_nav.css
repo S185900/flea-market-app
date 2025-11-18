@@ -5,61 +5,34 @@ body {
     padding: 0;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-a,
-i {
-    all: unset;
-}
-
-/* ベーススタイル（PCサイズ） */
 .app-nav {
     width: 100%;
-    /* 中央寄せ＆余白確保 */
     margin: 0 auto;
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
-    /* 要素がはみ出さず折り返せる */
     gap: 20px;
     flex-direction: column;
 }
 
-/* .header-nav {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 40px 0 40px 0;
-    background-color: #000000;
-    height: 10px;
-    width: 100%;
-} */
-
 .header-nav {
     display: flex;
     justify-content: space-between;
-    /* ← 左ロゴ・中央検索・右ナビを分散配置 */
     align-items: center;
-    padding: 40px 0;
+    padding: 20px 0;
     background-color: #000000;
-    height: 10px;
     width: 100%;
 }
 
 .header-logo-img {
     max-width: 100%;
-    /* width: 370px; */
     height: auto;
     padding-left: 30px;
     margin-left: 15px;
     margin-right: 10px;
 }
 
-.header-logo_visually-hidden {
+.header-logo-visually-hidden {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -68,6 +41,12 @@ i {
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+}
+
+h1 {
+    all: unset;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .visually-hidden {
@@ -113,10 +92,9 @@ i {
     flex-shrink: 0;
 }
 
-/* ナビゲーションリンクのスタイル */
 .header-navigation-list {
     display: flex;
-    flex-wrap: nowrap; /* 折り返しを防ぐ */
+    flex-wrap: nowrap;
     gap: 20px;
     list-style: none;
     margin: 0 10px 0 10px;
@@ -141,7 +119,6 @@ i {
     opacity: 0.7;
 }
 
-/* ボタン風のリンクスタイル */
 .header-navigation-button {
     background-color: #fff;
     width: 100px;
@@ -171,22 +148,23 @@ i {
 
 /* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
-    .app-nav {
-        width: 100%;
-        /* padding: 0 24px; */
-        /* 余白を少し狭める */
+    .header-logo-img {
+        width: 400px;
     }
 
-    .header-nav {
-        /* padding: 36px 0; */
+    .header-search {
+        width: 420px;
+        font-size: 22px;
+        padding: 10px 20px;
     }
 
-    .main-content {
-        font-size: 17px;
+    .header-navigation-link,
+    .header-navigation-button {
+        font-size: 24px;
     }
 
-    .header-navigation-item {
-        /* margin-right: 20px; */
+    .header-navigation-list {
+        gap: 25px;
     }
 }
 
@@ -203,7 +181,6 @@ i {
         gap: 20px;
         padding-top: 20px;
         padding-bottom: 27px;
-
     }
 
     .header-logo-img {
@@ -220,7 +197,6 @@ i {
         flex-wrap: wrap;
         margin-top: 10px;
         margin-left: 250px;
-        /* justify-content: flex-end; */
     }
 
     .header-search {
@@ -232,11 +208,9 @@ i {
         font-size: 18px;
     }
 
-    /* ボタン風のリンクスタイル */
     .header-navigation-button {
         padding: 8px 20px;
         font-style: regular;
         margin-left: 5px;
     }
-
 }

@@ -13,20 +13,18 @@
 <body>
     <div class="app-nav">
         <div class="header-nav">
+            <h1 class="header-logo-visually-hidden">
+                COACHTECH
+            </h1>
             <a href="/" class="header-logo">
                 <img class="header-logo-img" src="{{ asset('images/logo.svg') }}" alt="COACHTECH">
             </a>
-            <h1 class="header-logo_visually-hidden">
-                COACHTECH
-            </h1>
 
             <!-- 検索フォーム -->
             <form method="GET" action="{{ route('items.index') }}" novalidate>
 
-                <!-- アクセシビリティ対応 -->
                 <label class="header-search-label visually-hidden" for="header-search">商品名で検索</label>
 
-                <!-- 現在のURLにあるtabパラメータを取得 -->
                 <input type="hidden" name="tab" value="{{ request('tab', 'recommend') }}">
 
                 <input 
@@ -42,7 +40,6 @@
 
             <nav class="header-navigation">
                 <ul class="header-navigation-list">
-                    <!-- ログイン状態に応じてログイン/ログアウトを切り替え -->
                     @auth
                         <li class="header-navigation-item">
                             <form method="POST" action="{{ route('logout') }}">
@@ -58,10 +55,10 @@
                         </li>
                     @endguest
 
-                    <!-- ログイン前(ログイン状態に関係なく表示するリンク) -->
                     <li class="header-navigation-item">
                         <a href="{{ auth()->check() ? route('mypage.index') : route('login') }}" class="header-navigation-link">マイページ</a>
                     </li>
+
                     <li class="header-navigation-item">
                         <a href="{{ auth()->check() ? route('sell') : route('login') }}" class="header-navigation-link header-navigation-button">出品</a>
                     </li>

@@ -17,7 +17,12 @@
 }
 
 .item-show__info-area {
+    flex: 1;
     padding-left: 40px;
+    min-width: 500px;
+        /* 最小幅を設定 */
+        max-width: 700px;
+        /* 最大幅を設定（必要なら） */
 }
 
 .item-show__image {
@@ -416,7 +421,11 @@
 
     .item-show__info-area {
         flex: 1;
-        padding-left: 30px;
+        padding-left: 20px;
+        min-width: 200px;
+        /* 最小幅を設定 */
+        max-width: 400px;
+        /* 最大幅を設定（必要なら） */
     }
 
     .item-show__info-title {
@@ -490,9 +499,10 @@
 
     .tag-deco {
         background: #eee;
-        padding: 5px;
         font-size: 16px;
     }
+
+
 
     .tag {
         padding: 5px;

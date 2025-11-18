@@ -5,25 +5,13 @@ body {
     padding: 0;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-a {
-    all: unset;
-}
-
-/* ベーススタイル（PCサイズ） */
 .app-simple {
-    max-width: 1600px;
+    max-width: 2000px;
     /* 中央寄せ＆余白確保 */
     margin: 0 auto;
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
-    /* 要素がはみ出さず折り返せる */
     gap: 20px;
     flex-direction: column;
 }
@@ -31,11 +19,9 @@ a {
 .header-simple {
     display: flex;
     justify-content: flex-start;
-    /* ロゴの位置調整 */
     align-items: center;
-    padding: 40px 0;
+    padding: 20px 0;
     background-color: #000000;
-    height: 10px;
     width: 100%;
 }
 
@@ -45,7 +31,7 @@ a {
     padding-left: 30px;
 }
 
-.header-logo_visually-hidden {
+.header-logo-visually-hidden {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -56,44 +42,43 @@ a {
     border: 0;
 }
 
+h1 {
+    all: unset;
+    font-size: 24px;
+    font-weight: bold;
+}
+
 .main-content {
     font-size: 18px;
 }
 
 /* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
-    .app-simple {
-        /* padding: 0 24px; */
-    }
-
-    .header-simple {
-        /* padding: 36px 0; */
-    }
-
     .main-content {
-        font-size: 17px;
-        /* 微調整で読みやすく */
+        font-size: 20px;
     }
+
+    .header-logo-img {
+        width: 400px;
+    }
+
+    .app-simple {
+        gap: 30px;
+    }
+
 }
 
 /* タブレットサイズ（768〜850px）対応 */
 @media screen and (min-width: 768px) and (max-width: 850px) {
-    .app-simple {
-        /* padding: 0 16px; */
-        gap: 16px;
-    }
-
-    .header-simple {
-        padding: 24px 0;
-        height: auto;
+    .main-content {
+        font-size: 16px;
     }
 
     .header-logo-img {
-        width: 240px;
-        /* padding-left: 16px; */
+        width: 300px;
     }
 
-    .main-content {
-        font-size: 16px;
+    .app-simple {
+        gap: 15px;
     }
 }

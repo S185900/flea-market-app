@@ -10,8 +10,8 @@
 
 ## 環境構築手順
 **Dockerビルド**
-1. GitHubからプロジェクトをクローン
-    `git@github.com:S185900/flea-market-app.git`
+1. GitHubからプロジェクトをクローン ※SSH接続でクローンする場合は、事前にGitHubにSSH鍵を登録しておいてください。
+    `git clone git@github.com:S185900/flea-market-app.git`
 2. プロジェクトディレクトリに移動
     `cd flea-market-app`
 3. (初回のみ)MySQL用の空ディレクトリを作成
@@ -35,6 +35,7 @@ mysql:
 2. Laravelパッケージをインストール
     `composer install`
 3. .env.example をコピーして .env を作成。※(または、新しく.envファイルを作成でもOK)
+    `cd src` # ディレクトリを移動
     `cp .env.example .env`
 4. .env に以下の環境変数を追加/記載があるか確認
 ``` text
@@ -46,7 +47,7 @@ DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 
-# Fortify（セッションドライバ）
+# Fortify（セッションドライバ）があるかどうか確認
 SESSION_DRIVER=file
 
 # Stripe（テスト用APIキー）※キーの取得方法は下記に記載
