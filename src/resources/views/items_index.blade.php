@@ -9,10 +9,10 @@
 
 <!-- タブ切り替え -->
 <div class="items-tabs">
-    <a href="{{ route('items.index', ['tab' => 'recommend', 'title' => request('title')]) }}" class="items-tab {{ request('tab', 'recommend') === 'recommend' ? 'active' : '' }}">
+    <a href="{{ route('items.index', ['tab' => 'recommend', 'title' => request('title')]) }}" class="items-tab {{ request('tab', 'recommend') === 'recommend' ? 'items-tab--active' : '' }}">
         おすすめ
     </a>
-    <a href="{{ route('items.index', ['tab' => 'mylist', 'title' => request('title')]) }}" class="items-tab {{ request('tab') === 'mylist' ? 'active' : '' }}">
+    <a href="{{ route('items.index', ['tab' => 'mylist', 'title' => request('title')]) }}" class="items-tab {{ request('tab') === 'mylist' ? 'items-tab--active' : '' }}">
         マイリスト
     </a>
 </div>
@@ -21,11 +21,10 @@
 
 <div class="items-index">
 
-    <!-- 商品一覧 -->
     <div class="items-grid">
 
         @foreach ($items as $item)
-            <a href="{{ route('item.detail', ['item_id' => $item->id]) }}" class="item-card-link">
+            <a href="{{ route('item.detail', ['item_id' => $item->id]) }}" class="item-card__link">
                 <div class="item-card">
                     <div class="item-image">
 
@@ -35,9 +34,9 @@
                             <div class="item-image__fallback">商品画像</div>
                         @endif
 
-                        <!-- sold表示 -->
+                        <!-- Sold表示 -->
                         @if ($item->status === 'sold')
-                            <div class="sold-label">Sold</div>
+                            <div class="item-image__sold-label">Sold</div>
                         @endif
 
                     </div>
@@ -46,9 +45,6 @@
             </a>
         @endforeach
 
-
     </div>
-
-
 </div>
 @endsection

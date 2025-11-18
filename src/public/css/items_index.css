@@ -1,14 +1,9 @@
-/* * {
-    box-sizing: border-box;
-} */
-
 .items-index {
     width: 100%;
     padding: 30px 40px 30px 40px;
     font-family: "Inter", sans-serif;
 }
 
-/* タブ部分 */
 .items-tabs {
     display: flex;
     gap: 20px;
@@ -34,7 +29,7 @@
     color: #5F5F5F;
 }
 
-.items-tab.active {
+.items-tab--active {
     color: #FF0000;
 }
 
@@ -51,14 +46,13 @@
 .items-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    /* 正方形 */
     grid-auto-rows: 1fr;
     gap: 5px;
     width: 100%;
     max-width: 100%;
 }
 
-.item-card-link {
+.item-card__link {
     text-decoration: none;
     color: inherit;
     display: block;
@@ -66,7 +60,6 @@
 
 .item-card {
     aspect-ratio: 1 / 1;
-    /* 正方形を維持 */
     background-color: #FFFFFF;
     border-radius: 8px;
     padding: 20px;
@@ -95,7 +88,6 @@
     aspect-ratio: 1 / 1;
     border-radius: 4px;
     margin-bottom: 12px;
-    /* これを追加するとsoldラベルがはみ出さない */
     overflow: hidden;
 }
 
@@ -124,15 +116,13 @@
     object-fit: cover;
     border-radius: 4px;
     display: block;
-    /* 中央に寄せる */
     margin: auto;
 }
 
-.sold-label {
+.item-image__sold-label {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
     background-color: rgba(255, 0, 0, 0.8);
     color: white;
     font-weight: bold;
@@ -145,14 +135,12 @@
     transform: translate(-50%, -50%) rotate(-10deg);
     z-index: 2;
     pointer-events: none;
-    /* soldラベルが折り返さないように */
     white-space: nowrap;
 }
 
 .item-name {
     font-family: "Inter", sans-serif;
     font-weight: 400;
-    /* font-style: regular; */
     font-style: normal;
     font-size: 25px;
     line-height: 100%;
@@ -164,28 +152,38 @@
 /* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
     .items-index {
-        /* width: 100%; */
-        /* padding: 40px 80px; */
+        padding: 40px 80px;
+    }
+
+    .items-tabs {
+        margin-left: 120px;
+        gap: 30px;
+    }
+
+    .items-tab {
+        font-size: 26px;
+        padding: 24px 28px 14px 28px;
     }
 
     .items-grid {
-        /* gap: 50px; */
+        gap: 20px;
     }
 
     .item-card {
-        /* width: 100%; */
-        /* aspect-ratio: 1 / 1;
-        box-sizing: border-box; */
-    }
-
-    .item-image {
-        height: auto;
-        /* aspect-ratio: 1 / 1; */
-        /* font-size: 32px; */
+        padding: 24px;
     }
 
     .item-name {
-        /* font-size: 28px; */
+        font-size: 28px;
+    }
+
+    .item-image__fallback {
+        font-size: 30px;
+    }
+
+    .item-image__sold-label {
+        font-size: 36px;
+        padding: 18px 18px;
     }
 }
 
@@ -216,20 +214,18 @@
 
     .items-tab {
         font-size: 20px;
-        /* padding: 10px 16px; */
     }
 
     .item-image__fallback {
         font-size: 22px;
     }
 
-    .sold-label {
+    .item-image__sold-label {
         padding: 15px 15px;
         border-radius: 4px;
         font-size: 25px;
     }
 
-    /* タブ部分 */
     .items-tabs {
         gap: 10px;
         margin-bottom: 5px;

@@ -2,7 +2,6 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/item_show.css')}}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 @endsection
 
 <!-- 商品詳細ページ -->
@@ -14,7 +13,7 @@
         <div class="item-show__image">
             @if ($item->images->isNotEmpty())
                 @foreach ($item->images as $image)
-                    <img src="{{ asset('storage/' . $image->image_path) }}" alt="{{ $item->title }}" class="item-show__image__display">
+                    <img src="{{ asset('storage/' . $image->image_path) }}" alt="{{ $item->title }}" class="item-show__image-display">
                     @break
                 @endforeach
             @else
@@ -22,7 +21,6 @@
             @endif
         </div>
     </section>
-
 
     <section class="item-show__info-area">
 
@@ -38,11 +36,11 @@
             <p class="item-show__price">
                 <span class="amount">¥{{ number_format($item->price) }}</span><span class="spacer"> </span>(税込)
             </p>
-            <div class="item-show__likes__comment__count">
+            <div class="item-show__meta-info">
                 <div class="icon-block">
                     <form action="{{ route('item.like', $item->id) }}" method="POST">
                         @csrf
-                        <button type="submit" class="like-button" style="background: none; border: none; padding: 0; cursor: pointer;">
+                        <button type="submit" class="like-button">
                             <img
                                 src="{{ $item->likes->contains('user_id', Auth::id()) ? '/images/like-icon-filled.png' : '/images/like-icon-outline.png' }}"
                                 alt="いいね"
@@ -88,7 +86,7 @@
                 @foreach ($item->categories->chunk(3) as $chunk)
                     <div class="tag-row">
                         @foreach ($chunk as $category)
-                            <span class="tag-deco">{{ $category->category_name }}</span>
+                            <span class="category-tag">{{ $category->category_name }}</span>
                         @endforeach
                     </div>
                 @endforeach
@@ -97,11 +95,10 @@
                 <p class="tags-title">
                     商品の状態
                 </p>
-                <span class="tag">
-                    <span class="tag">{{ $item->condition_label }}</span>
-                </span>
+                <div class="tag-wrapper">
+                    <span class="tag-label">{{ $item->condition_label }}</span>
+                </div>
             </div>
-
         </div>
 
         <div class="item-show__comment">
@@ -110,8 +107,6 @@
             </h3>
 
             @foreach ($item->comments as $comment)
-            <!-- <p>{{ 'storage/' . $comment->user->profile_image_url }}</p> -->
-            <!-- <p>{{ asset($comment->user->profile_image_url) }}</p> -->
                 <div class="comment-area">
                     <div class="user-info">
                         @if ($comment->user && $comment->user->profile_image_url)
@@ -137,7 +132,6 @@
 
             <form action="{{ route('item.comment', $item->id) }}" method="POST" novalidate>
                 @csrf
-
                 <textarea name="comment" class="comment-textarea"
                     placeholder=""
                     @guest readonly @endguest>{{ old('comment') }}</textarea>
@@ -149,9 +143,7 @@
                 <button type="submit" class="comment-button">
                     コメントを送信する
                 </button>
-
             </form>
-
         </div>
 
     </section>
