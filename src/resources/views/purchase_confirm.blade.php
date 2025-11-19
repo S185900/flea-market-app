@@ -8,20 +8,24 @@
 <!-- 商品購入ページ -->
 @section('content')
 
-<div class="purchase_confirm">
+<section class="purchase_confirm">
 
     <div class="purchase_confirm__item-section">
         <div class="item-section-1">
             <div class="item-section__flex-1">
                 <div class="purchase_confirm__image">
+
                     @if ($item->images->isNotEmpty())
                         @foreach ($item->images as $image)
                             <img src="{{ asset('storage/' . $image->image_path) }}" alt="{{ $item->title }}" class="purchase_confirm__image__display">
                             @break
                         @endforeach
                     @else
-                        <div class="item-image__fallback">商品画像なし</div>
+                        <div class="item-image__fallback">
+                            商品画像なし
+                        </div>
                     @endif
+
                 </div>
             </div>
             <div class="item-section__flex-2">
@@ -116,7 +120,7 @@
 
             const formData = new FormData(this);
             const errorContainer = document.getElementById('error-messages');
-            errorContainer.innerHTML = ''; // 前のエラーをクリア
+            errorContainer.innerHTML = '';
 
             fetch("{{ route('purchase.prepare', ['item' => $item]) }}", {
                 method: "POST",
@@ -159,10 +163,7 @@
         });
         </script>
 
-        <!-- {{-- デバッグ用に表示してみる --}} -->
-        <!-- <p>支払い方法: {{ $selectedMethod }}</p>
-        <p>配送先住所: {{ $fullAddress }}</p> -->
     </div>
 
-</div>
+</section>
 @endsection

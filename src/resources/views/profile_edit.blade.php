@@ -7,7 +7,7 @@
 <!-- プロフィール編集ページ -->
 @section('content')
 <h2 class="profile-edit-title">プロフィール設定</h2>
-<div class="profile-edit">
+<section class="profile-edit">
     <form class="profile-edit-form" method="POST" action="{{ $isFirstLogin ? route('mypage.store') : route('mypage.profile.update') }}" enctype="multipart/form-data" novalidate>
         @csrf
 
@@ -88,5 +88,5 @@
             </button>
         </div>
     </form>
-</div>
+</section>
 @endsection

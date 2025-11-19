@@ -1,13 +1,12 @@
 .purchase_confirm {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
     gap: 20px;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     padding-top: 40px;
     padding-bottom: 40px;
-    /* border: 1px solid #ddd; */
     border-radius: 8px;
 }
 
@@ -52,7 +51,7 @@
     font-size: 30px;
     line-height: 100%;
     letter-spacing: 0%;
-    text-align: center;
+    text-align: left;
     text-decoration: none;
     color: #000000;
     padding-bottom: 20px;
@@ -112,7 +111,6 @@
     max-width: 300px;
     height: 40px;
     padding: 10px 40px 10px 10px;
-        /* 右側に余白を作る */
     border: 1px solid #ccc;
     border-radius: 4px;
     font-family: "Inter", sans-serif;
@@ -169,13 +167,11 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    
 }
 
 .item-section-3 {
     border-bottom: 1px solid #ddd;
     padding-bottom: 30px;
-
 }
 
 .purchase_confirm__payment-method-section {
@@ -185,7 +181,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
 }
 
 .summary-table {
@@ -249,8 +244,6 @@
     margin-bottom: 7px;
 }
 
-
-
 .purchase-button {
     width: 100%;
     padding: 20px;
@@ -290,13 +283,63 @@
 
 /* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
-    
+    .product-title {
+        font-size: 32px;
+    }
+
+    .product-price {
+        font-size: 28px;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .payment-method-select {
+        max-width: 320px;
+        height: 45px;
+        font-size: 20px;
+        padding: 12px 45px 12px 12px;
+        background-position: right 12px center;
+        background-size: 12px 8px;
+    }
+
+    .change-address {
+        font-size: 17px;
+        padding-right: 15px;
+    }
+
+    .address-info {
+        font-size: 19px;
+    }
+
+    .summary-item {
+        font-size: 20px;
+        line-height: 140%;
+    }
+
+    .purchase-button {
+        font-size: 28px;
+        padding: 22px;
+    }
+
+    .error-message {
+        font-size: 16px;
+    }
+
+    .summary-table td {
+        font-size: 26px;
+    }
+
+    .summary-table th {
+        font-size: 22px;
+    }
 }
 
 /* タブレットサイズ（768〜850px）対応 */
 @media screen and (min-width: 768px) and (max-width: 850px) {
     .product-title {
-        font-size: 27px;
+        font-size: 23px;
     }
 
     .product-price {
