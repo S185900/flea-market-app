@@ -8,20 +8,22 @@
 @section('content')
 <h2 class="profile-edit-title">プロフィール設定</h2>
 <div class="profile-edit">
-    <!-- <form class="profile-edit-form" method="POST" action="{{ route('mypage.profile.update') }}" enctype="multipart/form-data" novalidate> -->
     <form class="profile-edit-form" method="POST" action="{{ $isFirstLogin ? route('mypage.store') : route('mypage.profile.update') }}" enctype="multipart/form-data" novalidate>
         @csrf
+
         @if (!$isFirstLogin)
             @method('PATCH')
         @endif
 
         <div class="profile-edit-image-area">
             <div class="profile-edit-image-preview">
+
                 @if ($user->profile_image_url)
                     <img src="{{ $profile->imageUrl() }}" alt="" class="user-icon" />
                 @else
                     <img src="{{ asset('images/default-icon.png') }}" alt="プロフィール画像" class="user-icon" />
                 @endif
+
             </div>
 
             <label for="image" class="profile-edit-custom-file">
