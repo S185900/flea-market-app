@@ -1,8 +1,6 @@
 .profile-index {
     width: 100%;
-
 }
-
 .profile-header {
     max-width: 1000px;
     width: 100%;
@@ -23,7 +21,6 @@
     gap: 20px;
     flex-shrink: 0;
 }
-
 .profile-image {
     width: 150px;
     height: 150px;
@@ -40,7 +37,6 @@
     align-items: center;
     justify-content: center;
 }
-
 .user-icon {
     width: 100%;
     height: 100%;
@@ -54,7 +50,6 @@
     min-width: 180px;
     padding: 15px 20px;
     width: 180px;
-    white-space: nowrap;
     background-color: #FFFFFF;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -93,18 +88,12 @@
     cursor: pointer;
 }
 
-
-
-
-
-
 .items-index {
     width: 100%;
     padding: 30px 40px 30px 40px;
     font-family: "Inter", sans-serif;
 }
 
-/* タブ部分 */
 .items-tabs {
     display: flex;
     gap: 20px;
@@ -211,7 +200,6 @@
 
 .item-image {
     min-height: 0;
-    /* もし高さが崩れる場合は、ここを150pxなどに設定してみて */
 }
 
 .item-image__display {
@@ -228,7 +216,6 @@
     object-fit: cover;
     border-radius: 4px;
     display: block;
-    /* 中央に寄せる */
     margin: auto;
 }
 
@@ -249,14 +236,12 @@
     transform: translate(-50%, -50%) rotate(-10deg);
     z-index: 2;
     pointer-events: none;
-    /* soldラベルが折り返さないように */
     white-space: nowrap;
 }
 
 .item-name {
     font-family: "Inter", sans-serif;
     font-weight: 400;
-    /* font-style: regular; */
     font-style: normal;
     font-size: 25px;
     line-height: 100%;
@@ -267,29 +252,57 @@
 
 /* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .profile-header {
+        padding: 40px;
+        gap: 60px;
+    }
+
+    .profile-image {
+        width: 180px;
+        height: 180px;
+    }
+
+    .user-name {
+        font-size: 42px;
+        padding: 20px 30px;
+        width: auto;
+        min-width: 200px;
+    }
+
+    .btn-edit-profile {
+        font-size: 24px;
+        padding: 14px 28px;
+    }
+
     .items-index {
-        /* width: 100%; */
-        /* padding: 40px 80px; */
+        padding: 50px 80px;
     }
 
     .items-grid {
-        /* gap: 50px; */
+        gap: 20px;
+        grid-template-columns: repeat(4, 1fr);
     }
 
     .item-card {
-        /* width: 100%; */
-        /* aspect-ratio: 1 / 1;
-        box-sizing: border-box; */
-    }
-
-    .item-image {
-        height: auto;
-        /* aspect-ratio: 1 / 1; */
-        /* font-size: 32px; */
+        padding: 30px;
     }
 
     .item-name {
-        /* font-size: 28px; */
+        font-size: 28px;
+    }
+
+    .sold-label {
+        font-size: 45px;
+        padding: 25px 25px;
+    }
+
+    .items-tab {
+        font-size: 28px;
+        padding: 24px 28px 14px 28px;
+    }
+
+    .item-image__fallback {
+        font-size: 30px;
     }
 }
 
@@ -297,10 +310,8 @@
 @media screen and (min-width: 768px) and (max-width: 850px) {
     .profile-header {
         flex-wrap: wrap;
-        /* 折り返しを許可 */
         justify-content: center;
         gap: 20px;
-        /* 要素間の余白を広げる */
     }
 
     .profile-image {
@@ -340,7 +351,6 @@
     }
 
     .item-card {
-        
         padding: 5px;
     }
 
@@ -356,7 +366,6 @@
 
     .items-tab {
         font-size: 20px;
-        /* padding: 10px 16px; */
     }
 
     .item-image__fallback {
