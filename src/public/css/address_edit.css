@@ -79,3 +79,56 @@
     font-size: 14px;
     margin-top: 5px;
 }
+
+/* PCサイズ（1400px〜1540px）に最適化 */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .address-edit {
+        max-width: 720px;
+        padding: 30px;
+    }
+
+    .address-edit-title {
+        font-size: 40px;
+    }
+
+    .address-edit-label {
+        font-size: 26px;
+    }
+
+    .address-edit-input {
+        height: 65px;
+        font-size: 18px;
+    }
+
+    .address-edit-button {
+        font-size: 28px;
+        padding: 24px;
+    }
+}
+
+/* タブレットサイズ（768px〜850px）に最適化 */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .address-edit {
+        max-width: 90%;
+        padding: 16px;
+    }
+
+    .address-edit-title {
+        font-size: 32px;
+        padding: 30px 0 16px 0;
+    }
+
+    .address-edit-label {
+        font-size: 20px;
+    }
+
+    .address-edit-input {
+        height: 55px;
+        font-size: 16px;
+    }
+
+    .address-edit-button {
+        font-size: 24px;
+        padding: 18px;
+    }
+}
