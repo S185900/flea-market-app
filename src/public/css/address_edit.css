@@ -109,7 +109,7 @@
 /* タブレットサイズ（768px〜850px）に最適化 */
 @media screen and (min-width: 768px) and (max-width: 850px) {
     .address-edit {
-        max-width: 90%;
+        max-width: 80%;
         padding: 16px;
     }
 

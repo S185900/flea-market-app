@@ -46,19 +46,16 @@
     width: 150px;
     height: 150px;
     flex-shrink: 0;
-    /* 親のflexで潰されないように */
     border-radius: 50%;
     background-color: #D9D9D9;
     background-size: cover;
     background-position: center;
     border: 1px solid #ccc;
     aspect-ratio: 1 / 1;
-    /* 幅と高さの比率を固定する */
 }
 
 .profile-edit-input__file {
     display: none;
-    /* デフォルトのボタンを非表示に */
 }
 
 .profile-edit-custom-file {
@@ -66,7 +63,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* margin-left: 20px; */
     padding: 15px 20px;
     width: 180px;
     border: 2px solid #FF5555;
@@ -83,7 +79,6 @@
     letter-spacing: 0%;
     text-align: center;
     color: #FF5555;
-    
 }
 
 .profile-edit-custom-file:hover {
@@ -155,26 +150,6 @@
     width: 100%;
 }
 
-/* セレクトボックスのカスタムスタイル */
-.sell-form-input-2 {
-    width: 100%;
-    height: 60px;
-    padding: 10px 40px 10px 10px; /* 右側に余白を追加 */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    appearance: none; /* デフォルトの矢印を非表示 */
-    background-color: #fff;
-    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 12px 8px;
-    font-family: "Inter", sans-serif;
-    font-size: 16px;
-    color: #000;
-    cursor: pointer;
-}
-
-
 .sell-form-input-1 {
     width: 100%;
     height: 160px;
@@ -183,11 +158,8 @@
     border-radius: 4px;
     background-color: #ffffff;
     pointer-events: none;
-    /* 入力不可にする */
 }
 
-
-/* セレクトボックスのカスタムスタイル */
 .sell-form-input-2 {
     width: 100%;
     height: 60px;
@@ -215,14 +187,12 @@
     font-weight: 700;
 }
 
-/* Chrome, Safari, Edge 対応 */
 .sell-form-input-3::-webkit-inner-spin-button,
 .sell-form-input-3::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-/* Firefox 対応 */
 .sell-form-input-3 {
     -moz-appearance: textfield;
 }
@@ -266,7 +236,56 @@
 
 /* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .sell-form-title {
+        font-size: 40px;
+        padding: 50px 0 30px 0;
+    }
 
+    .sell-form-label {
+        font-size: 26px;
+    }
+
+    .sell-form-detail-title {
+        font-size: 32px;
+        padding: 120px 0 30px 0;
+    }
+
+    .sell-form-input-1 {
+        height: 180px;
+    }
+
+    .sell-form-input-2 {
+        height: 65px;
+        font-size: 18px;
+        background-size: 14px 14px;
+        /* 矢印を少し大きく */
+    }
+
+    .sell-form-input-3 {
+        height: 65px;
+        font-size: 18px;
+    }
+
+    .sell-form-input-4 {
+        height: 180px;
+        font-size: 16px;
+    }
+
+    .profile-edit-custom-file {
+        width: 200px;
+        font-size: 22px;
+        padding: 18px 24px;
+    }
+
+    .category-label {
+        font-size: 16px;
+        padding: 6px 18px;
+    }
+
+    .profile-edit-button {
+        font-size: 28px;
+        padding: 24px;
+    }
 }
 
 /* タブレットサイズ（768〜850px）対応 */
