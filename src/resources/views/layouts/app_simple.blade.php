@@ -12,17 +12,17 @@
 </head>
 <body>
     <div class="app-simple">
-        <div class="header-simple">
-            <h1 class="header-logo-visually-hidden">
-                COACHTECH
-            </h1>
+        <header class="header-simple" role="banner">
             <a href="/" class="header-logo">
+                <h1 class="header-logo-visually-hidden">
+                COACHTECH
+                </h1>
                 <img class="header-logo-img" src="{{ asset('images/logo.svg') }}" alt="COACHTECH">
             </a>
-        </div>
-        <div class="main-content">
+        </header>
+        <main class="main-content">
             @yield('content')
-        </div>
+        </main>
     </div>
 </body>
 </html>

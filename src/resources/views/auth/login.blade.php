@@ -7,7 +7,7 @@
 <!-- ログインページ -->
 @section('content')
 <h2 class="login-title">ログイン</h2>
-<div class="login">
+<section class="login">
     <form class="login-form" method="POST" action="{{ route('login') }}" novalidate>
         @csrf
 
@@ -42,6 +42,8 @@
             </button>
         </div>
     </form>
-    <a class="login-link" href="{{ route('register') }}">会員登録はこちら</a>
-</div>
+    <nav class="login-nav">
+        <a class="login-link" href="{{ route('register') }}">会員登録はこちら</a>
+    </nav>
+</section>
 @endsection

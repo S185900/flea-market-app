@@ -4,7 +4,7 @@
     margin: 0 auto;
     font-family: "Inter", sans-serif;
     font-weight: 700;
-    font-style: bold;
+    font-style: normal;
     font-size: 36px;
     line-height: 100%;
     letter-spacing: 0%;
@@ -18,7 +18,7 @@
     margin: 0 auto;
     padding: 20px;
     border-radius: 8px;
-    text-emphasis: center;
+    text-align: center;
 }
 
 .login form {
@@ -36,7 +36,7 @@
     margin-top: 20px;
     font-family: "Inter", sans-serif;
     font-weight: 700;
-    font-style: bold;
+    font-style: normal;
     font-size: 24px;
     line-height: 100%;
     letter-spacing: 0%;
@@ -62,7 +62,7 @@
     cursor: pointer;
     font-family: "Inter", sans-serif;
     font-weight: 700;
-    font-style: bold;
+    font-style: normal;
     font-size: 26px;
     line-height: 100%;
     letter-spacing: 0%;
@@ -72,6 +72,12 @@
 
 .login-button:hover {
     background-color: #c74040;
+}
+
+.login-nav {
+    margin-top: 10px;
+    margin-bottom: 50px;
+    text-align: center;
 }
 
 .login-link {
@@ -96,6 +102,8 @@
     color: #FF5555;
     font-size: 14px;
     margin-top: 5px;
+    display: block;
+    text-align: left;
 }
 
 .auth-error {
@@ -106,7 +114,38 @@
 /* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
     .login {
-        max-width: 500px;
+        max-width: 640px;
+        padding: 40px 30px;
+        margin: 40px auto;
+    }
+
+    .login-title {
+        font-size: 40px;
+        padding: 60px 0 30px 0;
+    }
+
+    .login-label {
+        font-size: 26px;
+    }
+
+    .login-input {
+        height: 64px;
+        font-size: 18px;
+    }
+
+    .login-button {
+        font-size: 28px;
+        padding: 24px;
+        margin-top: 70px;
+    }
+
+    .login-link {
+        font-size: 22px;
+    }
+
+    .invalid-feedback,
+    .auth-error {
+        font-size: 15px;
     }
 }
 
@@ -121,7 +160,7 @@
         margin: 0 auto;
         padding: 20px;
         border-radius: 8px;
-        text-emphasis: center;
+        text-align: center;
     }
 
     .login-item {
@@ -148,22 +187,12 @@
         color: #FFFFFF;
     }
 
-    .login-button:hover {
-        background-color: #c74040;
-    }
-
     .login-link {
         font-size: 18px;
     }
 
-    .login-link:hover {
-        color: #FF5555;
-    }
-
     .invalid-feedback {
-        color: red;
-        font-size: 14px;
-        margin-top: 5px;
+        font-size: 13px;
     }
 
 }

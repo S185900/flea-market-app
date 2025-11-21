@@ -12,16 +12,16 @@
 </head>
 <body>
     <div class="app-nav">
-        <div class="header-nav">
-            <h1 class="header-logo-visually-hidden">
-                COACHTECH
-            </h1>
+        <header class="header-nav" role="banner">
             <a href="/" class="header-logo">
+                <h1 class="header-logo-visually-hidden">
+                COACHTECH
+                </h1>
                 <img class="header-logo-img" src="{{ asset('images/logo.svg') }}" alt="COACHTECH">
             </a>
 
             <!-- 検索フォーム -->
-            <form method="GET" action="{{ route('items.index') }}" novalidate>
+            <form method="GET" action="{{ route('items.index') }}" role="search" novalidate>
 
                 <label class="header-search-label visually-hidden" for="header-search">商品名で検索</label>
 
@@ -65,10 +65,10 @@
                 </ul>
             </nav>
 
-        </div>
-        <div class="main-content">
+        </header>
+        <main class="main-content">
             @yield('content')
-        </div>
+        </main>
     </div>
 </body>
 </html>

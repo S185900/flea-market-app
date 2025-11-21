@@ -4,7 +4,7 @@
     margin: 0 auto;
     font-family: "Inter", sans-serif;
     font-weight: 700;
-    font-style: bold;
+    font-style: normal;
     font-size: 36px;
     line-height: 100%;
     letter-spacing: 0%;
@@ -18,7 +18,7 @@
     margin: 0 auto;
     padding: 20px;
     border-radius: 8px;
-    text-emphasis: center;
+    text-align: center;
 }
 
 .register form {
@@ -36,7 +36,7 @@
     margin-top: 20px;
     font-family: "Inter", sans-serif;
     font-weight: 700;
-    font-style: bold;
+    font-style: normal;
     font-size: 24px;
     line-height: 100%;
     letter-spacing: 0%;
@@ -62,7 +62,7 @@
     cursor: pointer;
     font-family: "Inter", sans-serif;
     font-weight: 700;
-    font-style: bold;
+    font-style: normal;
     font-size: 26px;
     line-height: 100%;
     letter-spacing: 0%;
@@ -72,6 +72,12 @@
 
 .register-button:hover {
     background-color: #c74040;
+}
+
+.register-nav {
+    margin-top: 10px;
+    margin-bottom: 50px;
+    text-align: center;
 }
 
 .login-link {
@@ -96,12 +102,45 @@
     color: red;
     font-size: 14px;
     margin-top: 5px;
+    display: block;
+    text-align: left;
 }
 
 /* PCサイズ（1400〜1540px）対応 */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
     .register {
-        max-width: 500px;
+        max-width: 600px;
+        padding: 40px 30px;
+        margin: 40px auto;
+    }
+
+    .register-title {
+        font-size: 38px;
+        padding: 50px 0 30px 0;
+    }
+
+    .register-label {
+        font-size: 26px;
+    }
+
+    .register-input {
+        height: 64px;
+        font-size: 18px;
+    }
+
+    .register-button {
+        font-size: 28px;
+        padding: 24px;
+        margin-top: 70px;
+    }
+
+    .login-link {
+        font-size: 22px;
+        margin-top: 30px;
+    }
+
+    .invalid-feedback {
+        font-size: 16px;
     }
 }
 
@@ -116,7 +155,7 @@
         margin: 0 auto;
         padding: 20px;
         border-radius: 8px;
-        text-emphasis: center;
+        text-align: center;
     }
 
     .register-item {
@@ -143,22 +182,11 @@
         color: #FFFFFF;
     }
 
-    .register-button:hover {
-        background-color: #c74040;
-    }
-
-    .register-link {
+    .login-link {
         font-size: 18px;
     }
 
-    .register-link:hover {
-        color: #FF5555;
-    }
-
     .invalid-feedback {
-        color: red;
-        font-size: 14px;
-        margin-top: 5px;
+        font-size: 13px;
     }
-
 }
