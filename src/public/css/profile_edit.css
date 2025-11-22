@@ -25,14 +25,12 @@
     width: 150px;
     height: 150px;
     flex-shrink: 0;
-    /* 親のflexで潰されないように */
     border-radius: 50%;
     background-color: #D9D9D9;
     background-size: cover;
     background-position: center;
     border: 1px solid #ccc;
     aspect-ratio: 1 / 1;
-    /* 幅と高さの比率を固定する */
 }
 
 .user-icon {
@@ -45,7 +43,6 @@
 
 .profile-edit-input__file {
     display: none;
-        /* デフォルトのボタンを非表示に */
 }
 
 .profile-edit-custom-file {

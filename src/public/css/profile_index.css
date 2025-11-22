@@ -10,9 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* 中央揃えに変更 */
     gap: 40px;
-    /* 要素間の余白を広めに */
 }
 
 .profile-info {
@@ -25,14 +23,12 @@
     width: 150px;
     height: 150px;
     flex-shrink: 0;
-    /* 親のflexで潰されないように */
     border-radius: 50%;
     background-color: #D9D9D9;
     background-size: cover;
     background-position: center;
     border: 1px solid #ccc;
     aspect-ratio: 1 / 1;
-    /* 幅と高さの比率を固定する */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -136,7 +132,6 @@
 .items-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    /* 正方形 */
     grid-auto-rows: 1fr;
     gap: 5px;
     width: 100%;
@@ -153,7 +148,6 @@
     display: grid;
         grid-template-rows: 1fr auto;
     aspect-ratio: 1 / 1;
-    /* 正方形を維持 */
     background-color: #FFFFFF;
     border-radius: 8px;
     padding: 20px;
@@ -182,7 +176,6 @@
     aspect-ratio: 1 / 1;
     border-radius: 4px;
     margin-bottom: 12px;
-    /* これを追加するとsoldラベルがはみ出さない */
     overflow: hidden;
 }
 
@@ -378,7 +371,6 @@
         font-size: 25px;
     }
 
-    /* タブ部分 */
     .items-tabs {
         gap: 10px;
         margin-bottom: 5px;
@@ -390,5 +382,4 @@
         padding: 10px 20px 10px 20px;
         font-size: 20px;
     }
-
 }

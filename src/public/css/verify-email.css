@@ -1,7 +1,6 @@
 .notice {
     max-width: 900px;
     margin: 180px auto 20px auto;
-    /* 上180px 下20px */
     text-align: center;
 }
 
@@ -18,7 +17,6 @@
     text-align: center;
     color: #000000;
     padding: 0;
-    /* 余白は親に任せるのでリセット */
 }
 
 .break-tablet {
@@ -107,7 +105,6 @@
         font-size: 22px;
         padding-top: 70px;
     }
-
 }
 
 /* タブレットサイズ（768〜850px）対応 */
