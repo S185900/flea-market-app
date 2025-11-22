@@ -13,6 +13,8 @@ use App\Http\Requests\PurchaseRequest;
 
 class PurchaseController extends Controller
 {
+    private const KONBINI_EXPIRES_AFTER_DAYS = 3;
+
     public function showPurchaseForm($item_id)
     {
         $item = Item::with('images', 'brand')->findOrFail($item_id);
@@ -32,10 +34,8 @@ class PurchaseController extends Controller
 
     public function confirm(Request $request, Item $item)
     {
-        // dd($request->all());
         $selectedMethod = $request->input('payment_method');
 
-        // 支払い方法と配送先をセッションに保存
         session([
             'selected_payment_method' => $selectedMethod,
         ]);
@@ -53,17 +53,14 @@ class PurchaseController extends Controller
 
     public function redirectToStripe(PurchaseRequest $request, Item $item)
     {
-        // 支払い方法を取得
         $selectedMethod = $request->input('payment_method');
 
-        // ユーザー情報と住所を取得
         $user = auth()->user();
         $fullAddress = "{$user->postal_code} {$user->shipping_address} {$user->building_name}";
 
         // テスト環境ではStripe APIをスキップしてダミーのレスポンスを返す
         if (app()->environment('testing')) {
 
-            // トランザクションを記録
             Purchase::create([
                 'item_id' => $item->id,
                 'buyer_id' => $user->id,
@@ -75,10 +72,8 @@ class PurchaseController extends Controller
                 'completed_at' => now(),
             ]);
 
-            // 商品を「sold」に更新
             $item->update(['status' => 'sold']);
 
-            // ダミーのStripe URLを返す
             return response()->json([
                 'checkout_url' => 'https://stripe.com/mock-checkout',
             ]);
@@ -104,13 +99,14 @@ class PurchaseController extends Controller
                 'item_id' => $item->id,
             ],
             'payment_method_options' => $selectedMethod === 'convenience' ? [
-                'konbini' => ['expires_after_days' => 3],
+                'konbini' => [
+                    'expires_after_days' => self::KONBINI_EXPIRES_AFTER_DAYS,
+                ],
             ] : [],
             'success_url' => url('/purchase/success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => url('/purchase/cancel'),
         ]);
 
-        // トランザクションを記録
         Purchase::create([
             'item_id' => $item->id,
             'buyer_id' => $user->id,
@@ -122,19 +118,13 @@ class PurchaseController extends Controller
             'completed_at' => now(),
         ]);
 
-        // 商品を「sold」に更新
         $item->update(['status' => 'sold']);
 
-         // StripeのチェックアウトURLを返す
         return response()->json([
             'checkout_url' => $session->url,
         ]);
     }
 
-
-
-
-    // 購入成功後の処理
     public function handleSuccess(Request $request)
     {
         $session_id = $request->get('session_id');
@@ -146,7 +136,6 @@ class PurchaseController extends Controller
         Stripe::setApiKey(config('services.stripe.secret'));
         $session = StripeSession::retrieve($session_id);
 
-        // コンビニ支払いはWebhookで処理する
         if ($session->payment_method_types[0] !== 'card') {
             return redirect()->route('items.index')->with('message', '支払い手続きが完了しました');
         }
@@ -156,11 +145,10 @@ class PurchaseController extends Controller
         if ($item_id) {
             $item = Item::find($item_id);
 
-            // すでにTransactionがあるか確認
             $purchase = Purchase::where('stripe_checkout_session_id', $session_id)->first();
 
-            if ($transaction && !$transaction->completed_at) {
-                $transaction->update([
+            if ($purchase && !$purchase->completed_at) {
+                $purchase->update([
                     'stripe_payment_intent_id' => $session->payment_intent,
                     'status' => 'completed',
                     'completed_at' => now(),
@@ -174,7 +162,4 @@ class PurchaseController extends Controller
 
         return redirect()->route('items.index')->with('message', '購入が完了しました');
     }
-
-
-
 }
