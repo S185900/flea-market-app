@@ -21,7 +21,7 @@ class LoginUserController extends Controller
             return redirect()->route('verification.notice');
             }
 
-            return redirect()->intended('/'); // ログイン後のリダイレクト先(元のページに戻る)
+            return redirect()->intended('/');
         }
 
         return back()->withErrors([
