@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/profile_edit.css')}}">
 @endsection
 
-<!-- プロフィール編集ページ -->
+<!-- プロフィール編集画面(設定画面/初回) -->
 @section('content')
 <h2 class="profile-edit-title">プロフィール設定</h2>
 <section class="profile-edit">
@@ -33,7 +33,9 @@
 
             @error('image')
                 <span class="invalid-feedback" role="alert">
-                    <strong class="error-message">{{ $message }}</strong>
+                    <strong class="error-message">
+                        {{ $message }}
+                    </strong>
                 </span>
             @enderror
         </div>
@@ -44,7 +46,9 @@
 
             @error('name')
                 <span class="invalid-feedback" role="alert">
-                    <strong class="error-message">{{ $message }}</strong>
+                    <strong class="error-message">
+                        {{ $message }}
+                    </strong>
                 </span>
             @enderror
         </div>
@@ -55,7 +59,9 @@
 
             @error('postal_code')
                 <span class="invalid-feedback" role="alert">
-                    <strong class="error-message">{{ $message }}</strong>
+                    <strong class="error-message">
+                        {{ $message }}
+                    </strong>
                 </span>
             @enderror
         </div>
@@ -66,7 +72,9 @@
 
             @error('shipping_address')
                 <span class="invalid-feedback" role="alert">
-                    <strong class="error-message">{{ $message }}</strong>
+                    <strong class="error-message">
+                        {{ $message }}
+                    </strong>
                 </span>
             @enderror
         </div>
@@ -77,7 +85,9 @@
 
             @error('building_name')
                 <span class="invalid-feedback" role="alert">
-                    <strong class="error-message">{{ $message }}</strong>
+                    <strong class="error-message">
+                        {{ $message }}
+                    </strong>
                 </span>
             @enderror
         </div>

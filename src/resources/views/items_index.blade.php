@@ -4,10 +4,8 @@
 <link rel="stylesheet" href="{{ asset('css/items_index.css')}}">
 @endsection
 
-<!-- 商品一覧ページ(トップ画面) -->
+<!-- 商品一覧画面（トップ画面） -->
 @section('content')
-
-<!-- タブ切り替え -->
 <div class="items-tabs">
     <a href="{{ route('items.index', ['tab' => 'recommend', 'title' => request('title')]) }}" class="items-tab {{ request('tab', 'recommend') === 'recommend' ? 'items-tab--active' : '' }}">
         おすすめ
@@ -17,9 +15,9 @@
     </a>
 </div>
 
-<div class="items-divider"></div>
+<hr class="items-divider" role="separator">
 
-<div class="items-index">
+<section class="items-index">
 
     <div class="items-grid">
 
@@ -34,7 +32,6 @@
                             <div class="item-image__fallback">商品画像</div>
                         @endif
 
-                        <!-- Sold表示 -->
                         @if ($item->status === 'sold')
                             <div class="item-image__sold-label">Sold</div>
                         @endif
@@ -46,5 +43,5 @@
         @endforeach
 
     </div>
-</div>
+</section>
 @endsection

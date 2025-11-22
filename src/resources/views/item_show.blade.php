@@ -4,9 +4,8 @@
 <link rel="stylesheet" href="{{ asset('css/item_show.css')}}">
 @endsection
 
-<!-- 商品詳細ページ -->
+<!-- 商品詳細画面 -->
 @section('content')
-
 <div class="item-show">
 
     <section class="item-show__image-area">
@@ -17,7 +16,7 @@
                     @break
                 @endforeach
             @else
-                <div class="item-image__fallback">商品画像なし</div>
+                <p class="item-image__fallback">商品画像</p>
             @endif
         </div>
     </section>
@@ -28,15 +27,19 @@
             <h2 class="item-show__info-title">
                 {{ $item->title }}
             </h2>
+
             @if (!empty($item->brand?->brand_name))
                 <p class="item-show__brand-name">
                     {{ $item->brand->brand_name }}
                 </p>
             @endif
+
             <p class="item-show__price">
                 <span class="amount">¥{{ number_format($item->price) }}</span><span class="spacer"> </span>(税込)
             </p>
+
             <div class="item-show__meta-info">
+
                 <div class="icon-block">
                     <form action="{{ route('item.like', $item->id) }}" method="POST">
                         @csrf
@@ -52,12 +55,14 @@
                         {{ $likesCount }}
                     </span>
                 </div>
+
                 <div class="icon-block">
                     <img src="/images/comment-icon.png" alt="コメント" class="comment-icon" />
                     <span class="count">
                         {{ $commentsCount }}
                     </span>
                 </div>
+
             </div>
 
             <a href="{{ route('purchase.form', $item->id) }}" class="checkout-button">
@@ -79,6 +84,7 @@
             <h3 class="item-show__product-info-title">
                 商品の情報
             </h3>
+
             <div class="tags-area-1">
                 <p class="tags-title">
                     カテゴリー
@@ -91,6 +97,7 @@
                     </div>
                 @endforeach
             </div>
+
             <div class="tags-area-2">
                 <p class="tags-title">
                     商品の状態
@@ -128,16 +135,23 @@
                 </div>
             @endforeach
 
-            <p class="comment-textarea-title">商品へのコメント</p>
+            <p class="comment-textarea-title">
+                商品へのコメント
+            </p>
 
             <form action="{{ route('item.comment', $item->id) }}" method="POST" novalidate>
                 @csrf
+
                 <textarea name="comment" class="comment-textarea"
                     placeholder=""
-                    @guest readonly @endguest>{{ old('comment') }}</textarea>
+                    @guest readonly @endguest>
+                    {{ old('comment') }}
+                </textarea>
 
                 @error('comment')
-                    <p class="error">{{ $message }}</p>
+                    <p class="error">
+                        {{ $message }}
+                    </p>
                 @enderror
 
                 <button type="submit" class="comment-button">

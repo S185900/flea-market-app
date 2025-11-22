@@ -10,6 +10,7 @@
 
     @yield('css')
 </head>
+<!-- ヘッダー(ナビ機能なし) -->
 <body>
     <div class="app-simple">
         <header class="header-simple" role="banner">

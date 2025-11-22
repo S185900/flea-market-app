@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 @endsection
 
-<!-- 商品購入ページ -->
+<!-- 商品購入画面 -->
 @section('content')
 
 <section class="purchase_confirm">
@@ -29,7 +29,9 @@
                 </div>
             </div>
             <div class="item-section__flex-2">
-                <h3 class="product-title">{{ $item->title }}</h3>
+                <h2 class="product-title">
+                    {{ $item->title }}
+                </h2>
                 <p class="product-price">
                     <span class="price-mark">¥</span>{{ number_format($item->price) }}
                 </p>
@@ -40,28 +42,41 @@
             @csrf
 
             <div class="item-section-2">
-                <h3 class="section-title">支払い方法</h3>
+                <h3 class="section-title">
+                    支払い方法
+                </h3>
 
                 <select class="payment-method-select" name="payment_method" onchange="this.form.submit()">
-                    <option value="">選択してください</option>
-                    <option value="convenience" {{ ($selectedMethod ?? '') === 'convenience' ? 'selected' : '' }}>コンビニ支払い</option>
-                    <option value="card" {{ ($selectedMethod ?? '') === 'card' ? 'selected' : '' }}>カード支払い</option>
+                    <option value="">
+                        選択してください
+                    </option>
+                    <option value="convenience" {{ ($selectedMethod ?? '') === 'convenience' ? 'selected' : '' }}>
+                        コンビニ支払い
+                    </option>
+                    <option value="card" {{ ($selectedMethod ?? '') === 'card' ? 'selected' : '' }}>
+                        カード支払い
+                    </option>
                 </select>
                 @error('payment_method')
                     <span class="invalid-feedback-1" role="alert">
-                        <strong class="error-message">{{ $message }}</strong>
+                        <strong class="error-message">
+                            {{ $message }}
+                        </strong>
                     </span>
                 @enderror
-                <div class="error-message-java" id="error-messages"></div>
+                <div class="error-message-java" id="error-message-container"></div>
 
             </div>
         </form>
 
         <div class="item-section-3">
             <div class="item-section-3__flex">
-                <h3 class="section-title">配送先</h3>
+                <h3 class="section-title">
+                    配送先
+                </h3>
                 <a class="change-address" href="{{ route('address.edit', ['item_id' => $item->id]) }}">変更する</a>
             </div>
+
             <p class="address-info">
                 <span>〒</span>
                 {{ $user->postal_code }}<br>
@@ -119,7 +134,7 @@
             e.preventDefault();
 
             const formData = new FormData(this);
-            const errorContainer = document.getElementById('error-messages');
+            const errorContainer = document.getElementById('error-message-container');
             errorContainer.innerHTML = '';
 
             fetch("{{ route('purchase.prepare', ['item' => $item]) }}", {
@@ -148,12 +163,6 @@
                     }
                 } else {
                     errorContainer.innerHTML = '<p>サーバーエラーが発生しました。</p>';
-                }
-            })
-            .then(data => {
-                if (data.checkout_url) {
-                    window.open(data.checkout_url, '_blank');
-                    window.location.href = "{{ route('items.index') }}";
                 }
             })
             .catch(error => {

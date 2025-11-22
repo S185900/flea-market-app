@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/login.css')}}">
 @endsection
 
-<!-- ログインページ -->
+<!-- ログイン画面 -->
 @section('content')
 <h2 class="login-title">ログイン</h2>
 <section class="login">
@@ -16,7 +16,9 @@
             <input id="email" type="email" class="login-input @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
             @error('email')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong>
+                        {{ $message }}
+                    </strong>
                 </span>
             @enderror
         </div>
@@ -26,12 +28,16 @@
             <input id="password" type="password" class="login-input @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
             @error('password')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong>
+                        {{ $message }}
+                    </strong>
                 </span>
             @enderror
             @error('auth')
                 <span class="auth-error" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong>
+                        {{ $message }}
+                    </strong>
                 </span>
             @enderror
         </div>

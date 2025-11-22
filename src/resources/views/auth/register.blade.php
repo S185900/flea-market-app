@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/register.css')}}">
 @endsection
 
-<!-- 会員登録ページ -->
+<!-- 会員登録画面 -->
 @section('content')
 <h2 class="register-title">会員登録</h2>
 <section class="register">
@@ -17,7 +17,9 @@
 
             @error('name')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong>
+                        {{ $message }}
+                    </strong>
                 </span>
             @enderror
         </div>
@@ -28,7 +30,9 @@
 
             @error('email')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong>
+                        {{ $message }}
+                    </strong>
                 </span>
             @enderror
         </div>
@@ -41,7 +45,9 @@
                 @if (str_contains($message, '一致しません'))
                 @else
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong>
+                            {{ $message }}
+                        </strong>
                     </span>
                 @endif
             @enderror
@@ -54,7 +60,9 @@
             @error('password')
                 @if (str_contains($message, '一致しません'))
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong>
+                            {{ $message }}
+                        </strong>
                     </span>
                 @endif
             @enderror

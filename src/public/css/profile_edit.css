@@ -74,7 +74,7 @@
     margin: 0 auto;
     padding: 20px;
     border-radius: 8px;
-    text-align: center;
+    text-align: left;
 }
 
 .profile-edit form {
@@ -130,11 +130,16 @@
     background-color: #c74040;
 }
 
+.invalid-feedback {
+    text-align: left;
+}
+
 .error-message {
     display: block;
     margin-top: 5px;
     color: #FF5555;
     font-size: 14px;
+    text-align: left;
 }
 
 /* PCサイズ（1400〜1540px）対応 */

@@ -10,6 +10,7 @@
 
     @yield('css')
 </head>
+<!-- ヘッダー(ナビ機能あり) -->
 <body>
     <div class="app-nav">
         <header class="header-nav" role="banner">
@@ -24,7 +25,6 @@
             <form method="GET" action="{{ route('items.index') }}" role="search" novalidate>
 
                 <label class="header-search-label visually-hidden" for="header-search">商品名で検索</label>
-
                 <input type="hidden" name="tab" value="{{ request('tab', 'recommend') }}">
 
                 <input 
@@ -36,10 +36,12 @@
                     placeholder="なにをお探しですか？(Enterで検索)"
                     autocomplete="off"
                 >
+
             </form>
 
             <nav class="header-navigation">
                 <ul class="header-navigation-list">
+
                     @auth
                         <li class="header-navigation-item">
                             <form method="POST" action="{{ route('logout') }}">
@@ -62,6 +64,7 @@
                     <li class="header-navigation-item">
                         <a href="{{ auth()->check() ? route('sell') : route('login') }}" class="header-navigation-link header-navigation-button">出品</a>
                     </li>
+
                 </ul>
             </nav>
 

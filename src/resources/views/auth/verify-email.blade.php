@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/verify-email.css')}}">
 @endsection
 
-<!-- メール認証誘導ページ -->
+<!-- メール認証誘導画面 -->
 @section('content')
 <div class="notice">
     <p class="notice-text">
@@ -29,5 +29,6 @@
         @csrf
         <button class="resend-verification__link" type="submit">認証メールを再送する</button>
     </form>
+
 </section>
 @endsection

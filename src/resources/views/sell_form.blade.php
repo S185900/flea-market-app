@@ -4,10 +4,10 @@
 <link rel="stylesheet" href="{{ asset('css/sell_form.css')}}">
 @endsection
 
-<!-- 出品ページ -->
+<!-- 商品出品画面 -->
 @section('content')
 <h2 class="sell-form-title">商品の出品</h2>
-<div class="sell-form">
+<section class="sell-form">
     <form class="sell-form" method="POST" action="{{ route('sell.store') }}" enctype="multipart/form-data" novalidate>
         @csrf
 
@@ -53,7 +53,9 @@
             </div>
             @error('categories')
                 <span class="invalid-feedback" role="alert">
-                    <p class="error-message">{{ $message }}</p>
+                    <p class="error-message">
+                        {{ $message }}
+                    </p>
                 </span>
             @enderror
         </div>
@@ -89,9 +91,12 @@
                 商品名
             </label>
             <input id="product_name" type="text" class="sell-form-input-3 @error('product_name') is-invalid @enderror" name="product_name" value="{{ old('product_name') }}" required autocomplete="product_name">
+
             @error('product_name')
                 <span class="invalid-feedback" role="alert">
-                    <p class="error-message">{{ $message }}</p>
+                    <p class="error-message">
+                        {{ $message }}
+                    </p>
                 </span>
             @enderror
         </div>
@@ -101,9 +106,12 @@
                 ブランド名
             </label>
             <input id="brand_name" type="text" class="sell-form-input-3 @error('brand_name') is-invalid @enderror" name="brand_name" value="{{ old('brand_name') }}" required>
+
             @error('brand_name')
                 <span class="invalid-feedback" role="alert">
-                    <p class="error-message">{{ $message }}</p>
+                    <p class="error-message">
+                        {{ $message }}
+                    </p>
                 </span>
             @enderror
         </div>
@@ -142,5 +150,5 @@
             </button>
         </div>
     </form>
-</div>
+</sec>
 @endsection
