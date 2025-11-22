@@ -18,10 +18,8 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // Fortifyのログイン処理を手動で行う
         auth()->login($user);
 
-        // 初回ログイン後の遷移先（要件に応じて）
         return redirect()->route('mypage.profile');
     }
 }
