@@ -15,18 +15,16 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $title = $request->input('title');
-        $tab = $request->input('tab', 'recommend'); // デフォルトはおすすめ
-        $items = collect(); // 初期化
+        $tab = $request->input('tab', 'recommend');
+        $items = collect();
 
         if ($tab === 'recommend') {
             $query = Item::with(['images', 'transaction']);
 
-            // ログイン時は自分の出品を除外
             if (auth()->check()) {
                 $query->where('user_id', '!=', auth()->id());
             }
 
-            // タイトル検索
             if (!empty($title)) {
                 $query->where('title', 'like', '%' . $title . '%');
             }
@@ -37,10 +35,8 @@ class ItemController extends Controller
             $items = MyList::favoriteItems(auth()->id(), $title);
         }
 
-        // dd($items);
         return view('items_index', compact('items', 'tab', 'title'));
     }
-
 
     public function showItemDetail($item_id)
     {
@@ -50,16 +46,12 @@ class ItemController extends Controller
             'brand',
             'categories',
             'likes',
-            // コメントを新しい順で取得
             'comments' => function ($query) {
                 $query->orderBy('created_at', 'desc');
             },
             'comments.user'
         ])->findOrFail($item_id);
 
-        // dd($item->brand_id, $item->brand);
-
-        // いいね数・コメント数：リレーションからリアルタイム集計
         $likesCount = $item->likes()->count();
         $commentsCount = $item->comments()->count();
 
@@ -88,7 +80,7 @@ class ItemController extends Controller
             ->first();
 
         if ($existingLike) {
-            $existingLike->delete(); // いいね解除
+            $existingLike->delete();
             $liked = false;
         } else {
             Like::create([
@@ -98,11 +90,9 @@ class ItemController extends Controller
             $liked = true;
         }
 
-        // 最新のいいね数を返す
         $likesCount = $item->likes()->count();
 
         return redirect()->route('item.detail', $item->id);
     }
-
 }
 
