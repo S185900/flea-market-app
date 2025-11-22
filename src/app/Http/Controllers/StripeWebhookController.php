@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Models\Item;
 use App\Models\Transaction;
 use Stripe\Stripe;
 use Stripe\Webhook;
-use Illuminate\Support\Facades\Log;
 
 class StripeWebhookController extends Controller
 {
@@ -30,7 +30,6 @@ class StripeWebhookController extends Controller
         if ($event->type === 'checkout.session.completed') {
             $session = $event->data->object;
 
-            // 事前に作成されたTransactionを取得
             $transaction = Transaction::where('stripe_checkout_session_id', $session->id)->first();
 
             if ($transaction && !$transaction->completed_at) {
@@ -40,7 +39,6 @@ class StripeWebhookController extends Controller
                     'completed_at' => now(),
                 ]);
 
-                // 商品ステータス更新
                 $item = Item::find($transaction->item_id);
                 if ($item && $item->status !== 'sold') {
                     $item->update(['status' => 'sold']);

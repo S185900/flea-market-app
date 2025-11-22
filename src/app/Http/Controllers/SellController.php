@@ -22,27 +22,23 @@ class SellController extends Controller
 
     public function storeItem(ExhibitionRequest $request)
     {
-        // バリデーション済みのデータ取得
         $validated = $request->validated();
 
-        // ブランド登録または取得（任意項目なので条件分岐）
         $brand = null;
         if (!empty($validated['brand_name'])) {
             $brand = Brand::firstOrCreate(['brand_name' => $validated['brand_name']]);
         }
 
-        // 商品登録
         $sell = Sell::create([
             'user_id' => Auth::id(),
             'title' => $validated['product_name'],
-            'brand_id' => $brand ? $brand->id : null,
+            'brand_id' => optional($brand)?->id,
             'description' => $validated['description'],
             'price' => $validated['price'],
             'condition' => $validated['condition'],
             'status' => 'available',
         ]);
 
-        // カテゴリー紐付け
         foreach ($validated['categories'] as $categoryName) {
             $category = Category::firstOrCreate(['category_name' => $categoryName]);
             CategoryItem::create([
@@ -51,20 +47,16 @@ class SellController extends Controller
             ]);
         }
 
-        // 画像保存
         if ($request->hasFile('image')) {
 
-            // 画像を保存（storage/app/public/product_images）
             $path = $request->file('image')->store('product_images', 'public');
 
-            // DBに保存
             ItemImage::create([
                 'item_id' => $sell->id,
-                'image_path' => $path, // Storage::url($path) にするとURL形式になる
+                'image_path' => $path,
             ]);
         }
 
         return redirect()->route('mypage.index')->with('status', '商品を出品しました！');
     }
-
 }
