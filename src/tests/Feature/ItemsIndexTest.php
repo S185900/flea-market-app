@@ -46,13 +46,15 @@ class ItemsIndexTest extends TestCase
         $user = User::factory()->create();
         $item = Item::factory()->create(['user_id' => $user->id]);
         Transaction::factory()->create(['item_id' => $item->id]);
+        $item->status = 'sold';
+        $item->save();
 
         // 1. 商品ページを開く、2. 購入済み商品を表示する
         $response = $this->get('/');
         $response->assertStatus(200);
 
         // 購入済み商品に「Sold」のラベルが表示される
-        $response->assertSee('sold');
+        $response->assertSee('Sold');
     }
 
     /**

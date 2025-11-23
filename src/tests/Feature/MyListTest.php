@@ -60,6 +60,8 @@ class MyListTest extends TestCase
             'user_id' => $user->id,
             'item_id' => $item->id,
         ]);
+        $item->status = 'sold';
+        $item->save();
         Transaction::factory()->create([
             'item_id' => $item->id,
             'buyer_id' => $user->id,
@@ -70,7 +72,7 @@ class MyListTest extends TestCase
         $response->assertStatus(200);
 
         // 3. 購入済み商品を確認する(購入済み商品に「Sold」のラベルが表示される)
-        $response->assertSee('sold');
+        $response->assertSee('Sold');
     }
 
     /** @test

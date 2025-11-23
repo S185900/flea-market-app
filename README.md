@@ -34,6 +34,9 @@ mysql:
     `docker-compose exec php bash`
 2. Laravelパッケージをインストール
     `composer install`
+
+> *composer install 実行時に表示されるパッケージに関する注意について：　このプロジェクトでは、fruitcake/laravel-cors および swiftmailer/swiftmailer のパッケージを使用しています。composer install 実行時に、これらが非推奨（abandoned）である旨のメッセージが表示されますが、現時点では動作に問題はありません。今後のLaravelのバージョンアップやセキュリティ対応を見据えて、必要に応じて代替手段への移行を検討することも可能です。*
+
 3. .env.example をコピーして .env を作成。※(または、新しく.envファイルを作成でもOK)
     `cd src` # ディレクトリを移動
     `cp .env.example .env`
