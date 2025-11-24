@@ -168,4 +168,23 @@ php artisan storage:link
 - ブランド名の有無に応じて表示を制御しています。設定されている場合は表示され、未設定の場合は非表示となります。(下記参照)
 ![ブランド名の表示について](./brand_name_view.png)
 
-
+**PHPUnitテスト**
+``` bash
+# テスト実行
+vendor/bin/phpunit tests/Feature/Auth/RegisterTest.php
+vendor/bin/phpunit tests/Feature/Auth/LoginTest.php
+vendor/bin/phpunit tests/Feature/Auth/LogoutTest.php
+vendor/bin/phpunit tests/Feature/ItemsIndexTest.php
+vendor/bin/phpunit tests/Feature/MyListTest.php
+vendor/bin/phpunit tests/Feature/HeaderSearchTest.php
+vendor/bin/phpunit tests/Feature/ItemShowTest.php
+vendor/bin/phpunit tests/Feature/LikeTest.php
+vendor/bin/phpunit tests/Feature/CommentTest.php
+vendor/bin/phpunit tests/Feature/PurchaseTest.php
+vendor/bin/phpunit tests/Feature/PaymentMethodSelectorTest.php
+vendor/bin/phpunit tests/Feature/AddressEditTest.php
+vendor/bin/phpunit tests/Feature/GetUserProfileTest.php
+vendor/bin/phpunit tests/Feature/UpdateUserProfileTest.php
+vendor/bin/phpunit tests/Feature/SellTest.php
+vendor/bin/phpunit tests/Feature/EmailVerificationFlowTest.php
+```
