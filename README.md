@@ -168,9 +168,25 @@ php artisan storage:link
 - ブランド名の有無に応じて表示を制御しています。設定されている場合は表示され、未設定の場合は非表示となります。(下記参照)
 ![ブランド名の表示について](./brand_name_view.png)
 
-**PHPUnitテスト**
+**PHPUnitによるテストについて（補足）**
+> *(補足) 一部のテスト（例：UploadedFile::fake()->image() を使用するテスト）では、PHPの GDライブラリ が必要です。 imagecreatetruecolor() 関数が未定義というエラーが出る場合、以下のように Dockerfile にGDライブラリのインストール手順を追加してください。追加後は、再度 docker-compose up -d --build を実行して環境を再構築してください。*
+```Dockerfile
+# 追加位置の目安：&& docker-php-ext-install pdo_mysql zipの直下に追記を推奨
+RUN apt update \
+    && apt install -y default-mysql-client zlib1g-dev libzip-dev unzip \
+    && docker-php-ext-install pdo_mysql zip \
+    && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd
+```
+```bash
+# 環境を再構築するには：
+docker-compose down
+docker-compose build --no-cache
+docker-compose up -d
+```
+- テスト実行コード一覧
 ``` bash
-# テスト実行
 vendor/bin/phpunit tests/Feature/Auth/RegisterTest.php
 vendor/bin/phpunit tests/Feature/Auth/LoginTest.php
 vendor/bin/phpunit tests/Feature/Auth/LogoutTest.php

@@ -16,7 +16,7 @@ services:
         volumes:
             - ./src:/var/www/
         depends_on:
-            - mailhog  # ← ここを追加すると、phpがmailhogより後に起動するようになる
+            - mailhog
 
     mysql:
         image: mysql:8.0.26
