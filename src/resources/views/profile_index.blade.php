@@ -12,8 +12,6 @@
         <div class="profile-image">
             @if ($user->profile_image_url)
                 <img src="{{ $user->profile_image_url }}" alt="" class="user-icon" />
-            @else
-                <img src="{{ 'default-icon.png' }}" alt="" class="user-icon" />
             @endif
         </div>
     </div>

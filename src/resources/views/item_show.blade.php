@@ -121,11 +121,6 @@
                             <p class="user-name">
                                 {{ $comment->user->name }}
                             </p>
-                        @else
-                            <img src="{{ asset('images/default-icon.png') }}" alt="" class="user-icon" />
-                            <p class="user-name">
-                                {{ $comment->user ? $comment->user->name : 'Admin' }}
-                            </p>
                         @endif
                     </div>
 
@@ -144,9 +139,7 @@
 
                 <textarea name="comment" class="comment-textarea"
                     placeholder=""
-                    @guest readonly @endguest>
-                    {{ old('comment') }}
-                </textarea>
+                    @guest readonly @endguest>{{ old('comment') }}</textarea>
 
                 @error('comment')
                     <p class="error">

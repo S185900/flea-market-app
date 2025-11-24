@@ -17,13 +17,9 @@
 
         <div class="profile-edit-image-area">
             <div class="profile-edit-image-preview">
-
                 @if ($user->profile_image_url)
-                    <img src="{{ $profile->imageUrl() }}" alt="" class="user-icon" />
-                @else
-                    <img src="{{ asset('images/default-icon.png') }}" alt="プロフィール画像" class="user-icon" />
+                    <img src="{{ $user->profile_image_url }}" alt="" class="user-icon" />
                 @endif
-
             </div>
 
             <label for="image" class="profile-edit-custom-file">
