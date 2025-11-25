@@ -48,9 +48,6 @@ Route::get('/email/verify/notice', function (Request $request) {
         return redirect()->route('mypage.create'); // 認証済みならプロフィール設定へ
     }
 
-    // 初回表示時に認証メールを送信
-    $request->user()->sendEmailVerificationNotification();
-
     return view('auth.verify-email'); // 未認証なら案内ページを表示
 })->middleware('auth')->name('verification.notice.notice');
 

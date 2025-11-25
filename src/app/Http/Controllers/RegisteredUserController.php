@@ -18,6 +18,8 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $user->sendEmailVerificationNotification();
+
         auth()->login($user);
 
         return redirect()->route('mypage.profile');

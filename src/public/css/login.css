@@ -109,6 +109,8 @@
 .auth-error {
     color: #FF5555;
     font-size: 14px;
+    display: block;
+    text-align: left;
 }
 
 /* PCサイズ（1400〜1540px）対応 */

@@ -32,15 +32,19 @@ mysql:
 **Laravel環境構築**
 1. PHPコンテナに入る
     `docker-compose exec php bash`
+
 2. Laravelパッケージをインストール
     `composer install`
 
 > *composer install 実行時に表示されるパッケージに関する注意について：　このプロジェクトでは、fruitcake/laravel-cors および swiftmailer/swiftmailer のパッケージを使用しています。composer install 実行時に、これらが非推奨（abandoned）である旨のメッセージが表示されますが、現時点では動作に問題はありません。今後のLaravelのバージョンアップやセキュリティ対応を見据えて、必要に応じて代替手段への移行を検討することも可能です。*
 
 3. .env.example をコピーして .env を作成。※(または、新しく.envファイルを作成でもOK)
-    `cd src` # ディレクトリを移動
-    `cp .env.example .env`
-4. .env に以下の環境変数を追加/記載があるか確認
+```bash
+cd src
+cp .env.example .env
+```
+
+4. .env に以下の環境変数を追加(一部、記載があるか確認)
 ``` text
 # DB設定
 DB_CONNECTION=mysql
@@ -76,21 +80,28 @@ MAIL_FROM_NAME="${APP_NAME}"
 php artisan key:generate
 ```
 
-6. マイグレーションの実行
+6. キャッシュクリア
+``` bash
+php artisan config:clear
+php artisan cache:clear
+```
+
+7. シンボリックリンク作成
+``` bash
+php artisan storage:link
+```
+
+8. マイグレーションの実行
 ``` bash
 php artisan migrate
 ```
 
-7. シーディングの実行
+9. シーディングの実行
 ``` bash
 php artisan db:seed --class=UserSeeder
 php artisan db:seed --class=CategorySeeder
 php artisan db:seed --class=BrandSeeder
 php artisan db:seed --class=CustomProductSeeder
-```
-8. シンボリックリンク作成
-``` bash
-php artisan storage:link
 ```
 
 ## 使用技術
