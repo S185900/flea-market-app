@@ -32,7 +32,7 @@ class FortifyServiceProvider extends ServiceProvider
         // ビューのオーバーライド
         Fortify::registerView(fn () => view('auth.register'));
         Fortify::loginView(fn () => view('auth.login'));
-        Fortify::verifyEmailView(fn () => view('auth.verify-email'));
+        Fortify::verifyEmailView(fn () => view('auth.verify_email'));
 
         // フォームリクエストのバインド
         $this->app->bind(

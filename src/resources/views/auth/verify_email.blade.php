@@ -1,7 +1,7 @@
 @extends('layouts.app_simple')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/verify-email.css')}}">
+<link rel="stylesheet" href="{{ asset('css/verify_email.css')}}">
 @endsection
 
 <!-- メール認証誘導画面 -->
