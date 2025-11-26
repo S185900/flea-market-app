@@ -18,14 +18,12 @@
 
                 <input type="text" class="sell-form-input-1" value="" readonly>
                 <label for="image" class="profile-edit-custom-file">画像を選択する</label>
-                <input id="image" type="file" class="profile-edit-input__file @error('image') is-invalid @enderror" name="image" accept="image/*">
+                <input id="image" type="file" class="profile-edit-input__file" name="image" accept="image/*">
 
                 @error('image')
-                    <span class="invalid-feedback" role="alert">
-                        <p class="error-message">
-                            {{ $message }}
-                        </p>
-                    </span>
+                    <p class="form-error-message" role="alert">
+                        {{ $message }}
+                    </p>
                 @enderror
 
             </div>
@@ -52,11 +50,9 @@
                 @endforeach
             </div>
             @error('categories')
-                <span class="invalid-feedback" role="alert">
-                    <p class="error-message">
-                        {{ $message }}
-                    </p>
-                </span>
+                <p class="form-error-message" role="alert">
+                    {{ $message }}
+                </p>
             @enderror
         </div>
 
@@ -64,7 +60,7 @@
             <label for="condition" class="sell-form-label">
                 商品の状態
             </label>
-            <select id="condition" name="condition" class="sell-form-input-2 @error('condition') is-invalid @enderror" required>
+            <select id="condition" name="condition" class="sell-form-input-2" required>
                 <option value="">選択してください</option>
                 <option value="1" {{ old('condition') == 1 ? 'selected' : '' }}>良好</option>
                 <option value="2" {{ old('condition') == 2 ? 'selected' : '' }}>目立った傷や汚れなし</option>
@@ -72,11 +68,9 @@
                 <option value="4" {{ old('condition') == 4 ? 'selected' : '' }}>状態が悪い</option>
             </select>
             @error('condition')
-                <span class="invalid-feedback" role="alert">
-                    <p class="error-message">
-                        {{ $message }}
-                    </p>
-                </span>
+                <p class="form-error-message" role="alert">
+                    {{ $message }}
+                </p>
             @enderror
         </div>
 
@@ -90,14 +84,12 @@
             <label for="product_name" class="sell-form-label">
                 商品名
             </label>
-            <input id="product_name" type="text" class="sell-form-input-3 @error('product_name') is-invalid @enderror" name="product_name" value="{{ old('product_name') }}" required autocomplete="product_name">
+            <input id="product_name" type="text" class="sell-form-input-3" name="product_name" value="{{ old('product_name') }}" required autocomplete="product_name">
 
             @error('product_name')
-                <span class="invalid-feedback" role="alert">
-                    <p class="error-message">
-                        {{ $message }}
-                    </p>
-                </span>
+                <p class="form-error-message" role="alert">
+                    {{ $message }}
+                </p>
             @enderror
         </div>
 
@@ -105,42 +97,32 @@
             <label for="brand_name" class="sell-form-label">
                 ブランド名
             </label>
-            <input id="brand_name" type="text" class="sell-form-input-3 @error('brand_name') is-invalid @enderror" name="brand_name" value="{{ old('brand_name') }}" required>
-
-            @error('brand_name')
-                <span class="invalid-feedback" role="alert">
-                    <p class="error-message">
-                        {{ $message }}
-                    </p>
-                </span>
-            @enderror
+            <input id="brand_name" type="text" class="sell-form-input-3" name="brand_name" value="{{ old('brand_name') }}" required>
         </div>
 
         <div class="sell-form-item">
             <label for="description" class="sell-form-label">
                 商品の説明
             </label>
-            <textarea id="description" class="sell-form-input-4 @error('description') is-invalid @enderror" name="description" required>{{ old('description') }}</textarea>
+            <textarea id="description" class="sell-form-input-4" name="description" required>{{ old('description') }}</textarea>
+
             @error('description')
-                <span class="invalid-feedback" role="alert">
-                    <p class="error-message">
-                        {{ $message }}
-                    </p>
-                </span>
+                <p class="form-error-message" role="alert">
+                    {{ $message }}
+                </p>
             @enderror
         </div>
 
         <div class="sell-form-item">
-            <label for="price" class="sell-form-label">販売価格</label>
-            <input id="price" type="text" class="sell-form-input-3 
-            @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required placeholder="¥">
+            <label for="price" class="sell-form-label">
+                販売価格
+            </label>
+            <input id="price" type="text" class="sell-form-input-3" name="price" value="{{ old('price') }}" required placeholder="¥">
 
             @error('price')
-                <span class="invalid-feedback" role="alert">
-                    <p class="error-message">
-                        {{ $message }}
-                    </p>
-                </span>
+                <p class="form-error-message" role="alert">
+                    {{ $message }}
+                </p>
             @enderror
         </div>
 

@@ -17,7 +17,7 @@
 
     <nav class="verify-email__nav">
         <a class="verify-email__link" href="{{ route('verification.notice.notice') }}"
-                @if (App::environment('local'))
+            @if (App::environment(['local', 'testing']))
                 onclick="window.open('http://localhost:8025', '_blank');"
             @endif
         >

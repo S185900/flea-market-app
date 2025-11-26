@@ -179,7 +179,11 @@ php artisan db:seed --class=CustomProductSeeder
 - ブランド名の有無に応じて表示を制御しています。設定されている場合は表示され、未設定の場合は非表示となります。(下記参照)
 ![ブランド名の表示について](./brand_name_view.png)
 
-**PHPUnitによるテストについて（補足）**
+**出品金額のバリデーションについて**
+- ExhibitionRequest.php にて、商品価格のバリデーションを以下のように設定しています。
+- 要件「0円以上」に基づき、0円は許容、マイナス値（-1円以下）は不可としています。「0円以上」の表現が「1円以上」を意図している可能性もあるため補足させていただきました。
+
+**PHPUnitによるテストについて**
 > *(補足) 一部のテスト（例：UploadedFile::fake()->image() を使用するテスト）では、PHPの GDライブラリ が必要です。 imagecreatetruecolor() 関数が未定義というエラーが出る場合、以下のように Dockerfile にGDライブラリのインストール手順を追加してください。追加後は、再度 docker-compose up -d --build を実行して環境を再構築してください。*
 ```Dockerfile
 # 追加位置の目安：&& docker-php-ext-install pdo_mysql zipの直下に追記を推奨

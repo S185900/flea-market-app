@@ -98,17 +98,20 @@
     color: #FF5555;
 }
 
-.invalid-feedback {
+.form-error-message {
     color: #FF5555;
     font-size: 14px;
+    font-weight: bold;
     margin-top: 5px;
     display: block;
     text-align: left;
 }
 
-.auth-error {
+.auth-error-message {
     color: #FF5555;
     font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
     display: block;
     text-align: left;
 }
@@ -145,8 +148,8 @@
         font-size: 22px;
     }
 
-    .invalid-feedback,
-    .auth-error {
+    .form-error-message,
+    .auth-error-message {
         font-size: 15px;
     }
 }
@@ -193,7 +196,8 @@
         font-size: 18px;
     }
 
-    .invalid-feedback {
+    .form-error-message,
+    .auth-error-message {
         font-size: 13px;
     }
 

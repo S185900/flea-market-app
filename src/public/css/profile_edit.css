@@ -130,15 +130,12 @@
     background-color: #c74040;
 }
 
-.invalid-feedback {
-    text-align: left;
-}
-
-.error-message {
-    display: block;
-    margin-top: 5px;
+.form-error-message {
     color: #FF5555;
     font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+    display: block;
     text-align: left;
 }
 
@@ -182,6 +179,10 @@
         padding: 18px 24px;
         width: 200px;
     }
+
+    .form-error-message {
+        font-size: 15px;
+    }
 }
 
 /* タブレットサイズ（768〜850px）対応 */
@@ -199,5 +200,9 @@
     .profile-edit-button {
         font-size: 22px;
         padding: 15px;
+    }
+
+    .form-error-message {
+        font-size: 13px;
     }
 }

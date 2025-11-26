@@ -30,8 +30,8 @@
     letter-spacing: 0%;
     text-align: left;
     color: #5F5F5F;
-    margin-top: 40px;
-    padding: 100px 0 20px 0;
+    margin-top: 25px;
+    padding: 20px 0 20px 0;
 }
 
 .sell-form-image-area {
@@ -227,11 +227,13 @@
     background-color: #c74040;
 }
 
-.error-message {
+.form-error-message {
     color: #FF5555;
     font-size: 14px;
-    margin-top: 7px;
     font-weight: bold;
+    margin-top: 7px;
+    display: block;
+    text-align: left;
 }
 
 /* PCサイズ（1400〜1540px）対応 */
@@ -285,6 +287,10 @@
         font-size: 28px;
         padding: 24px;
     }
+
+    .form-error-message {
+        font-size: 15px;
+    }
 }
 
 /* タブレットサイズ（768〜850px）対応 */
@@ -318,5 +324,9 @@
 
     .profile-edit-button {
         font-size: 22px;
+    }
+
+    .form-error-message {
+        font-size: 13px;
     }
 }

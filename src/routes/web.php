@@ -45,11 +45,13 @@ Route::get('/email/verify/notice', function (Request $request) {
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
+
     return redirect()->route('mypage.create');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
+
     return back()->with('message', '認証メールを再送信しました！');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 

@@ -17,15 +17,13 @@
                 郵便番号
             </label>
 
-            <input id="postal_code" type="text" class="address-edit-input @error('postal_code') is-invalid @enderror"
+            <input id="postal_code" type="text" class="address-edit-input"
                 name="postal_code" value="{{ old('postal_code', $address->postal_code) }}" required autocomplete="postal_code">
 
             @error('postal_code')
-                <span class="invalid-feedback" role="alert">
-                    <strong class="error-message">
-                        {{ $message }}
-                    </strong>
-                </span>
+                <p class="form-error-message" role="alert">
+                    {{ $message }}
+                </p>
             @enderror
         </div>
 
@@ -34,15 +32,13 @@
                 住所
             </label>
 
-            <input id="address" type="text" class="address-edit-input @error('address') is-invalid @enderror"
+            <input id="address" type="text" class="address-edit-input"
                 name="address" value="{{ old('address', $address->shipping_address) }}" required autocomplete="address">
 
             @error('address')
-                <span class="invalid-feedback" role="alert">
-                    <strong class="error-message">
-                        {{ $message }}
-                    </strong>
-                </span>
+                <p class="form-error-message" role="alert">
+                    {{ $message }}
+                </p>
             @enderror
         </div>
 
@@ -51,16 +47,8 @@
                 建物名
             </label>
 
-            <input id="building_name" type="text" class="address-edit-input @error('building_name') is-invalid @enderror"
+            <input id="building_name" type="text" class="address-edit-input"
                 name="building_name" value="{{ old('building_name', $address->building_name) }}" autocomplete="building_name">
-
-            @error('building_name')
-                <span class="invalid-feedback" role="alert">
-                    <strong class="error-message">
-                        {{ $message }}
-                    </strong>
-                </span>
-            @enderror
         </div>
 
         <div class="address-edit-item">

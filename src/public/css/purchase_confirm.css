@@ -256,23 +256,14 @@
     margin-top: 50px;
 }
 
-.invalid-feedback-1 {
-    display: block;
-    margin-top: 10px;
-    margin-left: 60px;
-}
-.error-message {
-    font-size: 16px;
+.form-error-message {
     color: #FF5555;
-    margin-top: 10px;
-}
-
-.error-message-java {
     font-size: 16px;
     font-weight: bold;
-    color: #FF5555;
-    margin-top: 7px;
-    margin-left: 35px;
+    margin-top: 10px;
+    display: block;
+    text-align: left;
+    margin-left: 60px;
 }
 
 /* PCサイズ（1400〜1540px）対応 */
@@ -327,6 +318,10 @@
 
     .summary-table th {
         font-size: 22px;
+    }
+
+    .form-error-message {
+        font-size: 17px;
     }
 }
 
@@ -384,4 +379,7 @@
         font-size: 16px;
     }
 
+    .form-error-message {
+        font-size: 13px;
+    }
 }

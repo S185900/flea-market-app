@@ -74,10 +74,13 @@
     background-color: #c74040;
 }
 
-.error-message {
+.form-error-message {
     color: #FF5555;
     font-size: 14px;
+    font-weight: bold;
     margin-top: 5px;
+    display: block;
+    text-align: left;
 }
 
 /* PCサイズ（1400px〜1540px）に最適化 */
@@ -103,6 +106,10 @@
     .address-edit-button {
         font-size: 28px;
         padding: 24px;
+    }
+
+    .form-error-message {
+        font-size: 15px;
     }
 }
 
@@ -130,5 +137,9 @@
     .address-edit-button {
         font-size: 24px;
         padding: 18px;
+    }
+
+    .form-error-message {
+        font-size: 13px;
     }
 }

@@ -384,11 +384,13 @@
     background: #FF7777;
 }
 
-.error {
+.form-error-message {
     color: #FF5555;
     font-size: 14px;
-    margin-top: 5px;
     font-weight: bold;
+    margin-top: 5px;
+    display: block;
+    text-align: left;
 }
 
 /* PCサイズ（1400〜1540px）対応 */
@@ -492,6 +494,10 @@
     .comment-button {
         font-size: 28px;
         padding: 14px;
+    }
+
+    .form-error-message {
+        font-size: 15px;
     }
 }
 
@@ -643,5 +649,9 @@
 
     .item-show {
         gap: 7px;
+    }
+
+    .form-error-message {
+        font-size: 13px;
     }
 }

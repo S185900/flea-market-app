@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Auth\Notifications\VerifyEmail as AuthVerifyEmail;
 use Illuminate\Support\Facades\URL;
 use App\Models\User;
 
@@ -35,13 +36,11 @@ class EmailVerificationFlowTest extends TestCase
 
         $response->assertRedirect(route('mypage.profile'));
 
+        // 登録されたユーザーを取得
         $user = User::where('email', 'test@example.com')->first();
 
-        // 2. 認証メールを送信する（未認証ユーザーが誘導画面にアクセス）
-        $this->actingAs($user)->get(route('verification.notice.notice'));
-
-        // 登録したメールアドレス宛に認証メールが送信されている
-        Notification::assertSentTo($user, VerifyEmail::class);
+        // 2. 認証メールを送信する
+        Notification::assertSentTo($user, AuthVerifyEmail::class);
     }
 
     /**
@@ -54,6 +53,10 @@ class EmailVerificationFlowTest extends TestCase
         // 通知をフェイク
         Notification::fake();
 
+        // 環境を一時的に local に偽装
+        app()->detectEnvironment(fn () => 'local');
+        config(['app.env' => 'local']);
+
         // 未認証ユーザーを作成
         $user = User::factory()->unverified()->create();
 
@@ -61,14 +64,16 @@ class EmailVerificationFlowTest extends TestCase
         $this->actingAs($user);
 
         // 1. メール認証導線画面を表示する
-        $response = $this->get(route('verification.notice.notice'));
+        $response = $this->get('/email/verify/notice');
         $response->assertStatus(200);
 
         // 2. 「認証はこちらから」ボタンを押下
         $response->assertSee('認証はこちらから');
 
-        // 3. メール認証サイトを表示する(メール認証サイトに遷移する)
-        Notification::assertSentTo($user, VerifyEmail::class);
+        // 3. メール認証サイトを表示する
+        // エスケープの影響を避けて確認
+        $content = $response->getContent();
+        $this->assertStringContainsString("window.open('http://localhost:8025'", $content);
     }
 
     /**

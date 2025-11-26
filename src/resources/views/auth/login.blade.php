@@ -15,11 +15,9 @@
             <label for="email" class="login-label">メールアドレス</label>
             <input id="email" type="email" class="login-input @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
             @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>
-                        {{ $message }}
-                    </strong>
-                </span>
+                <p class="form-error-message" role="alert">
+                    {{ $message }}
+                </p>
             @enderror
         </div>
 
@@ -27,18 +25,14 @@
             <label for="password" class="login-label">パスワード</label>
             <input id="password" type="password" class="login-input @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
             @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>
-                        {{ $message }}
-                    </strong>
-                </span>
+                <p class="form-error-message" role="alert">
+                    {{ $message }}
+                </p>
             @enderror
             @error('auth')
-                <span class="auth-error" role="alert">
-                    <strong>
-                        {{ $message }}
-                    </strong>
-                </span>
+                <p class="auth-error-message" role="alert">
+                    {{ $message }}
+                </p>
             @enderror
         </div>
 

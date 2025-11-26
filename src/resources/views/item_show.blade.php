@@ -142,7 +142,7 @@
                     @guest readonly @endguest>{{ old('comment') }}</textarea>
 
                 @error('comment')
-                    <p class="error">
+                    <p class="form-error-message" role="alert">
                         {{ $message }}
                     </p>
                 @enderror

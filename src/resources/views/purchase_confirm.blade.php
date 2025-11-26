@@ -58,13 +58,11 @@
                     </option>
                 </select>
                 @error('payment_method')
-                    <span class="invalid-feedback-1" role="alert">
-                        <strong class="error-message">
-                            {{ $message }}
-                        </strong>
-                    </span>
+                    <p class="form-error-message" role="alert">
+                        {{ $message }}
+                    </p>
                 @enderror
-                <div class="error-message-java" id="error-message-container"></div>
+                <div class="form-error-message" id="error-message-container"></div>
 
             </div>
         </form>
@@ -110,13 +108,6 @@
                     </td>
                 </tr>
             </table>
-
-            @error('payment_method')
-                <span class="invalid-feedback" role="alert">
-                    <strong class="error-message">{{ $message }}</strong>
-                </span>
-            @enderror
-            <div class="error-message-java" id="error-messages" style="color: red; margin-bottom: 1em;"></div>
 
             <form id="purchase-form">
                 @csrf
@@ -167,7 +158,7 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                errorContainer.innerHTML = '<p  class="error-message-java">支払い方法を選択してください</p>';
+                errorContainer.innerHTML = '<p  class="form-error-message">支払い方法を選択してください</p>';
             });
         });
         </script>

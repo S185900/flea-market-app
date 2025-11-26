@@ -23,7 +23,7 @@ class AddressController extends Controller
             'oldValues' => [
                 'postal_code' => old('postal_code', $address->postal_code),
                 'shipping_address' => old('address', $address->shipping_address),
-                'building_name' => old('building_name', $address->building_name),
+                'building_name' => old('building_name', $address->building_name ?? ''),
             ],
         ]);
     }

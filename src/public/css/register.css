@@ -98,9 +98,10 @@
     color: #FF5555;
 }
 
-.invalid-feedback {
+.form-error-message {
     color: red;
     font-size: 14px;
+    font-weight: bold;
     margin-top: 5px;
     display: block;
     text-align: left;
@@ -139,7 +140,7 @@
         margin-top: 30px;
     }
 
-    .invalid-feedback {
+    .form-error-message {
         font-size: 16px;
     }
 }
@@ -186,7 +187,7 @@
         font-size: 18px;
     }
 
-    .invalid-feedback {
+    .form-error-message {
         font-size: 13px;
     }
 }

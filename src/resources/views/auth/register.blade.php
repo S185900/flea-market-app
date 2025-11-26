@@ -16,11 +16,9 @@
             <input id="name" type="text" class="register-input @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
             @error('name')
-                <span class="invalid-feedback" role="alert">
-                    <strong>
-                        {{ $message }}
-                    </strong>
-                </span>
+                <p class="form-error-message" role="alert">
+                    {{ $message }}
+                </p>
             @enderror
         </div>
 
@@ -29,11 +27,9 @@
             <input id="email" type="email" class="register-input @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
             @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>
-                        {{ $message }}
-                    </strong>
-                </span>
+                <p class="form-error-message" role="alert">
+                    {{ $message }}
+                </p>
             @enderror
         </div>
 
@@ -44,11 +40,9 @@
             @error('password')
                 @if (str_contains($message, '一致しません'))
                 @else
-                    <span class="invalid-feedback" role="alert">
-                        <strong>
-                            {{ $message }}
-                        </strong>
-                    </span>
+                    <p class="form-error-message" role="alert">
+                        {{ $message }}
+                    </p>
                 @endif
             @enderror
         </div>
@@ -59,11 +53,9 @@
 
             @error('password')
                 @if (str_contains($message, '一致しません'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>
-                            {{ $message }}
-                        </strong>
-                    </span>
+                    <p class="form-error-message" role="alert">
+                        {{ $message }}
+                    </p>
                 @endif
             @enderror
         </div>
