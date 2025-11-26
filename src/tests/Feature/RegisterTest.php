@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 
@@ -128,6 +129,8 @@ class RegisterTest extends TestCase
      */
     public function test_successful_registration_redirects_to_profile()
     {
+        Notification::fake();
+
         // 全ての必要項目を正しく入力する場合
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
