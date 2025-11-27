@@ -40,8 +40,9 @@ class AddressController extends Controller
 
         $fullAddress = $user->getAddress()->full();
 
-        return redirect()->route('purchase.form', ['item_id' => $item_id])
-                         ->with('message', '住所を更新しました');
+        return redirect()
+            ->route('purchase.form', ['item_id' => $item_id])
+            ->with('message', '住所を更新しました');
     }
 
 }

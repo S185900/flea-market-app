@@ -1,24 +1,32 @@
 # coachtechフリマ
 
 ## プロジェクトの概要
-    coachtechフリマ は、ある企業が開発を計画しているフリマアプリです。
-    10〜30代の社会人を主なターゲットに、アイテムの出品・購入ができるシンプルで使いやすいサービスを目指しています。
+    coachtechフリマ は、ある企業が開発した独自のフリマアプリです。10〜30代の社会人を主なターゲットに、アイテムの出品・購入ができるシンプルで使いやすいサービスを目指しています。
+
     初年度ユーザー数1,000人の達成を目標に、設計・コーディング・テストまでを一貫して担当します。
 
-    本プロジェクトは、Laravelを用いたWebアプリケーション開発の模擬案件として取り組んでおり、
-    一人で設計から実装、テストまでを行い、実務に近い開発プロセスの体験を目的としています。
+    (本プロジェクトは、Laravelを用いたWebアプリケーション開発の模擬案件として取り組んでおり、
+     一人で設計から実装、テストまでを行い、実務に近い開発プロセスの体験を目的としています。)
 
 ## 環境構築手順
 **Dockerビルド**
 1. GitHubからプロジェクトをクローン ※SSH接続でクローンする場合は、事前にGitHubにSSH鍵を登録しておいてください。
-    `git clone git@github.com:S185900/flea-market-app.git`
+```bash
+    git clone git@github.com:S185900/flea-market-app.git
+```
 2. プロジェクトディレクトリに移動
-    `cd flea-market-app`
-3. (初回のみ)MySQL用の空ディレクトリを作成
-    `mkdir -p docker/mysql/data`
+```bash
+    cd flea-market-app
+```
+3. (初回のみ)MySQL用の空ディレクトリを作成 ※Dockerビルドの際のエラー回避のため
+```bash
+    mkdir -p docker/mysql/data
+```
 4. DockerDesktopアプリを立ち上げる
 5. Dockerコンテナをビルド＆起動
-    `docker-compose up -d --build`
+```bash
+    docker-compose up -d --build
+```
 
 > *MacのM1・M2チップのPCの場合、`no matching manifest for linux/arm64/v8 in the manifest list entries`のメッセージが表示されビルドができないことがあります。エラーが発生する場合は、docker-compose.ymlファイルの「mysql」内に「platform」の項目を追加で記載してください*
 
@@ -31,15 +39,20 @@ mysql:
 
 **Laravel環境構築**
 1. PHPコンテナに入る
-    `docker-compose exec php bash`
+```bash
+    docker-compose exec php bash
+```
 
 2. Laravelパッケージをインストール
-    `composer install`
+```bash
+    composer install
+```
 
 > *composer install 実行時に表示されるパッケージに関する注意について：　このプロジェクトでは、fruitcake/laravel-cors および swiftmailer/swiftmailer のパッケージを使用しています。composer install 実行時に、これらが非推奨（abandoned）である旨のメッセージが表示されますが、現時点では動作に問題はありません。今後のLaravelのバージョンアップやセキュリティ対応を見据えて、必要に応じて代替手段への移行を検討することも可能です。*
 
 3. .env.example をコピーして .env を作成。または、新しく.envファイルを作成。
 ```bash
+cd flea-market-app
 cd src
 cp .env.example .env
 ```
@@ -120,7 +133,7 @@ php artisan db:seed --class=CustomProductSeeder
 | 一般ユーザー     | user@example.com          | password123    |
 | ダミーユーザー（10名） | Factoryで自動生成されたメールアドレス | password123    |
 
-> *指定された商品データを登録するにあたり、**出品者としてのダミーユーザーを事前に登録しています**。登録フォームから作成されたユーザーは、入力したパスワードでログインしてください。*
+> *指定された商品データを登録するにあたり、**出品者としてのダミーユーザーを事前に登録しています**。(登録フォームから作成されたユーザーは、入力したパスワードでログインしてください。)*
 
 ## ER図
 ![ER図](./er.drawio.png)
@@ -190,20 +203,51 @@ https://docs.google.com/spreadsheets/d/1Ddjn-eNxOvM6Xl4XyfeVJRT20usvDEk4t38bq1XB
 **PHPUnitによるテストについて**
 - テスト実行コード一覧
 ``` bash
+#1 会員登録機能
 vendor/bin/phpunit tests/Feature/RegisterTest.php
+
+#2 ログイン機能
 vendor/bin/phpunit tests/Feature/LoginTest.php
+
+#3 ログアウト機能
 vendor/bin/phpunit tests/Feature/LogoutTest.php
+
+#4 商品一覧取得
 vendor/bin/phpunit tests/Feature/ItemsIndexTest.php
+
+#5 マイリスト一覧取得
 vendor/bin/phpunit tests/Feature/MyListTest.php
+
+#6 商品検索機能
 vendor/bin/phpunit tests/Feature/HeaderSearchTest.php
+
+#7 商品詳細情報取得
 vendor/bin/phpunit tests/Feature/ItemShowTest.php
+
+#8 いいね機能
 vendor/bin/phpunit tests/Feature/LikeTest.php
+
+#9 コメント送信機能
 vendor/bin/phpunit tests/Feature/CommentTest.php
+
+#10 商品購入機能
 vendor/bin/phpunit tests/Feature/PurchaseTest.php
+
+#11 支払い方法選択機能
 vendor/bin/phpunit tests/Feature/PaymentMethodSelectorTest.php
+
+#12 配送先変更機能
 vendor/bin/phpunit tests/Feature/AddressEditTest.php
+
+#13 ユーザー情報取得
 vendor/bin/phpunit tests/Feature/GetUserProfileTest.php
+
+#14 ユーザー情報変更
 vendor/bin/phpunit tests/Feature/UpdateUserProfileTest.php
+
+#15 出品商品情報登録
 vendor/bin/phpunit tests/Feature/SellTest.php
+
+#16 メール認証機能
 vendor/bin/phpunit tests/Feature/EmailVerificationFlowTest.php
 ```

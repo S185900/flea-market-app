@@ -15,7 +15,6 @@ class PurchaseRequest extends FormRequest
      */
     public function authorize()
     {
-        // 認証済みユーザーのみ許可
         return auth()->check();
     }
 
@@ -32,7 +31,6 @@ class PurchaseRequest extends FormRequest
         ];
     }
 
-    // バリデーション失敗時にHTMLではなくJSON形式でエラーを返すようオーバーライド
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([

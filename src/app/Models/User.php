@@ -24,7 +24,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'building_name',
         'email_verified_at',
     ];
-    // profile_completed はシステム側で自動判定するため、fillable には含めない
 
     protected $hidden = [
         'password',

@@ -92,8 +92,6 @@ class PurchaseTest extends TestCase
         $response = $this->get(route('items.index', ['tab' => 'recommend']));
         $response->assertStatus(200);
 
-        // dd($response->viewData('items'));
-
         // ビューに渡された items に、購入済みの商品が含まれていることを確認
         $response->assertViewHas('items', function ($items) use ($item) {
             $target = collect($items)->firstWhere('id', $item->id);

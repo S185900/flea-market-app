@@ -12,12 +12,10 @@ class LoginResponse implements LoginResponseContract
     {
         $user = $request->user();
 
-        // 初回ログイン判定：プロフィール編集へ
         if (is_null($user->profile_image_url) || is_null($user->introduction)) {
             return redirect()->route('profile.edit');
         }
 
-        // 通常ログイン時は商品一覧へ
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 }

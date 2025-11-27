@@ -13,7 +13,6 @@ class ProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        // 認証済みユーザーのみ許可
         return auth()->check();
     }
 

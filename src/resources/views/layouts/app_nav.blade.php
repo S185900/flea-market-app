@@ -33,7 +33,7 @@
                     id="header-search" 
                     name="title" 
                     value="{{ request('title') }}"
-                    placeholder="なにをお探しですか？(Enterで検索)"
+                    placeholder="なにをお探しですか？"
                     autocomplete="off"
                 >
 
