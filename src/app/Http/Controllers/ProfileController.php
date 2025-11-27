@@ -10,6 +10,7 @@ use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
+    // プロフィール画面の表示
     public function showProfileIndex(Request $request)
     {
         $user = Auth::user();
@@ -37,6 +38,7 @@ class ProfileController extends Controller
         return view('profile_index', compact('user', 'listedItems', 'purchasedItems', 'page'));
     }
 
+    // プロフィール編集画面の表示
     public function showEditProfile()
     {
         $user = Auth::user();
@@ -49,6 +51,7 @@ class ProfileController extends Controller
         ]);
     }
 
+    // プロフィール編集の保存
     public function updateProfile(ProfileRequest $request)
     {
         $user = Auth::user();
@@ -68,6 +71,7 @@ class ProfileController extends Controller
         return redirect()->route('mypage.index');
     }
 
+    // プロフィール設定画面(初回)の表示
     public function showCreateProfileForm()
     {
         $user = Auth::user();
@@ -80,6 +84,7 @@ class ProfileController extends Controller
         ]);
     }
 
+    // プロフィール設定の保存(初回)
     public function storeProfile(ProfileRequest $request)
     {
         $user = Auth::user();

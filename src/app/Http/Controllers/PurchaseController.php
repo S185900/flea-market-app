@@ -15,6 +15,7 @@ class PurchaseController extends Controller
 {
     private const KONBINI_EXPIRES_AFTER_DAYS = 3;
 
+    // 購入確認画面の表示
     public function showPurchaseForm($item_id)
     {
         $item = Item::with('images', 'brand')->findOrFail($item_id);
@@ -32,6 +33,7 @@ class PurchaseController extends Controller
         ]);
     }
 
+    // 商品購入画面での支払い方法選択の反映
     public function confirm(Request $request, Item $item)
     {
         $selectedMethod = $request->input('payment_method');
@@ -51,6 +53,7 @@ class PurchaseController extends Controller
         ]);
     }
 
+    // Stripeへのリダイレクト処理
     public function redirectToStripe(PurchaseRequest $request, Item $item)
     {
         $selectedMethod = $request->input('payment_method');
@@ -125,6 +128,7 @@ class PurchaseController extends Controller
         ]);
     }
 
+    // 購入成功後の処理
     public function handleSuccess(Request $request)
     {
         $session_id = $request->get('session_id');

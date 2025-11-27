@@ -10,6 +10,7 @@ use App\Http\Requests\AddressRequest;
 
 class AddressController extends Controller
 {
+    // 住所変更ページの表示
     public function showEditAddress($item_id)
     {
         $item = Item::findOrFail($item_id);
@@ -28,6 +29,7 @@ class AddressController extends Controller
         ]);
     }
 
+    // 住所変更の保存
     public function updateAddress(AddressRequest $request, $item_id)
     {
         $user = Auth::user();

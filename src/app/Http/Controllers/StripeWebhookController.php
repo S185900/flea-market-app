@@ -11,6 +11,7 @@ use Stripe\Webhook;
 
 class StripeWebhookController extends Controller
 {
+    // Stripeウェブフックの処理
     public function handle(Request $request)
     {
         $payload = $request->getContent();

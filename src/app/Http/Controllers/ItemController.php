@@ -12,6 +12,7 @@ use App\Http\Requests\CommentRequest;
 
 class ItemController extends Controller
 {
+    // 商品一覧画面の表示
     public function index(Request $request)
     {
         $title = $request->input('title');
@@ -38,6 +39,7 @@ class ItemController extends Controller
         return view('items_index', compact('items', 'tab', 'title'));
     }
 
+    // 商品詳細画面の表示
     public function showItemDetail($item_id)
     {
         $item = Item::with([
@@ -58,6 +60,7 @@ class ItemController extends Controller
         return view('item_show', compact('item', 'likesCount', 'commentsCount'));
     }
 
+    // コメントの投稿
     public function postComment(CommentRequest $request, $item_id)
     {
         $item = Item::findOrFail($item_id);
@@ -71,6 +74,7 @@ class ItemController extends Controller
         return redirect()->route('item.detail', $item_id)->with('success', 'コメントを投稿しました');
     }
 
+    // いいねの投稿・削除
     public function postLike(Request $request, Item $item)
     {
         $user = Auth::user();

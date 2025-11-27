@@ -15,11 +15,13 @@ use App\Http\Requests\ExhibitionRequest;
 
 class SellController extends Controller
 {
+    // 商品出品画面の表示
     public function showCreateItem()
     {
         return view('sell_form');
     }
 
+    // 商品出品の保存
     public function storeItem(ExhibitionRequest $request)
     {
         $validated = $request->validated();

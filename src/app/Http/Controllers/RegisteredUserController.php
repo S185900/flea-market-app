@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class RegisteredUserController extends Controller
 {
+    // ユーザー登録処理
     public function store(RegisterRequest $request)
     {
         $user = User::create([

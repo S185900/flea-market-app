@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginUserController extends Controller
 {
+    // ログイン処理
     public function store(LoginRequest $request)
     {
         if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
