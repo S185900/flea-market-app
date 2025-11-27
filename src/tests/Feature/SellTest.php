@@ -26,26 +26,18 @@ class SellTest extends TestCase
      */
     public function test_user_can_create_item_with_image_and_required_fields()
     {
-        // 事前にユーザーを作成
         $user = User::factory()->create();
 
-        // 1. ユーザーにログインする
         $this->actingAs($user);
 
-        // 2. 商品出品画面を開く
         $response = $this->get(route('sell'));
         $response->assertStatus(200);
         $response->assertViewIs('sell_form');
 
-        // 以下、3. 各項目に適切な情報を入力して保存する
-
-        // ストレージをフェイク
         Storage::fake('public');
 
-        // 画像を選択
         $image = UploadedFile::fake()->image('test_product.jpg');
 
-        // 各項目を入力
         $payload = [
             'product_name' => 'テスト商品',
             'brand_name' => 'テストブランド',
@@ -56,13 +48,10 @@ class SellTest extends TestCase
             'image' => $image,
         ];
 
-        // 出品する
         $response = $this->post(route('sell.store'), $payload);
 
-        // リダイレクト確認
         $response->assertRedirect(route('mypage.index'));
 
-        // 各項目が正しく保存されている
         $this->assertDatabaseHas('items', [
             'title' => 'テスト商品',
             'description' => 'これはテスト用の商品説明です。',
@@ -71,19 +60,16 @@ class SellTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        // ブランドが保存されているか確認
         $this->assertDatabaseHas('brands', [
             'brand_name' => 'テストブランド',
         ]);
 
-        // カテゴリーが保存されているか確認
         foreach ($payload['categories'] as $categoryName) {
             $this->assertDatabaseHas('categories', [
                 'category_name' => $categoryName,
             ]);
         }
 
-        // 商品画像が保存されているか確認
         $item = Item::where('title', 'テスト商品')->first();
         $this->assertNotNull($item);
 
@@ -94,7 +80,6 @@ class SellTest extends TestCase
         $imageRecord = ItemImage::where('item_id', $item->id)->first();
         $this->assertNotNull($imageRecord);
 
-        // ファイル保存の確認
         Storage::disk('public')->assertExists($imageRecord->image_path);
     }
 }

@@ -19,8 +19,6 @@ class LogoutTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        // CSRFだけ無効化
         $this->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
     }
 
@@ -35,16 +33,9 @@ class LogoutTest extends TestCase
             'email_verified_at' => now(),
         ]);
 
-        // ユーザーにログインをする
         $this->actingAs($user);
-
-        // ログアウトリクエストを送信（CSRFトークンは自動で付与される）
         $response = $this->post('/logout');
-
-        // 認証状態が解除されていることを確認
         $this->assertGuest();
-
-        // リダイレクト先を確認
         $response->assertRedirect('/');
     }
 }

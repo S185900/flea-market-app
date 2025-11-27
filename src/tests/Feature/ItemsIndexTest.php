@@ -21,16 +21,12 @@ class ItemsIndexTest extends TestCase
      */
     public function it_displays_all_items()
     {
-        // 事前にユーザーと商品を作成
         $user = User::factory()->create();
         $item1 = Item::factory()->create(['user_id' => $user->id]);
         $item2 = Item::factory()->create(['user_id' => $user->id]);
 
-        // 1. 商品ページを開く
         $response = $this->get('/');
         $response->assertStatus(200);
-
-        // すべての商品が表示される
         $response->assertSee($item1->title);
         $response->assertSee($item2->title);
     }
@@ -42,18 +38,14 @@ class ItemsIndexTest extends TestCase
      */
     public function it_displays_sold_label_for_purchased_items()
     {
-        // 事前に購入済みの商品を作成
         $user = User::factory()->create();
         $item = Item::factory()->create(['user_id' => $user->id]);
         Transaction::factory()->create(['item_id' => $item->id]);
         $item->status = 'sold';
         $item->save();
 
-        // 1. 商品ページを開く、2. 購入済み商品を表示する
         $response = $this->get('/');
         $response->assertStatus(200);
-
-        // 購入済み商品に「Sold」のラベルが表示される
         $response->assertSee('Sold');
     }
 
@@ -64,27 +56,24 @@ class ItemsIndexTest extends TestCase
      */
     public function it_does_not_display_items_listed_by_logged_in_user()
     {
-        // 事前にユーザーを作成
         $user = User::factory()->create();
+        $otherUser = User::factory()->create();
 
-        // 1. ユーザーにログインをする
         $this->actingAs($user);
 
-        // 事前に自分が出品した商品と他のユーザーが出品した商品を作成
-        $otherUser = User::factory()->create();
-        $ownItem = Item::factory()->create(['user_id' => $user->id]);
-        $otherItem = Item::factory()->create([
-            'user_id' => $otherUser->id,
-            'title' => 'Test Item'
+        $ownItem = Item::factory()->create([
+            'user_id' => $user->id,
+            'title' => 'My Own Item'
         ]);
 
-        // 2. 商品ページを開く
+        $otherItem = Item::factory()->create([
+            'user_id' => $otherUser->id,
+            'title' => 'Other User Item'
+        ]);
+
         $response = $this->get('/');
         $response->assertStatus(200);
-
-        // 自分が出品した商品が一覧に表示されない
-        $response->assertDontSee($ownItem->title);
-        $response->assertSee('Test Item');
+        $response->assertDontSee('My Own Item');
+        $response->assertSee('Other User Item');
     }
-
 }

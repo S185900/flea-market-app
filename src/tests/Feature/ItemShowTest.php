@@ -26,8 +26,6 @@ class ItemShowTest extends TestCase
      */
     public function test_item_detail_page_displays_required_information()
     {
-        // 事前に商品と関連情報を作成
-
         Storage::fake('public');
 
         $user = User::factory()->create();
@@ -39,7 +37,7 @@ class ItemShowTest extends TestCase
             'title' => 'Test Item',
             'price' => 12345,
             'description' => 'This is a test item.',
-            'condition' => 1, // 新品
+            'condition' => 1,
         ]);
 
         $item->categories()->attach($categories->pluck('id'));
@@ -50,7 +48,6 @@ class ItemShowTest extends TestCase
             'image_path' => $imagePath,
         ]);
 
-        // 異なるユーザーで「いいね」を3件作る
         for ($i = 0; $i < 3; $i++) {
             $liker = User::factory()->create();
             Like::factory()->create([
@@ -65,44 +62,22 @@ class ItemShowTest extends TestCase
             'comment' => 'Nice item!',
         ]);
 
-        // 1. 商品詳細ページを開く
         $response = $this->get(route('item.detail', $item->id));
         $response->assertStatus(200);
-
-        // 以下、すべての情報が商品詳細ページに表示されている
-
-        // 商品画像
         $expectedImageUrl = asset('storage/' . $imagePath);
         $response->assertSee($expectedImageUrl);
-
-        // 商品名
         $response->assertSee($item->title);
-
-        // ブランド名
         $response->assertSee($brand->name);
-
-        // 価格
         $response->assertSee(number_format($item->price));
-
-        // いいね数・コメント数
         $response->assertSee('3'); // いいね数
         $response->assertSee('2'); // コメント数
-
-        // 商品説明
         $response->assertSee('This is a test item.');
 
-        // 商品情報（カテゴリ、商品の状態）
-        // 複数選択されたカテゴリが商品詳細ページに表示されている
         foreach ($categories as $category) {
             $response->assertSee($category->name);
         }
-        $response->assertSee('良好'); // condition = 1 の表示名
-
-        // コメントしたユーザー情報
+        $response->assertSee('良好');
         $response->assertSee($user->name);
-
-        // コメント内容
         $response->assertSee('Nice item!');
-
     }
 }

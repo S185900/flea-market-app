@@ -38,11 +38,8 @@ class HeaderSearchTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        // 1. 検索欄にキーワードを入力、2. 検索ボタンを押す
         $response = $this->get('/?title=赤');
-
-        // 部分一致する商品が表示される
-        $response->assertStatus(200); // 成功
+        $response->assertStatus(200);
         $response->assertSee('赤い帽子');
         $response->assertSee('赤い靴');
         $response->assertDontSee('青いシャツ');
@@ -58,25 +55,22 @@ class HeaderSearchTest extends TestCase
         $user = User::factory()->create();
         $otherUser = User::factory()->create();
 
-        // ログインユーザー以外が出品した商品・それが「いいね」されている状態を作成
         $item = Item::factory()->create([
             'title' => '赤い帽子',
             'user_id' => $otherUser->id,
         ]);
+
         Like::factory()->create([
             'user_id' => $user->id,
             'item_id' => $item->id,
         ]);
 
-        // ログイン状態にする
         $this->actingAs($user);
 
-        // 1. ホームページで商品を検索、2. 検索結果が表示される
         $homeResponse = $this->get('/?title=赤');
         $homeResponse->assertStatus(200);
         $homeResponse->assertViewHas('title', '赤');
 
-        // 3. マイリストページに遷移（検索キーワードが保持されている）
         $mylistResponse = $this->get('/?tab=mylist&title=赤');
         $mylistResponse->assertStatus(200);
         $mylistResponse->assertSee('赤い帽子');
