@@ -38,13 +38,13 @@ mysql:
 
 > *composer install 実行時に表示されるパッケージに関する注意について：　このプロジェクトでは、fruitcake/laravel-cors および swiftmailer/swiftmailer のパッケージを使用しています。composer install 実行時に、これらが非推奨（abandoned）である旨のメッセージが表示されますが、現時点では動作に問題はありません。今後のLaravelのバージョンアップやセキュリティ対応を見据えて、必要に応じて代替手段への移行を検討することも可能です。*
 
-3. .env.example をコピーして .env を作成。※(または、新しく.envファイルを作成でもOK)
+3. .env.example をコピーして .env を作成。または、新しく.envファイルを作成。
 ```bash
 cd src
 cp .env.example .env
 ```
 
-4. .env に以下の環境変数を追加(一部、記載があるか確認)
+4. .env に以下の環境変数を追加(一部、記載があるか確認も行う)
 ``` text
 # DB設定
 DB_CONNECTION=mysql
@@ -54,14 +54,10 @@ DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 
-# Fortify（セッションドライバ）があるかどうか確認
+# Fortify（セッションドライバ）があるかどうか確認を行う
 SESSION_DRIVER=file
 
-# Stripe（テスト用APIキー）※キーの取得方法は下記に記載
-STRIPE_KEY=(あなたの公開キー)
-STRIPE_SECRET=(あなたの秘密キー)
-
-# Mailhog（ローカルメール送信）※メール受信画面は下記に記載
+# Mailhog（ローカルメール送信）※メール受信画面については後ほど詳しく紹介しています
 MAIL_MAILER=smtp
 MAIL_HOST=mailhog
 MAIL_PORT=1025
@@ -70,6 +66,10 @@ MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=no-reply@example.test # Mailhog用の仮アドレス
 MAIL_FROM_NAME="${APP_NAME}"
+
+# Stripe（テスト用APIキー）※キーの取得方法は後ほど詳しく紹介しています
+STRIPE_KEY=(あなたの公開キー)
+STRIPE_SECRET=(あなたの秘密キー)
 ```
 > *Mailhog（メール送信確認）について：Mailhogは、ローカル環境でメール送信を確認するためのツールです。 アカウント登録などは不要で、Docker起動時に自動で立ち上がります。ブラウザで http://localhost:8025 にアクセスします。Laravelから送信されたメール（認証・パスワードリセットなど）が一覧表示されます。*
 
@@ -131,13 +131,21 @@ php artisan db:seed --class=CustomProductSeeder
 - phpMyAdmin:：http://localhost:8080/
 - Mailhog： http://localhost:8025/
 
+## 基本設計書(スプレッドシート)
+https://docs.google.com/spreadsheets/d/1Ddjn-eNxOvM6Xl4XyfeVJRT20usvDEk4t38bq1XBjHo/edit?gid=323216768#gid=323216768&range=A1
+
+## テーブル仕様書(スプレッドシート)
+https://docs.google.com/spreadsheets/d/1Ddjn-eNxOvM6Xl4XyfeVJRT20usvDEk4t38bq1XBjHo/edit?gid=1188247583#gid=1188247583&range=A1
+
 ## 補足
 
 **Laravel Fortify（認証機能）**
-- ログイン・登録・パスワードリセット機能を Fortify で実装
+- このプロジェクトでは Laravel Fortify を使用しています。必要な設定・インストールはすでに完了しているため、追加のインストール作業は不要です。.env の SESSION_DRIVER 設定が正しくされていれば、そのままご利用いただけます。
 - 一部の機能はオーバーライドしてカスタマイズされています。
-- FortifyServiceProviderの登録について：config/app.php の providers 配列にApp\Providers\FortifyServiceProvider::class が含まれているかどうか確認してください。
-- Fortifyの設定について：config/fortify.php が存在していることを確認してください。
+
+**Stripe（テスト決済）**
+- クレジットカード・コンビニ決済に対応
+- テスト用APIキーは各自のStripeアカウントから取得
 
 **メール認証誘導画面**
 - 一部要件に基づき、「認証はこちらから」ボタンを押下すると、メール認証サイト:MailHog http://localhost:8025/ が別タブで表示されるように設定されています。
@@ -148,10 +156,6 @@ php artisan db:seed --class=CustomProductSeeder
 2. 「認証はこちらから」ボタンを押下
 3. メール認証サイトを表示する
 ```
-
-**Stripe（テスト決済）**
-- クレジットカード・コンビニ決済に対応
-- テスト用APIキーは各自のStripeアカウントから取得
 
 **商品購入画面**
 - 一部要件に基づき、「購入する」ボタンを押下すると、Stripeの決済画面に接続 https://checkout.stripe.com/... (別タブで表示)されるように設定されています。
@@ -184,27 +188,11 @@ php artisan db:seed --class=CustomProductSeeder
 - 要件「0円以上」に基づき、0円は許容、マイナス値（-1円以下）は不可としています。「0円以上」の表現が「1円以上」を意図している可能性もあるため補足させていただきました。
 
 **PHPUnitによるテストについて**
-> *(補足) 一部のテスト（例：UploadedFile::fake()->image() を使用するテスト）では、PHPの GDライブラリ が必要です。 imagecreatetruecolor() 関数が未定義というエラーが出る場合、以下のように Dockerfile にGDライブラリのインストール手順を追加してください。追加後は、再度 docker-compose up -d --build を実行して環境を再構築してください。*
-```Dockerfile
-# 追加位置の目安：&& docker-php-ext-install pdo_mysql zipの直下に追記を推奨
-RUN apt update \
-    && apt install -y default-mysql-client zlib1g-dev libzip-dev unzip \
-    && docker-php-ext-install pdo_mysql zip \
-    && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd
-```
-```bash
-# 環境を再構築するには：
-docker-compose down
-docker-compose build --no-cache
-docker-compose up -d
-```
 - テスト実行コード一覧
 ``` bash
-vendor/bin/phpunit tests/Feature/Auth/RegisterTest.php
-vendor/bin/phpunit tests/Feature/Auth/LoginTest.php
-vendor/bin/phpunit tests/Feature/Auth/LogoutTest.php
+vendor/bin/phpunit tests/Feature/RegisterTest.php
+vendor/bin/phpunit tests/Feature/LoginTest.php
+vendor/bin/phpunit tests/Feature/LogoutTest.php
 vendor/bin/phpunit tests/Feature/ItemsIndexTest.php
 vendor/bin/phpunit tests/Feature/MyListTest.php
 vendor/bin/phpunit tests/Feature/HeaderSearchTest.php
