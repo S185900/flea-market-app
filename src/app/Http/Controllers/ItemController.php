@@ -74,7 +74,7 @@ class ItemController extends Controller
         return redirect()->route('item.detail', $item_id)->with('success', 'コメントを投稿しました');
     }
 
-    // いいねの投稿・削除
+    // いいね機能
     public function postLike(Request $request, Item $item)
     {
         $user = Auth::user();

@@ -23,6 +23,12 @@ Route::get('/', [ItemController::class, 'index'])->name('items.index');
 // 商品詳細画面
 Route::get('/item/{item_id}', [ItemController::class, 'showItemDetail'])->name('item.detail');
 
+// コメントの投稿・いいね機能
+Route::middleware('auth')->group(function () {
+    Route::post('/items/{item}/comment', [ItemController::class, 'postComment'])->name('item.comment');
+    Route::post('/items/{item}/like', [ItemController::class, 'postLike'])->name('item.like');
+});
+
 // ユーザー認証関連
 Route::get('/register', fn () => view('auth.register'))->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
@@ -55,12 +61,6 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', '認証メールを再送信しました！');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-// コメント・いいね機能
-Route::middleware('auth')->group(function () {
-    Route::post('/items/{item}/comment', [ItemController::class, 'postComment'])->name('item.comment');
-    Route::post('/items/{item}/like', [ItemController::class, 'postLike'])->name('item.like');
-});
-
 // 商品購入画面
 Route::middleware(['auth', 'verified'])->group(function () {
 
@@ -79,17 +79,17 @@ Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);
 Route::get('/purchase/success', [PurchaseController::class, 'handleSuccess'])->name('purchase.success');
 Route::get('/purchase/cancel', fn () => redirect()->route('items.index'))->name('purchase.cancel');
 
-// プロフィール設定画面（設定画面/初回）
-Route::middleware(['auth', 'verified', 'first.login'])->group(function () {
-    Route::get('/mypage/create', [ProfileController::class, 'showCreateProfileForm'])->name('mypage.create');
-    Route::post('/mypage/create', [ProfileController::class, 'storeProfile'])->name('mypage.store');
-});
-
 // プロフィール画面・編集画面
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'showProfileIndex'])->name('mypage.index');
     Route::get('/mypage/profile', [ProfileController::class, 'showEditProfile'])->name('mypage.profile');
     Route::patch('/mypage/profile', [ProfileController::class, 'updateProfile'])->name('mypage.profile.update');
+});
+
+// プロフィール設定画面（設定画面/初回）
+Route::middleware(['auth', 'verified', 'first.login'])->group(function () {
+    Route::get('/mypage/create', [ProfileController::class, 'showCreateProfileForm'])->name('mypage.create');
+    Route::post('/mypage/create', [ProfileController::class, 'storeProfile'])->name('mypage.store');
 });
 
 // 商品出品画面
