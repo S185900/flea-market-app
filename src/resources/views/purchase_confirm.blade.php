@@ -22,7 +22,7 @@
                         @endforeach
                     @else
                         <div class="item-image__fallback">
-                            商品画像なし
+                            商品画像
                         </div>
                     @endif
 

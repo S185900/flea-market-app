@@ -35,7 +35,7 @@
             @endif
 
             <p class="item-show__price">
-                <span class="amount">¥{{ number_format($item->price) }}</span><span class="spacer"> </span>(税込)
+                <span class="amount">¥</span>{{ number_format($item->price) }}<span class="spacer"> </span><span class="amount">(税込)</span>
             </p>
 
             <div class="item-show__meta-info">
