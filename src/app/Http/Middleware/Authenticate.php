@@ -12,6 +12,8 @@ class Authenticate extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
+
+    // 認証されていないユーザーをログインページにリダイレクトする
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {

@@ -14,6 +14,8 @@ class FirstLoginMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
+
+    // ユーザーのプロフィール登録状況に応じてアクセスを制御するミドルウェア
     public function handle(Request $request, Closure $next)
     {
         $user = auth()->user();

@@ -117,7 +117,7 @@ class CustomProductSeeder extends Seeder
                 'brand' => null,
                 'description' => '便利なメイクアップセット',
                 'image' => '外出メイクアップセット.jpg',
-                'categories' => ['ファッション', 'レディース'],
+                'categories' => ['コスメ'],
                 'condition' => '目立った傷や汚れなし',
             ],
         ];

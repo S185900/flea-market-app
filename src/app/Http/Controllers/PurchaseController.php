@@ -134,14 +134,14 @@ class PurchaseController extends Controller
         $session_id = $request->get('session_id');
 
         if (!$session_id) {
-            return redirect()->route('items.index')->withErrors(['message' => 'セッションIDが見つかりません']);
+            return redirect()->route('items.index');
         }
 
         Stripe::setApiKey(config('services.stripe.secret'));
         $session = StripeSession::retrieve($session_id);
 
         if ($session->payment_method_types[0] !== 'card') {
-            return redirect()->route('items.index')->with('message', '支払い手続きが完了しました');
+            return redirect()->route('items.index');
         }
 
         $item_id = $session->metadata->item_id ?? null;
@@ -164,6 +164,6 @@ class PurchaseController extends Controller
             }
         }
 
-        return redirect()->route('items.index')->with('message', '購入が完了しました');
+        return redirect()->route('items.index');
     }
 }

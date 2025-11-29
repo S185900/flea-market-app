@@ -42,7 +42,6 @@ class Item extends Model
         return $this->hasMany(ItemImage::class);
     }
 
-    // 「商品1つに1取引」なら
     public function transaction(){
         return $this->hasOne(Transaction::class);
     }

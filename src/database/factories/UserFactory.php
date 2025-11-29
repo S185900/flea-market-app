@@ -17,14 +17,13 @@ class UserFactory extends Factory
     {
 
         return [
-            // 'name' => $this->faker->realText(20), // ユーザー名：20文字以内
             'name' => Str::limit($this->faker->name(), 20),
-            'email' => $this->faker->unique()->safeEmail(), // メール形式
-            'password' => bcrypt('password123'), // 8文字以上
+            'email' => $this->faker->unique()->safeEmail(),
+            'password' => bcrypt('password123'),
             'profile_completed' => $this->faker->boolean(),
             'profile_image_url' => $this->faker->imageUrl(640, 480, 'people', true, 'profile'), // 拡張子は後で調整可能
-            'shipping_address' => $this->faker->streetAddress(), // 住所：入力必須
-            'postal_code' => $this->faker->regexify('[0-9]{3}-[0-9]{4}'), // 郵便番号：ハイフンあり8文字
+            'shipping_address' => $this->faker->streetAddress(),
+            'postal_code' => $this->faker->regexify('[0-9]{3}-[0-9]{4}'),
             'building_name' => $this->faker->word(),
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),

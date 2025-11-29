@@ -79,5 +79,4 @@ class User extends Authenticatable implements MustVerifyEmail
             $this->profile_image_url
         );
     }
-
 }

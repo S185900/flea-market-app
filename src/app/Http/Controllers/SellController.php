@@ -59,6 +59,6 @@ class SellController extends Controller
             ]);
         }
 
-        return redirect()->route('mypage.index')->with('status', '商品を出品しました！');
+        return redirect()->route('mypage.index');
     }
 }

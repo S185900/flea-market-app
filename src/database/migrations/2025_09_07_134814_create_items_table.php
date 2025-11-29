@@ -38,7 +38,6 @@ class CreateItemsTable extends Migration
                 ->constrained('categories')
                 ->onDelete('cascade');
 
-            // likes_count 、comments_count カラムは後で削除予定かな
             $table->integer('likes_count')->default(0)->comment('いいね数');
             $table->integer('comments_count')->default(0)->comment('コメント数');
 

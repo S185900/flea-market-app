@@ -58,7 +58,7 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
 
-    return back()->with('message', '認証メールを再送信しました！');
+    return back();
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 // 商品購入画面

@@ -71,7 +71,8 @@ class ItemController extends Controller
             'comment' => $request->comment,
         ]);
 
-        return redirect()->route('item.detail', $item_id)->with('success', 'コメントを投稿しました');
+        return redirect()->route('item.detail', $item_id)
+            ->with('success', 'コメントを投稿しました'); // テスト用にメッセージ追加
     }
 
     // いいね機能
