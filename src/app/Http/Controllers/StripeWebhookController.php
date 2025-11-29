@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Item;
 use App\Models\Transaction;
-use Stripe\Stripe;
 use Stripe\Webhook;
 
 class StripeWebhookController extends Controller

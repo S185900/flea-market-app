@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
 use Stripe\Checkout\Session as StripeSession;
-use Stripe\PaymentIntent;
 use App\Models\Item;
 use App\Models\Purchase;
 use App\Http\Requests\PurchaseRequest;

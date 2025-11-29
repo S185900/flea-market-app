@@ -2,19 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\SellController;
 use App\Http\Controllers\StripeWebhookController;
+use App\Http\Controllers\SellController;
 use App\Http\Controllers\AddressController;
 
 // 商品一覧画面

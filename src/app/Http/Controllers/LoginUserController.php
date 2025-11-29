@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
-use App\Http\Controllers\Controller;
-use Laravel\Fortify\Fortify;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Fortify\Fortify;
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Http\Requests\LoginRequest;
 
 class LoginUserController extends Controller
 {
